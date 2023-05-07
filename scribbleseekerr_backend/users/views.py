@@ -5,7 +5,6 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import JsonResponse
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from rest_framework_simplejwt.tokens import RefreshToken
 
 from .serializers import *
 
@@ -16,12 +15,13 @@ import json
 
 
 class Test(APIView):
+    permission_classes = [IsAuthenticated, ]
+
     def get(self, request):
-        return Response({"TEST": "TEST"}, status=status.HTTP_200_OK)
+        return Response({"data": request.user.username}, status=status.HTTP_200_OK)
 
 
 class UserCreate(APIView):
-    permission_classes = [AllowAny, ]
 
     def post(self, request):
         serializer = RegisterUserSerializer(data=request.data)
@@ -29,20 +29,14 @@ class UserCreate(APIView):
         if serializer.is_valid():
             scribble_user = serializer.save()
             if scribble_user:
-                return Response(status=status.HTTP_201_CREATED)
+                refresh_token = TokenObtainPairSerializer().get_token(scribble_user)
+                access_token = AccessToken().for_user(scribble_user)
+                print(refresh_token)
+                print(access_token)
+                return_data = {
+                    "refresh_token": str(refresh_token),
+                    "access_token": str(access_token)
+                }
+                return Response(return_data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class BlacklistTokenUpdateView(APIView):
-    permission_classes = [AllowAny]
-    authentication_classes = ()
-
-    def post(self, request):
-        try:
-            refresh_token = request.data["refresh_token"]
-            token = RefreshToken(refresh_token)
-            token.blacklist()
-            return Response(status=status.HTTP_205_RESET_CONTENT)
-        except Exception as e:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
