@@ -9,46 +9,50 @@ import React from "react";
 
 export default function page() {
   return (
-    <div className="w-screen h-screen bg-[#0e0e0e] flex flex-row justify-center gap-0">
-      <div className="h-full w-1/2  p-24">
-        <h3 className={`${PoppinsBold.className} text-gray-100 text-2xl`}>
+    <div className="w-screen h-screen min-h-[700px]  bg-[#0e0e0e] flex flex-row justify-center gap-0">
+      <div className="h-full   md:w-1/2 p-4  sm:p-12 md:p-24 md:min-w-[700px] flex flex-col justify-around md:justify-start">
+        <h3
+          className={`${PoppinsBold.className} text-gray-100 textl-xl md:text-2xl`}
+        >
           ScribbleSeekerr
         </h3>
-        <div className="py-16 px-20 ">
-          <h2 className={`${PoppinsLight.className} text-gray-100 text-3xl`}>
+        <div className="py-14 md:px-20 ">
+          <h2
+            className={`${PoppinsLight.className} text-gray-100 text-2xl md:text-3xl`}
+          >
             Welcome back, to your <b>world</b>!
           </h2>
           <p className={`${PoppinsLight.className} text-gray-400 text-base`}>
             Please enter you details
           </p>
 
-          <div className="pt-20 flex flex-col  ">
+          <div className=" md:pt-12 lg:pt-14 flex flex-col  ">
             <label
-              className={`${PoppinsRegular.className} text-gray-100 text-xl pt-8 pb-1`}
+              className={`${PoppinsRegular.className} text-gray-100 text-lg md:text-xl pb-1`}
               htmlFor="email"
             >
               Email
             </label>
             <input
-              className="h-14 bg-[#1d1d1d] rounded-lg outline-none py-2 px-4 text-gray-100"
+              className="h-12 md:h-14 bg-[#1d1d1d] rounded-lg outline-none py-2 px-4 text-gray-100"
               id="email"
               type="text"
             />
 
             <label
-              className={`${PoppinsRegular.className} text-gray-100 text-xl pt-8 pb-1`}
+              className={`${PoppinsRegular.className} text-gray-100 text-lg md:text-xl pt-8 pb-1`}
               htmlFor="password"
             >
               Password
             </label>
             <input
-              className="h-14 bg-[#1d1d1d] rounded-lg outline-none py-2 px-4 text-gray-100 "
+              className="h-12 md:h-14 bg-[#1d1d1d] rounded-lg outline-none py-2 px-4 text-gray-100 "
               id="password"
               type="password"
             />
           </div>
           <div className="flex flex-row justify-between pt-6">
-            <div className="flex flex-row gap-2">
+            <div className="flex flex-row md:gap-2">
               <input
                 className="scale-125 checked:accent-green-600 ml-1"
                 type="checkbox"
@@ -84,13 +88,14 @@ export default function page() {
           </div>
         </div>
       </div>
-      <div className="h-full w-1/2  p-8">
+      <div className="h-screen  w-1/2  p-8 hidden lg:block">
         <Image
-          src={"/login-bg.jpg"}
+          priority
+          src={"/images/login-bg.jpg"}
           alt=""
           width={1000}
           height={1000}
-          className="w-full h-full"
+          className="w-full h-full object-fit"
         />
       </div>
     </div>

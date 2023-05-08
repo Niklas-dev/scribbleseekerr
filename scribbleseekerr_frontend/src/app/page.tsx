@@ -102,29 +102,5 @@ export default function Home() {
   const errorMessage = () => {
     console.log("error");
   };
-  return (
-    <main className="p-4">
-      <div>
-        <label htmlFor="">Username</label>
-        <input
-          className="border-2"
-          onChange={(e) => setUserName(e.target.value)}
-          type="text"
-        />
-        <label htmlFor="">Password</label>
-        <input
-          className="border-2"
-          onChange={(e) => setPassword(e.target.value)}
-          type="text"
-        />
-        <button className="bg-gray-200 p-2 " onClick={() => login()}>
-          Login
-        </button>
-      </div>
-      <div>
-        <button onClick={() => fetchTest()}>Test</button>
-        <GoogleButton type="light" onClick={() => googleLogin()} />
-      </div>
-    </main>
-  );
+  return <main className="p-4"></main>;
 }
