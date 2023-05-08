@@ -14,6 +14,8 @@ from pathlib import Path
 
 from datetime import timedelta
 
+from oauth2_provider.settings import oauth2_settings
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -161,8 +163,12 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # Google configuration
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = ""
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ""
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "1061573892434-fjc65cpfmqgmpcphsk0q1m0q3aibs9pv.apps.googleusercontent.com"
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "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"
+
+
+oauth2_settings.defaults['ACCESS_TOKEN_EXPIRE_SECONDS'] = 60
+oauth2_settings.defaults['REFRESH_TOKEN_EXPIRE_SECONDS'] = 120
 
 # Define SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE to get extra permissions from Google.
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [

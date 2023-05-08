@@ -22,7 +22,7 @@ class Test(APIView):
 
 
 class UserCreate(APIView):
-
+    permission_classes = [AllowAny, ]
     def post(self, request):
         serializer = RegisterUserSerializer(data=request.data)
 
