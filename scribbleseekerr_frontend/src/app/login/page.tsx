@@ -1,3 +1,4 @@
+import LottiePlayer from "@/components/LottiePlayer";
 import {
   PoppinsBold,
   PoppinsLight,
@@ -93,14 +94,12 @@ export default function page() {
           </div>
         </div>
       </div>
-      <div className="h-screen  w-1/2  p-8 hidden lg:block">
-        <Image
-          priority
-          src={"/images/auth-bg.jpg"}
-          alt=""
-          width={1000}
-          height={1000}
-          className="w-full h-full object-fit"
+      <div className="h-full  w-1/2 flex-row  justify-start items-end  p-8 hidden lg:flex">
+        <LottiePlayer
+          src="https://assets2.lottiefiles.com/packages/lf20_jt1ky9pg.json"
+          classes="xl:w-[800px] xl:h-[800px] lg:w-[700px] lg:h-[700px]  mt-8"
+          autoplay
+          loop
         />
       </div>
     </div>

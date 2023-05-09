@@ -6,11 +6,11 @@ export default function AboutFeatures() {
   return (
     <div className="mt-44 pb-20 flex flex-col items-center">
       <h3
-        className={`${PoppinsBold.className} text-gray-100 text-4xl text-center h-fit rounded-full px-2 pt-4 w-[65rem]`}
+        className={`${PoppinsBold.className} text-gray-100 text-2xl  lg:text-3xl xl:text-4xl text-center h-fit rounded-full px-2 pt-4 w-fit xl:w-[65rem]`}
       >
         Next stop? Your creativity and imagination!
       </h3>
-      <div className="grid grid-cols-2  gap-2 pt-20 h-fit ">
+      <div className="grid grid-cols-1 lg:grid-cols-2  gap-2 pt-20 h-fit ">
         <div className="w-72 h-56  rounded-md flex flex-col justify-end p-4">
           <p className="text-4xl ">🧐</p>
           <h5 className={`${PoppinsSemi.className} text-gray-100 text-lg pt-2`}>

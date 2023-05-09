@@ -6,12 +6,12 @@ export default function TextSamples() {
   return (
     <div className="mt-24 pb-20 flex flex-col items-center">
       <h3
-        className={`${PoppinsBold.className} text-gray-100 text-4xl text-center h-fit rounded-full px-2 pt-4 w-[65rem]`}
+        className={`${PoppinsBold.className} text-gray-100 text-2xl  lg:text-3xl xl:text-4xl text-center h-fit rounded-full px-2 pt-4 w-fit xl:w-[65rem]`}
       >
         You already want to start? No Problem, some reading samples will help!
       </h3>
-      <div className="grid grid-cols-2  gap-2 pt-20 h-fit ">
-        <div className="w-[35rem] h-fit  rounded-md flex flex-col justify-end p-4 bg-[#161616]">
+      <div className="grid grid-cols-1 lg:grid-cols-2  gap-2 pt-20 h-fit px-4">
+        <div className="w-fit xl:w-[35rem] h-fit  rounded-md flex flex-col justify-end p-4 bg-[#161616]">
           <p className="text-4xl ">🐕</p>
           <h5 className={`${PoppinsSemi.className} text-gray-100 text-lg pt-2`}>
             An Officer&apos;s Dog (Story)
@@ -98,7 +98,7 @@ export default function TextSamples() {
             <br />
           </p>
         </div>
-        <div className="w-[35rem] h-fit  rounded-md flex flex-col justify-end p-4 bg-[#161616]">
+        <div className="w-fit xl:w-[35rem] h-fit  rounded-md flex flex-col justify-end p-4 bg-[#161616]">
           <p className="text-4xl ">🌲</p>
           <h5 className={`${PoppinsSemi.className} text-gray-100 text-lg pt-2`}>
             Climate Change (Info Paper)

@@ -118,7 +118,7 @@ export default function Home() {
   return (
     <main className="bg-[#0e0e0e] overflow-y-scroll h-screen w-full">
       <LandingNav />
-      <div className="text-gray-100 px-64 h-96 flex flex-col items-center  mt-32 xl:mt-48">
+      <div className="text-gray-100  h-96 flex flex-col items-center  mt-32 xl:mt-48">
         <MainContent />
         <AboutFeatures />
         <TextSamples />
