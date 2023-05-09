@@ -53,7 +53,7 @@ export default function page() {
             />
           </div>
           <div className="flex flex-row justify-between pt-6">
-            <div className="flex flex-row md:gap-2">
+            <div className="flex flex-row gap-1 md:gap-2">
               <input
                 className="scale-125 checked:accent-green-600 ml-1"
                 type="checkbox"
@@ -70,13 +70,13 @@ export default function page() {
           </div>
           <div className="pt-12 flex flex-col items-center justify-center gap-8">
             <button
-              className={`${PoppinsSemi.className} bg-gradient-to-l from-white via-gray-200 to-gray-500 h-12 w-full rounded-lg`}
+              className={`${PoppinsSemi.className} bg-gradient-to-l from-white via-gray-200 to-gray-500 h-12 w-full rounded-lg transition-transform duration-300 hover:scale-95`}
             >
               Login
             </button>
 
             <button
-              className={`${PoppinsSemi.className} bg-transparent border-gray-700 border-2 h-12 w-full rounded-lg text-gray-100`}
+              className={`${PoppinsSemi.className} bg-transparent border-gray-700 border-2 h-12 w-full rounded-lg text-gray-100 transition-transform duration-300 hover:scale-95`}
             >
               Login with Google
             </button>
