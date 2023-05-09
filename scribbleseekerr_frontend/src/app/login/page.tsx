@@ -11,12 +11,13 @@ import React from "react";
 export default function page() {
   return (
     <div className="w-screen h-screen min-h-[700px]  bg-[#0e0e0e] flex flex-row justify-center gap-0 overflow-x-hidden">
-      <div className="h-full   md:w-1/2 p-4  sm:p-12 md:p-24 md:min-w-[700px] flex flex-col justify-around md:justify-start">
-        <h3
+      <div className="h-full   md:w-1/2 p-4  sm:p-12 md:p-24 md:min-w-[700px] flex flex-col justify-around md:justify-start ">
+        <Link
+          href="/"
           className={`${PoppinsBold.className} text-gray-100 textl-xl md:text-2xl`}
         >
           ScribbleSeekerr
-        </h3>
+        </Link>
         <div className="py-14 md:px-20 ">
           <h2
             className={`${PoppinsLight.className} text-gray-100 text-2xl md:text-3xl`}

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@lottiefiles/react-lottie-player": "^3.5.3",
     "@react-oauth/google": "^0.11.0",
     "@types/node": "20.1.0",
     "@types/react": "18.2.6",
