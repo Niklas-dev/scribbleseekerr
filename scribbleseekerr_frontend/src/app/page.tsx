@@ -410,7 +410,7 @@ export default function Home() {
               </p>
             </div>
             <div className="w-72 h-fit  rounded-md flex flex-col justify-end p-4 bg-[#161616]">
-              <p className="text-4xl ">🔥</p>
+              <p className="text-4xl ">🕳️</p>
               <h5
                 className={`${PoppinsSemi.className} text-gray-100 text-lg pt-2`}
               >
