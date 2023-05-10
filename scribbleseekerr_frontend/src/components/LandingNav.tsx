@@ -6,7 +6,7 @@ export default function LandingNav() {
   return (
     <nav className="flex flex-row  px-4 sm:px-28 md:px-32 lg:px-36 xl:px-72 pt-8 gap-8">
       <h3 className={`${PoppinsSemi.className} text-gray-100 text-3xl`}>
-        ScribbleSeeker
+        ScribbleSeekerr
       </h3>
       <div className="flex flex-row justify-end lg:justify-between items-center w-full ">
         <div className="flex-row gap-4 hidden lg:flex">
@@ -27,6 +27,12 @@ export default function LandingNav() {
             href={"/papers"}
           >
             Papers
+          </Link>
+          <Link
+            className={`${PoppinsLight.className} text-gray-200 text-lg`}
+            href={"/texts"}
+          >
+            Any
           </Link>
         </div>
         <div>
