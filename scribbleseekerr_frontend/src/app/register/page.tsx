@@ -1,3 +1,4 @@
+"use client";
 import LottiePlayer from "@/components/LottiePlayer";
 import {
   PoppinsBold,
@@ -5,11 +6,66 @@ import {
   PoppinsRegular,
   PoppinsSemi,
 } from "@/styles/fonts";
+import { data } from "autoprefixer";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 
-export default function page() {
+export default function Page() {
+  const router = useRouter();
+  const [loginData, setLoginData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  const handleSuccess = (response: any) => {
+    localStorage.setItem("access_token", response["access_token"]);
+    localStorage.setItem("refresh_token", response["refresh_token"]);
+    router.push("/texts");
+  };
+
+  const handleError = (response: any) => {
+    console.error(response);
+  };
+
+  const register = async () => {
+    const isValid = (): boolean => {
+      if (
+        loginData.username === "" ||
+        loginData.email === "" ||
+        loginData.password === ""
+      ) {
+        return false;
+      }
+      return true;
+    };
+
+    if (isValid()) {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_PATH}/users/register`,
+        {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: JSON.stringify(loginData),
+        }
+      ).then(async (response) => {
+        if (response.status === 201) {
+          handleSuccess(await response.json());
+        } else {
+          handleError(await response.json());
+        }
+      });
+    } else {
+      console.error("One of the fields is empty!");
+    }
+  };
+
   return (
     <div className="w-screen h-screen min-h-[700px]  bg-[#0e0e0e] flex flex-row justify-center gap-0 overflow-x-hidden">
       <div className="h-full   md:w-1/2 p-4  sm:p-12 md:p-24 md:min-w-[700px] flex flex-col justify-around md:justify-start">
@@ -37,6 +93,13 @@ export default function page() {
               Username
             </label>
             <input
+              onChange={(e) => {
+                let newData = loginData;
+
+                newData.username = e.target.value;
+
+                setLoginData(loginData);
+              }}
               className="h-12 md:h-14 bg-[#1d1d1d] rounded-lg outline-none py-2 px-4 text-gray-100"
               id="username"
               type="text"
@@ -48,6 +111,13 @@ export default function page() {
               Email
             </label>
             <input
+              onChange={(e) => {
+                let newData = loginData;
+
+                newData.email = e.target.value;
+
+                setLoginData(loginData);
+              }}
               className="h-12 md:h-14 bg-[#1d1d1d] rounded-lg outline-none py-2 px-4 text-gray-100"
               id="email"
               type="text"
@@ -60,6 +130,13 @@ export default function page() {
               Password
             </label>
             <input
+              onChange={(e) => {
+                let newData = loginData;
+
+                newData.password = e.target.value;
+
+                setLoginData(loginData);
+              }}
               className="h-12 md:h-14 bg-[#1d1d1d] rounded-lg outline-none py-2 px-4 text-gray-100 "
               id="password"
               type="password"
@@ -78,6 +155,7 @@ export default function page() {
           </div>
           <div className="pt-12 flex flex-col items-center justify-center gap-8">
             <button
+              onClick={register}
               className={`${PoppinsSemi.className} bg-gradient-to-l from-white via-gray-200 to-gray-500 h-12 w-full rounded-lg transition-transform duration-300 hover:scale-95`}
             >
               Login

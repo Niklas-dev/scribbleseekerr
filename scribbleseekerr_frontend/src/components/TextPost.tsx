@@ -22,7 +22,7 @@ export default function TextPost({
   tags,
 }: TextPostProps) {
   return (
-    <div className="w-fit h-fit bg-[#161616] rounded-md shadow-md flex flex-col justify-end p-4">
+    <div className="w-full h-fit bg-[#161616] rounded-md shadow-md flex flex-col justify-end p-4">
       <div className="flex flex-row items-center gap-1 bg-[#222222] w-fit px-2 rounded-md py-[0.15rem]">
         <FaFire size={20} color="orange" />
         <p className={`${PoppinsBold.className} text-gray-100 text-lg`}>
