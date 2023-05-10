@@ -11,8 +11,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { useAuth } from "../providers/auth";
 
 export default function Page() {
+  const { getUser } = useAuth();
   const router = useRouter();
   const [loginData, setLoginData] = useState({
     username: "",
@@ -23,6 +25,8 @@ export default function Page() {
   const handleSuccess = (response: any) => {
     localStorage.setItem("access_token", response["access_token"]);
     localStorage.setItem("refresh_token", response["refresh_token"]);
+
+    getUser();
     router.push("/texts");
   };
 
