@@ -8,7 +8,10 @@ import {
 } from "@/styles/fonts";
 import Link from "next/link";
 import React from "react";
+
 import { FaSearch, FaArrowUp, FaFire } from "react-icons/fa";
+// @ts-ignore
+
 export default function page() {
   return (
     <div className="bg-[#0e0e0e] overflow-y-scroll h-screen w-full">
