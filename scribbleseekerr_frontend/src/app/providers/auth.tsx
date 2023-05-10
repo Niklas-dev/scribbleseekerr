@@ -1,13 +1,13 @@
 import { useRouter } from "next/navigation";
 import { ReactNode, createContext, useContext, useState } from "react";
 
-interface IAuthContext {
+export interface IAuthContext {
   user: IUser;
   getUser: () => void;
   logoutUser: () => void;
 }
 
-interface IUser {
+export interface IUser {
   username: string;
   email: string;
   postsNum: number;
