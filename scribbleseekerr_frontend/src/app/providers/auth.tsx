@@ -1,9 +1,19 @@
-import { defaultConfig } from "next/dist/server/config-shared";
+"use client";
 import { useRouter } from "next/navigation";
-import { ReactNode, createContext, useContext, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 export interface IAuthContext {
-  user: IUser;
+  user: IUser | null;
+  loginWithToken: () => void;
+  refreshJWTToken: () => void;
+  logoutUser: () => void;
+  loaded: boolean;
 }
 
 export interface IUser {
@@ -12,14 +22,20 @@ export interface IUser {
   email: string;
   postsNum: number;
 }
-const authContextDefaultValues: IUser = {
-  username: "",
-  about: "",
-  email: "",
-  postsNum: 0,
+const authContextDefaultValues: IAuthContext = {
+  user: {
+    username: "",
+    about: "",
+    email: "",
+    postsNum: 0,
+  },
+  loginWithToken: () => {},
+  refreshJWTToken: () => {},
+  logoutUser: () => {},
+  loaded: false,
 };
 
-const AuthContext = createContext<IUser>(authContextDefaultValues);
+const AuthContext = createContext<IAuthContext>(authContextDefaultValues);
 
 export function useAuth() {
   return useContext(AuthContext);
@@ -29,41 +45,78 @@ interface Props {
   children: ReactNode;
 }
 
-export const getUserData = async (): Promise<IUser> => {
-  let data = authContextDefaultValues;
-  data = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_PATH}/users/user_data`,
-    {
-      method: "GET",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    }
-  )
-    .then((response) => response.json())
-    .then((data) => data);
-  console.log(data);
-  return {
-    username: data["username"],
-    email: data["email"],
-    about: data["about"],
-    postsNum: 0,
-  };
-};
+export function AuthProvider({ children }: Props) {
+  const router = useRouter();
 
-export const deleteUserData = () => {
-  localStorage.removeItem("access_token");
-  localStorage.removeItem("refresh_token");
-
-  return {
+  const [loaded, setLoaded] = useState(false);
+  const [user, setUser] = useState<IUser | null>({
     username: "",
-    about: "",
     email: "",
-    postsNum: 0,
-  };
-};
+    about: "",
 
-export const AuthProvider = AuthContext.Provider;
+    postsNum: 0,
+  });
+
+  const registerUser = () => {};
+
+  const loginWithToken = async () => {
+    console.log("getUser");
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_PATH}/users/user_data`,
+      {
+        method: "GET",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }
+    );
+    let data = await response.json();
+
+    if (response.status === 200) {
+      setUser({
+        username: data["username"],
+        email: data["email"],
+        about: data["about"],
+        postsNum: 0,
+      });
+    } else {
+      setUser(null);
+    }
+    setLoaded(true);
+  };
+
+  const refreshJWTToken = async () => {};
+
+  const logoutUser = () => {
+    setUser({
+      username: "",
+      about: "",
+      email: "",
+      postsNum: 0,
+    });
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+  };
+
+  const value = {
+    user,
+    loginWithToken,
+    logoutUser,
+    refreshJWTToken,
+    loaded,
+  };
+
+  useEffect(() => {
+    loginWithToken();
+    return () => {};
+  }, []);
+
+  return (
+    <>
+      <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+    </>
+  );
+}

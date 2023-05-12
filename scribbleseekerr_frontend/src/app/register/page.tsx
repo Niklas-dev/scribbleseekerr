@@ -10,8 +10,8 @@ import { data } from "autoprefixer";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
-import { deleteUserData, useAuth } from "../providers/auth";
+import React, { useEffect, useState } from "react";
+import { useAuth } from "../providers/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -26,8 +26,6 @@ export default function Page() {
   const error = (message: string) => toast.error(message);
 
   const handleSuccess = (response: any) => {
-    deleteUserData();
-
     localStorage.setItem("access_token", response["access_token"]);
     localStorage.setItem("refresh_token", response["refresh_token"]);
 
