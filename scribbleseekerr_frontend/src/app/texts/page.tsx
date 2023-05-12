@@ -1,3 +1,4 @@
+"use client";
 import PostWrapperLeft from "@/components/PostWrapperLeft";
 import PostWrapperRight from "@/components/PostWrapperRight";
 import TextPost from "@/components/TextPost";
@@ -8,12 +9,14 @@ import {
   PoppinsSemi,
 } from "@/styles/fonts";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 
 import { FaSearch, FaArrowUp, FaFire } from "react-icons/fa";
+import { useAuth } from "../providers/auth";
 // @ts-ignore
 
-export default function page() {
+export default function Page() {
+  const { username, email, about } = useAuth();
   return (
     <div className="bg-[#0e0e0e] overflow-y-scroll h-screen w-full">
       <div className="absolute bottom-6 right-6 h-14 w-14 bg-gray-100 grid place-content-center rounded-full shadow-xl">
@@ -34,7 +37,9 @@ export default function page() {
             type="text"
           ></input>
         </div>
-        <div className="h-12 w-12 rounded-full bg-gray-100"></div>
+        <div className="h-12 w-12 rounded-full bg-gray-100 text-black grid place-content-center">
+          {username[0]}
+        </div>
       </div>
       <div className="px-80 pt-20">
         <div></div>

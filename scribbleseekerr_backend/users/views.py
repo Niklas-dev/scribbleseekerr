@@ -17,11 +17,16 @@ from oauth2_provider.models import AccessToken, RefreshToken
 # Create your views here.
 
 
-class Test(APIView):
+class UserData(APIView):
     permission_classes = [IsAuthenticated, ]
 
     def get(self, request):
-        return Response({"data": request.user.username}, status=status.HTTP_200_OK)
+
+        user = ScribbleUser.objects.get(username=request.user)
+
+        data = {"username": user.username, "email": user.email, "about": user.about}
+        print(data)
+        return Response(data, status=status.HTTP_200_OK)
 
 
 class UserCreate(APIView):

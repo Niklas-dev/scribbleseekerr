@@ -167,8 +167,8 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = ""
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ""
 
 
-oauth2_settings.defaults['ACCESS_TOKEN_EXPIRE_SECONDS'] = 60
-oauth2_settings.defaults['REFRESH_TOKEN_EXPIRE_SECONDS'] = 120
+oauth2_settings.defaults['ACCESS_TOKEN_EXPIRE_SECONDS'] = 560
+oauth2_settings.defaults['REFRESH_TOKEN_EXPIRE_SECONDS'] = 5600
 
 # Define SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE to get extra permissions from Google.
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
