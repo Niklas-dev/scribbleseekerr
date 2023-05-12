@@ -12,6 +12,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useAuth } from "../providers/auth";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Page() {
   const { getUser } = useAuth();
@@ -21,6 +23,8 @@ export default function Page() {
     email: "",
     password: "",
   });
+
+  const error = (message: string) => toast(message);
 
   const handleSuccess = (response: any) => {
     localStorage.setItem("access_token", response["access_token"]);
@@ -32,6 +36,16 @@ export default function Page() {
 
   const handleError = (response: any) => {
     console.error(response);
+    let message = "";
+
+    if ("password" in response) {
+      message = response["password"];
+    } else if ("username" in response) {
+      message = response["username"];
+    } else if ("email" in response) {
+      message = response["email"];
+    }
+    error(`${message}`);
   };
 
   const register = async () => {
@@ -67,11 +81,19 @@ export default function Page() {
       });
     } else {
       console.error("One of the fields is empty!");
+      error("Fill out all fields!");
     }
   };
 
   return (
     <div className="w-screen h-screen min-h-[700px]  bg-[#0e0e0e] flex flex-row justify-center gap-0 overflow-x-hidden">
+      <ToastContainer
+        theme="dark"
+        position="top-center"
+        closeButton
+        autoClose={2000}
+        limit={5}
+      />
       <div className="h-full   md:w-1/2 p-4  sm:p-12 md:p-24 md:min-w-[700px] flex flex-col justify-around md:justify-start">
         <Link
           href="/"
@@ -162,13 +184,13 @@ export default function Page() {
               onClick={register}
               className={`${PoppinsSemi.className} bg-gradient-to-l from-white via-gray-200 to-gray-500 h-12 w-full rounded-lg transition-transform duration-300 hover:scale-95`}
             >
-              Login
+              Register
             </button>
 
             <button
               className={`${PoppinsSemi.className} bg-transparent border-gray-700 border-2 h-12 w-full rounded-lg text-gray-100 transition-transform duration-300 hover:scale-95`}
             >
-              Login with Google
+              Register with Google
             </button>
           </div>
           <div className="flex flex-row justify-center pt-4">
