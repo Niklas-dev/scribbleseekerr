@@ -6,7 +6,7 @@ export default function AboutFeatures() {
   return (
     <div className="mt-44 pb-20 flex flex-col items-center">
       <h3
-        className={`${PoppinsBold.className} text-gray-100 text-2xl  lg:text-3xl xl:text-4xl text-center h-fit rounded-full px-2 pt-4 w-fit xl:w-[65rem]`}
+        className={`${PoppinsBold.className} text-gray-100 text-2xl  lg:text-3xl xl:text-4xl text-center h-fit rounded-full px-4 pt-4 w-fit xl:w-[65rem]`}
       >
         Next stop? Your creativity and imagination!
       </h3>

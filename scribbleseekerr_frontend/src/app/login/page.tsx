@@ -1,3 +1,4 @@
+"use client";
 import LottiePlayer from "@/components/LottiePlayer";
 import {
   PoppinsBold,
@@ -7,9 +8,77 @@ import {
 } from "@/styles/fonts";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import { useAuth } from "../providers/auth";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/navigation";
 
-export default function page() {
+export default function Page() {
+  const router = useRouter();
+  const [loginData, setLoginData] = useState({
+    username: "",
+    password: "",
+  });
+
+  const error = (message: string) => toast.error(message);
+
+  const handleSuccess = (response: any) => {
+    localStorage.setItem("access_token", response["access_token"]);
+    localStorage.setItem("refresh_token", response["refresh_token"]);
+
+    router.push("/texts");
+  };
+
+  const handleError = (response: any) => {
+    console.error(response);
+    let message = "";
+
+    if ("password" in response) {
+      message = response["password"];
+    } else if ("username" in response) {
+      message = response["username"];
+    }
+    error(`${message}`);
+  };
+
+  const login = async () => {
+    const isValid = (): boolean => {
+      if (loginData.username === "" || loginData.password === "") {
+        return false;
+      }
+      return true;
+    };
+
+    if (isValid()) {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_PATH}/auth/token`,
+        {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            username: loginData.username,
+            password: loginData.password,
+            grant_type: "password",
+            client_secret: process.env.NEXT_PUBLIC_CLIENT_SECRET!,
+            client_id: process.env.NEXT_PUBLIC_CLIENT_ID!,
+          }),
+        }
+      ).then(async (response) => {
+        if (response.status === 200) {
+          handleSuccess(await response.json());
+        } else {
+          handleError(await response.json());
+        }
+      });
+    } else {
+      console.error("One of the fields is empty!");
+      error("Fill out all fields!");
+    }
+  };
   return (
     <div className="w-screen h-screen min-h-[700px]  bg-[#0e0e0e] flex flex-row justify-center gap-0 overflow-x-hidden">
       <div className="h-full   md:w-1/2 p-4  sm:p-12 md:p-24 md:min-w-[700px] flex flex-col justify-around md:justify-start ">
@@ -32,13 +101,20 @@ export default function page() {
           <div className=" md:pt-12 lg:pt-14 flex flex-col  ">
             <label
               className={`${PoppinsRegular.className} text-gray-100 text-lg md:text-xl pb-1`}
-              htmlFor="email"
+              htmlFor="username"
             >
-              Email
+              Username
             </label>
             <input
+              onChange={(e) => {
+                let newData = loginData;
+
+                newData.username = e.target.value;
+
+                setLoginData(loginData);
+              }}
               className="h-12 md:h-14 bg-[#1d1d1d] rounded-lg outline-none py-2 px-4 text-gray-100"
-              id="email"
+              id="username"
               type="text"
             />
 
@@ -49,6 +125,13 @@ export default function page() {
               Password
             </label>
             <input
+              onChange={(e) => {
+                let newData = loginData;
+
+                newData.password = e.target.value;
+
+                setLoginData(loginData);
+              }}
               className="h-12 md:h-14 bg-[#1d1d1d] rounded-lg outline-none py-2 px-4 text-gray-100 "
               id="password"
               type="password"
@@ -72,6 +155,7 @@ export default function page() {
           </div>
           <div className="pt-12 flex flex-col items-center justify-center gap-8">
             <button
+              onClick={login}
               className={`${PoppinsSemi.className} bg-gradient-to-l from-white via-gray-200 to-gray-500 h-12 w-full rounded-lg transition-transform duration-300 hover:scale-95`}
             >
               Login

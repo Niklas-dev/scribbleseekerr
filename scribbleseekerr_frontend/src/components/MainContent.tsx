@@ -7,7 +7,7 @@ export default function MainContent() {
   return (
     <>
       <div
-        className={`${PoppinsSemi.className} bg-gray-100 text-[#0e0e0e] h-fit rounded-full px-2`}
+        className={`${PoppinsSemi.className} bg-gray-100 text-[#0e0e0e] h-fit rounded-full px-2 text-xs sm:text-sm lg:text-base `}
       >
         32 books, stories or papers and more are on the way!
       </div>
@@ -34,7 +34,7 @@ export default function MainContent() {
         </Link>
         <Link
           className={`${PoppinsSemi.className} text-gray-100 text-lg border-2 border-gray-100 rounded-md px-4 py-1 transition-transform duration-300 hover:scale-95`}
-          href="/login"
+          href="/register"
         >
           Register
         </Link>

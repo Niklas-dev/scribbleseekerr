@@ -6,7 +6,7 @@ export default function TextSamples() {
   return (
     <div className="mt-24 pb-20 flex flex-col items-center">
       <h3
-        className={`${PoppinsBold.className} text-gray-100 text-2xl  lg:text-3xl xl:text-4xl text-center h-fit rounded-full px-2 pt-4 w-fit xl:w-[65rem]`}
+        className={`${PoppinsBold.className} text-gray-100 text-2xl  lg:text-3xl xl:text-4xl text-center h-fit rounded-full px-8 pt-4 w-fit xl:w-[65rem]`}
       >
         You already want to start? No Problem, some reading samples will help!
       </h3>
