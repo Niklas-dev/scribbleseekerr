@@ -104,7 +104,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-
+.env
 .venv
 env/
 venv/
@@ -132,4 +132,3 @@ frontend
 
 
 scribbleseekerr-frontend/node_modules
-/scribbleseekerr_backend/scribbleseekerr_backend/.env
