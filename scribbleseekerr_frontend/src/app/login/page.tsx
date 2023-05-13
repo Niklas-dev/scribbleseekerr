@@ -14,6 +14,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import { useGoogleLogin } from "@react-oauth/google";
+import { FaGoogle } from "react-icons/fa";
 
 export default function Page() {
   const router = useRouter();
@@ -193,8 +194,9 @@ export default function Page() {
 
             <button
               onClick={() => loginWithGoogle()}
-              className={`${PoppinsSemi.className} bg-transparent border-gray-700 border-2 h-12 w-full rounded-lg text-gray-100 transition-transform duration-300 hover:scale-95`}
+              className={`${PoppinsSemi.className} bg-transparent border-gray-700 border-2 h-12 w-full rounded-lg text-gray-100 transition-transform duration-300 hover:scale-95 flex flex-row justify-center gap-4 items-center`}
             >
+              <FaGoogle size={20} />
               Login with Google
             </button>
           </div>
