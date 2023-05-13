@@ -14,6 +14,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../providers/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useGoogleLogin } from "@react-oauth/google";
 
 export default function Page() {
   const router = useRouter();
@@ -45,6 +46,35 @@ export default function Page() {
     }
     error(`${message}`);
   };
+
+  const loginWithGoogle = useGoogleLogin({
+    onSuccess: async (tokenResponse: any) => {
+      console.log(tokenResponse);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_PATH}/auth/convert-token`,
+        {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            token: tokenResponse["access_token"],
+            grant_type: "convert_token",
+            backend: "google-oauth2",
+            client_secret: process.env.NEXT_PUBLIC_CLIENT_SECRET!,
+            client_id: process.env.NEXT_PUBLIC_CLIENT_ID!,
+          }),
+        }
+      ).then(async (response) => {
+        if (response.status === 200) {
+          handleSuccess(await response.json());
+        } else {
+          handleError(await response.json());
+        }
+      });
+    },
+  });
 
   const register = async () => {
     const isValid = (): boolean => {
@@ -186,6 +216,7 @@ export default function Page() {
             </button>
 
             <button
+              onClick={() => loginWithGoogle()}
               className={`${PoppinsSemi.className} bg-transparent border-gray-700 border-2 h-12 w-full rounded-lg text-gray-100 transition-transform duration-300 hover:scale-95`}
             >
               Register with Google
