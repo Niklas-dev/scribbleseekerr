@@ -51,6 +51,8 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 
+scribbleseekerr_backend/.env
+
 # Translations
 *.mo
 *.pot
@@ -102,7 +104,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-#.env
+
 .venv
 env/
 venv/
@@ -130,3 +132,4 @@ frontend
 
 
 scribbleseekerr-frontend/node_modules
+/scribbleseekerr_backend/scribbleseekerr_backend/.env
