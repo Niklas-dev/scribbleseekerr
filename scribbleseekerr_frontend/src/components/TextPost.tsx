@@ -6,29 +6,34 @@ import {
 } from "@/styles/fonts";
 import React from "react";
 import { FaFire } from "react-icons/fa";
+import Flames from "./Flames";
+import { KeyedMutator } from "swr";
 
-interface TextPostProps {
+export interface FlameUser {
+  pk: number;
+  username: string;
+}
+export interface TextPostProps {
+  pk: number;
   author: string;
-  flames: number;
+  flameUsers: FlameUser[];
   title: string;
   content: string;
   tags: Array<string>;
+  mutate: (pk: number, num: "down" | "up") => void;
 }
 export default function TextPost({
+  pk,
   author,
-  flames,
+  flameUsers,
   title,
   content,
   tags,
+  mutate,
 }: TextPostProps) {
   return (
     <div className="w-full h-fit bg-[#161616] rounded-md shadow-md flex flex-col justify-end p-4">
-      <div className="flex flex-row items-center gap-1 bg-[#222222] w-fit px-2 rounded-md py-[0.15rem]">
-        <FaFire size={20} color="orange" />
-        <p className={`${PoppinsBold.className} text-gray-100 text-lg`}>
-          {flames}
-        </p>
-      </div>
+      <Flames pk={pk} mutate={mutate} flameUsersProp={flameUsers} />
       <h5 className={`${PoppinsSemi.className} text-gray-100 text-lg pt-2`}>
         {title}
       </h5>
@@ -40,14 +45,16 @@ export default function TextPost({
         <b className={`${PoppinsBold.className} text-gray-100`}>{author}</b>
       </p>
       <div className="flex flex-row gap-2 pt-4">
-        {tags.map((tag) => (
-          <div
-            key={tag}
-            className={`${PoppinsLight.className} px-2 py-[0.15rem] bg-[#222222] text-gray-300 rounded-sm`}
-          >
-            {tag}
-          </div>
-        ))}
+        {tags
+          ? tags.map((tag) => (
+              <div
+                key={tag}
+                className={`${PoppinsLight.className} px-2 py-[0.15rem] bg-[#222222] text-gray-300 rounded-sm`}
+              >
+                {tag}
+              </div>
+            ))
+          : null}
       </div>
     </div>
   );

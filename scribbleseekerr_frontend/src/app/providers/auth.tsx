@@ -20,6 +20,7 @@ export interface IUser {
   username: string;
   about: string;
   email: string;
+  pk: number;
   postsNum: number;
 }
 const authContextDefaultValues: IAuthContext = {
@@ -27,6 +28,7 @@ const authContextDefaultValues: IAuthContext = {
     username: "",
     about: "",
     email: "",
+    pk: 0,
     postsNum: 0,
   },
   loginWithToken: () => {},
@@ -53,7 +55,7 @@ export function AuthProvider({ children }: Props) {
     username: "",
     email: "",
     about: "",
-
+    pk: 0,
     postsNum: 0,
   });
 
@@ -80,6 +82,7 @@ export function AuthProvider({ children }: Props) {
         username: data["username"],
         email: data["email"],
         about: data["about"],
+        pk: data["pk"],
         postsNum: 0,
       });
     } else {
@@ -95,6 +98,7 @@ export function AuthProvider({ children }: Props) {
       username: "",
       about: "",
       email: "",
+      pk: 0,
       postsNum: 0,
     });
     localStorage.removeItem("access_token");

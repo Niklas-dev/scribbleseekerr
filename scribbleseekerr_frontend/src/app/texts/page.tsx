@@ -1,7 +1,7 @@
 "use client";
 import PostWrapperLeft from "@/components/PostWrapperLeft";
 import PostWrapperRight from "@/components/PostWrapperRight";
-import TextPost from "@/components/TextPost";
+import TextPost, { FlameUser } from "@/components/TextPost";
 import {
   PoppinsBold,
   PoppinsLight,
@@ -9,12 +9,24 @@ import {
   PoppinsSemi,
 } from "@/styles/fonts";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { FaSearch, FaArrowUp, FaFire } from "react-icons/fa";
 import { useAuth } from "../providers/auth";
 import InitialsAvatar from "@/components/InitialsAvatar";
+import useSWR from "swr";
 // @ts-ignore
+
+interface Post {
+  text_type: string;
+  pk: number;
+  title: string;
+  author: string;
+  content: string;
+  flames: FlameUser[];
+  tags: string[];
+  created_at: string;
+}
 
 export default function Page() {
   const { user, loaded, loginWithToken } = useAuth();
@@ -23,6 +35,49 @@ export default function Page() {
     return () => {};
   }, [loaded]);
 
+  const [page, setPage] = useState(0);
+  const getPosts = async () => {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_PATH}/posts/get-posts?count=${page}`,
+      {
+        method: "GET",
+        mode: "cors",
+      }
+    ).then(async (response) => {
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        throw Error;
+      }
+    });
+    console.log(response);
+    return response;
+  };
+
+  const { data, mutate } = useSWR(
+    `${process.env.NEXT_PUBLIC_BACKEND_PATH}/posts/get-posts?count=${page}`,
+    getPosts
+  );
+
+  const updateFlames = (pk: number, arg: "down" | "up") => {
+    return data;
+  };
+
+  function updateFlamesByPK(
+    objects: Post[],
+    pk: number,
+    newFlames: FlameUser[]
+  ): Post[] {
+    return objects.map((obj) => {
+      if (obj.pk === pk) {
+        return {
+          ...obj,
+          flames: newFlames,
+        };
+      }
+      return obj;
+    });
+  }
   return (
     <div className="bg-[#0e0e0e] overflow-y-scroll h-screen w-full">
       <div className="absolute bottom-6 right-6 h-14 w-14 bg-gray-100 grid place-content-center rounded-full shadow-xl">
@@ -46,77 +101,60 @@ export default function Page() {
         <InitialsAvatar href="/user" username={user?.username as string} />
       </div>
       <div className="px-80 pt-20">
-        <div></div>
-        <div className="columns-2 gap-2">
-          <TextPost
-            author="Niklas"
-            title="An Officer's Dog"
-            flames={32}
-            tags={["#story", "#animals"]}
-            content="Max was not just any dog. He was a Belgian Malinois, a breed known
-            for their high intelligence and excellent working abilities. His
-            human family was a team of K-9 officers, who trained him to be a
-            police dog. One day, Max was on a mission with his handler, Officer
-            Johnson. They were tracking a dangerous criminal who had fled into
-            the woods. As they followed the scent, Max caught a whiff of
-            something else - a familiar scent from his past. It was the scent of
-            his previous owner, who had abandoned him when he was just a puppy.
-            Max had always wondered about his past, and now, he was determined
-            to follow the scent and find out more. Despite Officer
-            Johnson's commands, Max veered off the trail and followed the
-            scent. It led him to an abandoned cabin, where he found a frail and
-            elderly man. The man was barely conscious, and Max could sense that
-            he was in grave danger. Max barked loudly to get Officer
-            Johnson's attention. The officer followed the sound and found
-            Max standing guard over the man. Together, they were able to get the
-            man to safety and call for medical attention. As it turned out, the
-            man was a retired K-9 officer who had been missing for weeks. He had
-            trained Max when he was a puppy and had left the force under
-            mysterious circumstances. Max had never forgotten the scent of his
-            first owner, and his instincts had led him to save the man's
-            life. From that day forward, Max and Officer Johnson became even
-            closer. They knew that Max's bravery had saved not just the
-            retired officer's life but also helped catch the dangerous
-            criminal they had been tracking. Max's past had caught up with
-            him, but it had only made him a better police dog and a more loyal
-            companion."
-          />
-          <TextPost
-            author="Niklas"
-            title="An Officer's Dog"
-            flames={32}
-            tags={["#story", "#animals"]}
-            content="Max was not just any dog. He was a Belgian Malinois, a breed known
-            for their high intelligence and excellent working abilities. His
-            human family was a team of K-9 officers, who trained him to be a
-            police dog. One day, Max was on a mission with his handler, Officer
-            Johnson. They were tracking a dangerous criminal who had fled into
-            the woods. As they followed the scent, Max caught a whiff of
-            something else - a familiar scent from his past. It was the scent of
-            his previous owner, who had abandoned him when he was just a puppy.
-            Max had always wondered about his past, and now, he was determined
-            to follow the scent and find out more. Despite Officer
-            Johnson's commands, Max veered off the trail and followed the
-            scent. It led him to an abandoned cabin, where he found a frail and
-            elderly man. The man was barely conscious, and Max could sense that
-            he was in grave danger. Max barked loudly to get Officer
-            Johnson's attention. The officer followed the sound and found
-            Max standing guard over the man. Together, they were able to get the
-            man to safety and call for medical attention. As it turned out, the
-            man was a retired K-9 officer who had been missing for weeks. He had
-            trained Max when he was a puppy and had left the force under
-            mysterious circumstances. Max had never forgotten the scent of his
-            first owner, and his instincts had led him to save the man's
-            life. From that day forward, Max and Officer Johnson became even
-            closer. They knew that Max's bravery had saved not just the
-            retired officer's life but also helped catch the dangerous
-            criminal they had been tracking. Max's past had caught up with
-            him, but it had only made him a better police dog and a more loyal
-            companion."
-          />
-        </div>
         <div className="flex flex-row justify-center gap-2 pb-10">
-          <PostWrapperLeft></PostWrapperLeft>
+          <PostWrapperLeft>
+            {data
+              ? (data as Post[]).map((post: Post, index: number) => {
+                  return (
+                    <TextPost
+                      mutate={(pk: number, arg: "down" | "up") => {
+                        let result = new Map(
+                          post.flames.map((i) => [i.pk, i.username])
+                        );
+
+                        if (arg === "down") {
+                          result.delete(user!.pk);
+                          console.log(user!.pk);
+                        } else {
+                          result.set(user!.pk, user!.username);
+                        }
+
+                        const newData: Array<Object> = [];
+
+                        result.forEach((key, val) =>
+                          newData.push({ pk: key, username: val })
+                        );
+
+                        console.log(newData);
+                        console.log(post);
+
+                        let newPosts: Post[] = updateFlamesByPK(
+                          data,
+                          pk,
+                          newData as FlameUser[]
+                        );
+                        console.log(data);
+                        console.log(newPosts);
+
+                        mutate(updateFlames(pk, "up"), {
+                          optimisticData: [...newPosts],
+                          rollbackOnError: true,
+                          populateCache: true,
+                          revalidate: false,
+                        });
+                      }}
+                      key={post.pk}
+                      pk={post.pk}
+                      title={post.title}
+                      content={post.content}
+                      flameUsers={post.flames}
+                      tags={post.tags}
+                      author={post.author}
+                    />
+                  );
+                })
+              : null}
+          </PostWrapperLeft>
           <PostWrapperRight></PostWrapperRight>
         </div>
       </div>
