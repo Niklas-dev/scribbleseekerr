@@ -17,3 +17,6 @@ class Post(models.Model):
     flames = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True),
     tags = models.ManyToManyField(Tag)
+
+    def __str__(self):
+        return self.title
