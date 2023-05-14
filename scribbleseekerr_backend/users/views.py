@@ -3,11 +3,12 @@ from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponse, FileResponse
 from rest_framework.permissions import AllowAny, IsAuthenticated
 import requests
 from scribbleseekerr_backend.settings import *
 from .serializers import *
+from PIL import Image, ImageDraw, ImageFont
 
 import json
 
@@ -21,7 +22,6 @@ class UserData(APIView):
     permission_classes = [IsAuthenticated, ]
 
     def get(self, request):
-
         user = ScribbleUser.objects.get(username=request.user)
 
         data = {"username": user.username, "email": user.email, "about": user.about}
@@ -49,3 +49,6 @@ class UserCreate(APIView):
                 return Response(json.loads(response.content), status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+

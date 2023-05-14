@@ -7,6 +7,20 @@ from django.db import models
 
 
 class ScribbleUser(AbstractUser, PermissionsMixin):
+    username_validator = UnicodeUsernameValidator()
+
+    username = models.CharField(
+        "username",
+        max_length=28,
+        unique=True,
+        help_text=
+        "Required. 28 characters or fewer. Letters, digits and @/./+/-/_ only."
+        ,
+        validators=[username_validator],
+        error_messages={
+            "unique": "A user with that username already exists."
+        },
+    )
     email = models.EmailField(blank=False, null=False, unique=True, error_messages={
         'unique': "This email is already in use."
     })
