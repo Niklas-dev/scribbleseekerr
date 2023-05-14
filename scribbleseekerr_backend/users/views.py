@@ -24,7 +24,7 @@ class UserData(APIView):
     def get(self, request):
         user = ScribbleUser.objects.get(username=request.user)
 
-        data = {"username": user.username, "email": user.email, "about": user.about}
+        data = {"username": user.username, "email": user.email, "about": user.about, 'pk': user.pk}
         print(data)
         return Response(data, status=status.HTTP_200_OK)
 
