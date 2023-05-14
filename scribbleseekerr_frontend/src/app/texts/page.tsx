@@ -13,6 +13,7 @@ import React, { useEffect } from "react";
 
 import { FaSearch, FaArrowUp, FaFire } from "react-icons/fa";
 import { useAuth } from "../providers/auth";
+import InitialsAvatar from "@/components/InitialsAvatar";
 // @ts-ignore
 
 export default function Page() {
@@ -42,9 +43,7 @@ export default function Page() {
             type="text"
           ></input>
         </div>
-        <div className="h-12 w-12 rounded-full bg-gray-100 text-black grid place-content-center">
-          {loaded && user?.username}
-        </div>
+        <InitialsAvatar href="/user" username={user?.username as string} />
       </div>
       <div className="px-80 pt-20">
         <div></div>

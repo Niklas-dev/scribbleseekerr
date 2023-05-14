@@ -13,7 +13,7 @@ import { useAuth } from "../providers/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
-import { useGoogleLogin } from "@react-oauth/google";
+import { useGoogleLogin, useGoogleOneTapLogin } from "@react-oauth/google";
 import { FaGoogle } from "react-icons/fa";
 
 export default function Page() {
@@ -112,6 +112,13 @@ export default function Page() {
   };
   return (
     <div className="w-screen h-screen min-h-[700px]  bg-[#0e0e0e] flex flex-row justify-center gap-0 overflow-x-hidden">
+      <ToastContainer
+        theme="dark"
+        position="top-center"
+        closeButton
+        autoClose={2000}
+        limit={5}
+      />
       <div className="h-full   md:w-1/2 p-4  sm:p-12 md:p-24 md:min-w-[700px] flex flex-col justify-around md:justify-start ">
         <Link
           href="/"

@@ -8,7 +8,7 @@ import {
 } from "@/styles/fonts";
 import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GoogleButton from "react-google-button";
 import Image from "next/image";
 import LottiePlayer from "@/components/LottiePlayer";
@@ -16,10 +16,14 @@ import LandingNav from "@/components/LandingNav";
 import MainContent from "@/components/MainContent";
 import AboutFeatures from "@/components/AboutFeatures";
 import TextSamples from "@/components/TextSamples";
+import { useAuth } from "./providers/auth";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+
+  const router = useRouter();
 
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
@@ -115,6 +119,7 @@ export default function Home() {
   const errorMessage = () => {
     console.log("error");
   };
+
   return (
     <main className="bg-[#0e0e0e] overflow-y-scroll h-screen w-full">
       <LandingNav />

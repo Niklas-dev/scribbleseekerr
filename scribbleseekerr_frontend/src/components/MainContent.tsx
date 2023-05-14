@@ -2,8 +2,10 @@ import React from "react";
 import LottiePlayer from "./LottiePlayer";
 import Link from "next/link";
 import { PoppinsBold, PoppinsSemi } from "@/styles/fonts";
+import { useAuth } from "@/app/providers/auth";
 
 export default function MainContent() {
+  const { user } = useAuth();
   return (
     <>
       <div
@@ -26,18 +28,29 @@ export default function MainContent() {
       </p>
 
       <div className="flex flex-row justify-center gap-2 py-4">
-        <Link
-          className={`${PoppinsSemi.className} text-[#0e0e0e] text-lg bg-gray-100 rounded-md px-4 py-1 transition-transform duration-300 hover:scale-95`}
-          href="/login"
-        >
-          Login
-        </Link>
-        <Link
-          className={`${PoppinsSemi.className} text-gray-100 text-lg border-2 border-gray-100 rounded-md px-4 py-1 transition-transform duration-300 hover:scale-95`}
-          href="/register"
-        >
-          Register
-        </Link>
+        {!user ? (
+          <>
+            <Link
+              className={`${PoppinsSemi.className} text-[#0e0e0e] text-lg bg-gray-100 rounded-md px-4 py-1 transition-transform duration-300 hover:scale-95`}
+              href="/login"
+            >
+              Login
+            </Link>
+            <Link
+              className={`${PoppinsSemi.className} text-gray-100 text-lg border-2 border-gray-100 rounded-md px-4 py-1 transition-transform duration-300 hover:scale-95`}
+              href="/register"
+            >
+              Register
+            </Link>
+          </>
+        ) : (
+          <Link
+            className={`${PoppinsSemi.className} text-[#0e0e0e] text-lg bg-gray-100 rounded-md px-4 py-1 transition-transform duration-300 hover:scale-95`}
+            href="/texts"
+          >
+            Get Started
+          </Link>
+        )}
       </div>
 
       <LottiePlayer

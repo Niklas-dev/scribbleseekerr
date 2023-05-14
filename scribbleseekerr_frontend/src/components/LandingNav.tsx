@@ -1,8 +1,10 @@
+import { useAuth } from "@/app/providers/auth";
 import { PoppinsLight, PoppinsSemi } from "@/styles/fonts";
 import Link from "next/link";
 import React from "react";
 
 export default function LandingNav() {
+  const { user } = useAuth();
   return (
     <nav className="flex flex-row  px-4 sm:px-28 md:px-32 lg:px-36 xl:px-72 pt-8 gap-8">
       <h3 className={`${PoppinsSemi.className} text-gray-100 text-3xl`}>
@@ -38,9 +40,9 @@ export default function LandingNav() {
         <div>
           <Link
             className={`${PoppinsSemi.className} text-[#0e0e0e] text-lg bg-gray-100 rounded-md px-4 py-2 transition-transform duration-300 hover:scale-95`}
-            href="/login"
+            href={!user ? "/login" : "/texts"}
           >
-            Login
+            {!user ? "Login" : "Continue"}
           </Link>
         </div>
       </div>
