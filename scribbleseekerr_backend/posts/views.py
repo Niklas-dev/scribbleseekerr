@@ -10,7 +10,7 @@ from rest_framework.response import Response
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponse, FileResponse
 
 from posts.models import Post
-from posts.serializers import PostSerializer
+from posts.serializers import PostSerializer, UserSerializer
 
 
 # Create your views here.
@@ -21,24 +21,29 @@ class CreatePost(APIView):
 
 class UpdateFlames(APIView):
     permission_classes = [IsAuthenticated, ]
+
     def put(self, request):
         json_data = request.data
         print(json_data)
         if json_data:
             post = Post.objects.get(pk=json_data['pk'])
-            if json_data['arg'] == 'up':
-
-                post.flames.add(request.user)
+            if json_data['arg'] == 'let':
+                pass
             else:
 
-                post.flames.remove(request.user)
+                if json_data['arg'] == 'up':
 
-            post.save()
+                    post.flames.add(request.user)
+                else:
 
-        serializer = PostSerializer(Post.objects.all(), many=True)
+                    post.flames.remove(request.user)
+
+                post.save()
+
+        serializer = UserSerializer(post.flames.all(), many=True)
         json_data = serializer.data
 
-        return Response({"status": {"updated"}}, status=status.HTTP_200_OK)
+        return Response(json_data, status=status.HTTP_200_OK)
 
 
 class GetPosts(APIView):

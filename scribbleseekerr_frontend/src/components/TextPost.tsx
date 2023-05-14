@@ -20,7 +20,6 @@ export interface TextPostProps {
   title: string;
   content: string;
   tags: Array<string>;
-  mutate: (pk: number, num: "down" | "up") => void;
 }
 export default function TextPost({
   pk,
@@ -29,11 +28,10 @@ export default function TextPost({
   title,
   content,
   tags,
-  mutate,
 }: TextPostProps) {
   return (
-    <div className="w-full h-fit bg-[#161616] rounded-md shadow-md flex flex-col justify-end p-4">
-      <Flames pk={pk} mutate={mutate} flameUsersProp={flameUsers} />
+    <div className="w-full h-fit bg-[#161616] rounded-md shadow-md flex flex-col justify-end p-4 overflow-x-hidden cursor-pointer z-10">
+      <Flames pk={pk} flameUsersProp={flameUsers} />
       <h5 className={`${PoppinsSemi.className} text-gray-100 text-lg pt-2`}>
         {title}
       </h5>
@@ -49,7 +47,7 @@ export default function TextPost({
           ? tags.map((tag) => (
               <div
                 key={tag}
-                className={`${PoppinsLight.className} px-2 py-[0.15rem] bg-[#222222] text-gray-300 rounded-sm`}
+                className={`${PoppinsLight.className} px-2 py-[0.15rem] bg-[#222222] text-gray-300 rounded-md`}
               >
                 {tag}
               </div>
