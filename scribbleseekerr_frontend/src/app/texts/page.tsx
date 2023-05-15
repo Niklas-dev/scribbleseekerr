@@ -16,6 +16,7 @@ import { useAuth } from "../providers/auth";
 import InitialsAvatar from "@/components/InitialsAvatar";
 
 import PostWrapper from "@/components/PostWrapper";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface Post {
   text_type: string;
@@ -28,8 +29,13 @@ interface Post {
   created_at: string;
 }
 
-export default function Page() {
+export default function Page({ params }: { params: { text_type: string } }) {
   const { user, loaded, loginWithToken } = useAuth();
+  const [postSearch, setPostSearch] = useState("");
+
+  const searchParams = useSearchParams();
+
+  const text_type_param = searchParams.get("text_type");
   useEffect(() => {
     loginWithToken();
     return () => {};
@@ -38,7 +44,7 @@ export default function Page() {
   const [page, setPage] = useState(0);
   const getPosts = async (search: string, text_type: string) => {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_PATH}/posts/get-posts?count=${page}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_PATH}/posts/get-posts?count=${page}&text_type=${text_type}`,
       {
         method: "GET",
         mode: "cors",
@@ -58,12 +64,13 @@ export default function Page() {
   const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
-    getPosts("", "");
+    getPosts(postSearch, text_type_param!);
+    console.log(text_type_param);
 
     return () => {
       setPosts([]);
     };
-  }, []);
+  }, [postSearch]);
 
   return (
     <div className="bg-[#0e0e0e] overflow-y-scroll h-screen w-full ">
@@ -90,6 +97,7 @@ export default function Page() {
         <div className="relative">
           <FaSearch className="absolute top-4 left-4" color="#F3F4F6" />
           <input
+            onChange={(e) => setPostSearch(e.target.value)}
             className={`${PoppinsSemi.className} h-12 w-11/12 md:w-[20rem] lg:w-[30rem] rounded-lg text-lg pl-10 pr-2 py-1 outline-none bg-[#1d1d1d] text-gray-100 shadow-lg`}
             type="text"
           ></input>

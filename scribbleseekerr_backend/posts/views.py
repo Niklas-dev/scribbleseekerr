@@ -57,7 +57,7 @@ class GetPosts(APIView):
 
         from_val = count * 10
         to_val = count * 10 + 10
-
+        print(text_type)
         if search:
             print("Search")
             vector = SearchVector('title', 'tags_string', 'content', 'author')
