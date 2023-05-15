@@ -14,9 +14,8 @@ import React, { useEffect, useState } from "react";
 import { FaSearch, FaArrowUp, FaFire } from "react-icons/fa";
 import { useAuth } from "../providers/auth";
 import InitialsAvatar from "@/components/InitialsAvatar";
-import useSWR from "swr";
+
 import PostWrapper from "@/components/PostWrapper";
-// @ts-ignore
 
 interface Post {
   text_type: string;
