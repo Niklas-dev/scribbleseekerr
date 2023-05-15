@@ -7,7 +7,6 @@ import {
 import React from "react";
 import { FaFire } from "react-icons/fa";
 import Flames from "./Flames";
-import { KeyedMutator } from "swr";
 
 export interface FlameUser {
   pk: number;

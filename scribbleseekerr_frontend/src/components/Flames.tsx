@@ -2,7 +2,7 @@
 import { PoppinsBold } from "@/styles/fonts";
 import React, { useEffect, useState } from "react";
 import { FaFire } from "react-icons/fa";
-import { KeyedMutator } from "swr";
+
 import { FlameUser } from "./TextPost";
 import { useAuth } from "@/app/providers/auth";
 
