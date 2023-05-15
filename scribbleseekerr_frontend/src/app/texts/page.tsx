@@ -67,10 +67,19 @@ export default function Page() {
   }, []);
 
   return (
-    <div className="bg-[#0e0e0e] overflow-y-scroll h-screen w-full">
-      <div className="absolute bottom-6 right-6 h-14 w-14 bg-gray-100 grid place-content-center rounded-full shadow-xl z-30">
+    <div className="bg-[#0e0e0e] overflow-y-scroll h-screen w-full ">
+      <button
+        onClick={() => {
+          console.log("test");
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        }}
+        className="absolute bottom-6 right-6 h-14 w-14 bg-gray-100 grid place-content-center rounded-full shadow-xl z-30"
+      >
         <FaArrowUp size={20} color="black" />
-      </div>
+      </button>
       <div className="flex flex-row items-center justify-between px-6  sm:px-28 md:px-32 lg:px-36 xl:px-72 pt-8 gap-8">
         <Link
           href={"/"}
