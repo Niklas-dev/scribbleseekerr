@@ -14,25 +14,25 @@ export default function LandingNav() {
         <div className="flex-row gap-4 hidden lg:flex">
           <Link
             className={`${PoppinsLight.className} text-gray-200 text-lg`}
-            href={"/texts?search=poems"}
+            href={"/texts?text_type=poem"}
           >
             Poems
           </Link>
           <Link
             className={`${PoppinsLight.className} text-gray-200 text-lg`}
-            href={"/texts?search=stories"}
+            href={"/texts?text_type=story"}
           >
             Stories
           </Link>
           <Link
             className={`${PoppinsLight.className} text-gray-200 text-lg`}
-            href={"/texts?search=papers"}
+            href={"/texts?text_type=paper"}
           >
             Papers
           </Link>
           <Link
             className={`${PoppinsLight.className} text-gray-200 text-lg`}
-            href={"/texts?search=all"}
+            href={"/texts?text_type=all"}
           >
             Any
           </Link>

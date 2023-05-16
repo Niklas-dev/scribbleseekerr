@@ -57,20 +57,31 @@ class GetPosts(APIView):
 
         from_val = count * 10
         to_val = count * 10 + 10
+
+        if text_type == 'all':
+            text_type = None
+        print(search)
+        if search == '':
+            search = None
+
         print(text_type)
         if search:
+
             print("Search")
-            vector = SearchVector('title', 'tags_string', 'content', 'author')
+
+            vector = SearchVector('title', 'tags_string', 'author')
             query = SearchQuery(search)
 
             if text_type:
                 posts = Post.objects.annotate(rank=SearchRank(vector, query)).filter(text_type=text_type).filter(
-                    rank__gte=0.0000001).order_by('-rank')[from_val:to_val]
+                    rank__gte=0.00000000001).order_by('-rank')[from_val:to_val]
             else:
                 posts = Post.objects.annotate(rank=SearchRank(vector, query)).filter(rank__gte=0.0000001).order_by(
                     '-rank')[from_val:to_val]
         else:
+            print('No search')
             if text_type:
+
                 posts = Post.objects.filter(text_type=text_type)[from_val:to_val]
             else:
                 posts = Post.objects.all()[from_val:to_val]

@@ -17,6 +17,8 @@ import InitialsAvatar from "@/components/InitialsAvatar";
 
 import PostWrapper from "@/components/PostWrapper";
 import { useRouter, useSearchParams } from "next/navigation";
+import LottiePlayer from "@/components/LottiePlayer";
+import PostBlueprint from "@/components/PostBlueprint";
 
 interface Post {
   text_type: string;
@@ -32,19 +34,16 @@ interface Post {
 export default function Page({ params }: { params: { text_type: string } }) {
   const { user, loaded, loginWithToken } = useAuth();
   const [postSearch, setPostSearch] = useState("");
+  const [loadingData, setLoadingData] = useState(true);
 
   const searchParams = useSearchParams();
 
   const text_type_param = searchParams.get("text_type");
-  useEffect(() => {
-    loginWithToken();
-    return () => {};
-  }, [loaded]);
 
   const [page, setPage] = useState(0);
   const getPosts = async (search: string, text_type: string) => {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_PATH}/posts/get-posts?count=${page}&text_type=${text_type}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_PATH}/posts/get-posts?count=${page}&text_type=${text_type}&search=${search}`,
       {
         method: "GET",
         mode: "cors",
@@ -59,18 +58,31 @@ export default function Page({ params }: { params: { text_type: string } }) {
     console.log(response);
 
     setPosts(response);
+    setLoadingData(false);
   };
 
   const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
-    getPosts(postSearch, text_type_param!);
-    console.log(text_type_param);
+    setLoadingData(true);
+    const getPostTimer = setTimeout(() => {
+      getPosts(postSearch, text_type_param!);
+    }, 1000);
 
     return () => {
+      clearTimeout(getPostTimer);
       setPosts([]);
     };
   }, [postSearch]);
+
+  useEffect(() => {
+    loginWithToken();
+    getPosts(postSearch, text_type_param!);
+    console.log(text_type_param);
+    return () => {
+      setPosts([]);
+    };
+  }, [loaded]);
 
   return (
     <div className="bg-[#0e0e0e] overflow-y-scroll h-screen w-full ">
@@ -106,23 +118,48 @@ export default function Page({ params }: { params: { text_type: string } }) {
       </div>
       <div className="px-20 lg:px-80 pt-20">
         <div className="flex flex-row justify-center gap-4 pb-10">
-          <PostWrapper>
-            {posts
-              ? (posts as Post[]).map((post: Post, index: number) => {
-                  return (
-                    <TextPost
-                      key={post.pk}
-                      pk={post.pk}
-                      title={post.title}
-                      content={post.content}
-                      flameUsers={post.flames}
-                      tags={post.tags}
-                      author={post.author}
-                    />
-                  );
-                })
-              : null}
-          </PostWrapper>
+          {loadingData ? (
+            <LottiePlayer
+              src="https://assets10.lottiefiles.com/packages/lf20_x62chJ.json"
+              classes="w-[400px] h-[400px] mt-8"
+              autoplay
+              loop
+            />
+          ) : (
+            <>
+              {posts.length >= 1 ? (
+                <PostWrapper>
+                  {(posts as Post[]).map((post: Post, index: number) => {
+                    return (
+                      <TextPost
+                        key={post.pk}
+                        pk={post.pk}
+                        title={post.title}
+                        content={post.content}
+                        flameUsers={post.flames}
+                        tags={post.tags}
+                        author={post.author}
+                      />
+                    );
+                  })}
+                </PostWrapper>
+              ) : (
+                <div className="flex flex-col justify-center items-center">
+                  <h3
+                    className={`${PoppinsSemi.className} text-gray-100 text-xl `}
+                  >
+                    No matching post
+                  </h3>
+                  <LottiePlayer
+                    src="https://assets4.lottiefiles.com/packages/lf20_WpDG3calyJ.json"
+                    classes="w-[400px] h-[400px] mt-8"
+                    autoplay
+                    loop
+                  />
+                </div>
+              )}
+            </>
+          )}
         </div>
       </div>
     </div>

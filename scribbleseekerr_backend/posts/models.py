@@ -31,7 +31,7 @@ class Post(models.Model):
     tags_string = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
-        return self.title
+        return self.title, self.text_type
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

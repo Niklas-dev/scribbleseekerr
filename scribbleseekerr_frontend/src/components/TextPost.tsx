@@ -1,10 +1,11 @@
+"use client";
 import {
   PoppinsBold,
   PoppinsLight,
   PoppinsRegular,
   PoppinsSemi,
 } from "@/styles/fonts";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaFire } from "react-icons/fa";
 import Flames from "./Flames";
 
@@ -28,8 +29,20 @@ export default function TextPost({
   content,
   tags,
 }: TextPostProps) {
+  const [fadeIn, setFadeIn] = useState(false);
+
+  useEffect(() => {
+    setFadeIn(true);
+    return () => {
+      setFadeIn(false);
+    };
+  }, []);
   return (
-    <div className="w-full h-fit bg-[#161616] rounded-md shadow-md flex flex-col justify-end p-4 overflow-x-hidden cursor-pointer z-10">
+    <div
+      className={`fade-in-post ${
+        fadeIn ? "active" : ""
+      } w-full h-fit bg-[#161616] rounded-md shadow-md flex flex-col justify-end p-4 overflow-x-hidden cursor-pointer z-10`}
+    >
       <Flames pk={pk} flameUsersProp={flameUsers} />
       <h5 className={`${PoppinsSemi.className} text-gray-100 text-lg pt-2`}>
         {title}
