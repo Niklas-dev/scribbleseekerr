@@ -1,23 +1,16 @@
 "use client";
 
-import {
-  PoppinsBold,
-  PoppinsLight,
-  PoppinsRegular,
-  PoppinsSemi,
-} from "@/styles/fonts";
-import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import GoogleButton from "react-google-button";
-import Image from "next/image";
-import LottiePlayer from "@/components/LottiePlayer";
+import { useState } from "react";
+
 import LandingNav from "@/components/LandingNav";
 import MainContent from "@/components/MainContent";
 import AboutFeatures from "@/components/AboutFeatures";
 import TextSamples from "@/components/TextSamples";
 import { useAuth } from "./providers/auth";
 import { useRouter } from "next/navigation";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   const [userName, setUserName] = useState("");
@@ -127,19 +120,7 @@ export default function Home() {
         <MainContent />
         <AboutFeatures />
         <TextSamples />
-        <footer className=" min-h-[150px] w-full bg-[#161616] flex flex-col justify-between">
-          <div className="mx-4 px-2 py-2"></div>
-          <div className="border-t-[1px] border-[#333333] px-2 mx-4 py-4 flex flex-row justify-between">
-            <h4 className={`${PoppinsBold.className} text-gray-100 `}>
-              ScribbleSeekerr
-            </h4>
-            <h4
-              className={`${PoppinsRegular.className} text-gray-100 cursor-pointer`}
-            >
-              by <b>@Niklas-dev</b>
-            </h4>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </main>
   );
