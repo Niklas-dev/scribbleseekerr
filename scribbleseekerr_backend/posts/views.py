@@ -58,7 +58,7 @@ class GetPosts(APIView):
         from_val = count * 10
         to_val = count * 10 + 10
 
-        if text_type == 'all':
+        if text_type == 'all' or text_type == 'null':
             text_type = None
         print(search)
         if search == '':
@@ -69,7 +69,7 @@ class GetPosts(APIView):
 
             print("Search")
 
-            vector = SearchVector('title', 'tags_string', 'author')
+            vector = SearchVector('title', 'content', 'tags_string', 'author')
             query = SearchQuery(search)
 
             if text_type:
@@ -84,6 +84,7 @@ class GetPosts(APIView):
 
                 posts = Post.objects.filter(text_type=text_type)[from_val:to_val]
             else:
+                print('All')
                 posts = Post.objects.all()[from_val:to_val]
 
         serializer = PostSerializer(posts, many=True)

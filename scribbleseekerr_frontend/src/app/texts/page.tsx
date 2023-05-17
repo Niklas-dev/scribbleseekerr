@@ -114,7 +114,11 @@ export default function Page({ params }: { params: { text_type: string } }) {
             type="text"
           ></input>
         </div>
-        <InitialsAvatar href="/user" username={user?.username as string} />
+        {user ? (
+          <InitialsAvatar href="/user" username={user.username} />
+        ) : (
+          <div></div>
+        )}
       </div>
       <div className="px-20 lg:px-80 pt-20">
         <div className="flex flex-row justify-center gap-4 pb-10">
