@@ -35,15 +35,44 @@ export default function Page({ params }: { params: { text_type: string } }) {
   const { user, loaded, loginWithToken } = useAuth();
   const [postSearch, setPostSearch] = useState("");
   const [loadingData, setLoadingData] = useState(true);
-
+  const [fetchedAll, setFetchedAll] = useState(false);
+  const [page, setPage] = useState(0);
+  const [posts, setPosts] = useState<Post[]>([]);
   const searchParams = useSearchParams();
-
   const text_type_param = searchParams.get("text_type");
 
-  const [page, setPage] = useState(0);
   const getPosts = async (search: string, text_type: string) => {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_PATH}/posts/get-posts?count=${page}&text_type=${text_type}&search=${search}`,
+    const response = await fetchWithParams(search, text_type, page);
+    console.log(response);
+
+    setPosts(response);
+    setLoadingData(false);
+  };
+
+  useEffect(() => {
+    setLoadingData(true);
+    const getPostTimer = setTimeout(() => {
+      getPosts(postSearch, text_type_param!);
+    }, 1000);
+
+    return () => onDismount();
+  }, [postSearch]);
+
+  useEffect(() => {
+    loginWithToken();
+    getPosts(postSearch, text_type_param!);
+    console.log(text_type_param);
+
+    return () => onDismount();
+  }, [loaded]);
+
+  const fetchWithParams = async (
+    search: string,
+    text_type: string,
+    currentPage: number
+  ): Promise<any> => {
+    return fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_PATH}/posts/get-posts?count=${currentPage}&text_type=${text_type}&search=${search}`,
       {
         method: "GET",
         mode: "cors",
@@ -55,34 +84,31 @@ export default function Page({ params }: { params: { text_type: string } }) {
         throw Error;
       }
     });
-    console.log(response);
-
-    setPosts(response);
-    setLoadingData(false);
   };
 
-  const [posts, setPosts] = useState<Post[]>([]);
+  const loadMore = async (search: string, text_type: string) => {
+    const response = await fetchWithParams(search, text_type, page + 1);
+    console.log(response);
+    setPage((_prev) => _prev + 1);
+    setPosts((_prev) => [..._prev, ...response]);
+    setLoadingData(false);
 
-  useEffect(() => {
+    const pre_response = await fetchWithParams(search, text_type, page + 2);
+
+    if (pre_response.length === 0) {
+      setFetchedAll(true);
+    } else {
+      setFetchedAll(false);
+    }
+  };
+
+  const onDismount = () => {
+    setPosts([]);
     setLoadingData(true);
-    const getPostTimer = setTimeout(() => {
-      getPosts(postSearch, text_type_param!);
-    }, 1000);
-
-    return () => {
-      clearTimeout(getPostTimer);
-      setPosts([]);
-    };
-  }, [postSearch]);
-
-  useEffect(() => {
-    loginWithToken();
-    getPosts(postSearch, text_type_param!);
-    console.log(text_type_param);
-    return () => {
-      setPosts([]);
-    };
-  }, [loaded]);
+    setFetchedAll(false);
+    setPostSearch("");
+    setPage(0);
+  };
 
   return (
     <div className="bg-[#0e0e0e] overflow-y-scroll h-screen w-full ">
@@ -146,6 +172,17 @@ export default function Page({ params }: { params: { text_type: string } }) {
                       />
                     );
                   })}
+
+                  {!fetchedAll && (
+                    <div className="w-full  flex flex-row py-4 justify-center">
+                      <button
+                        onClick={() => loadMore(postSearch, text_type_param!)}
+                        className={`${PoppinsSemi.className} text-[#0e0e0e] text-lg bg-gray-100 rounded-md px-4 py-2 transition-transform duration-300 hover:scale-95`}
+                      >
+                        Load more
+                      </button>
+                    </div>
+                  )}
                 </PostWrapper>
               ) : (
                 <div className="flex flex-col justify-center items-center">
