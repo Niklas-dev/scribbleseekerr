@@ -109,22 +109,27 @@ export default function Page({ params }: { params: { text_type: string } }) {
     setPostSearch("");
     setPage(0);
   };
-
+  const topRef = React.useRef<HTMLDivElement>(null);
   return (
     <div className="bg-[#0e0e0e] overflow-y-scroll h-screen w-full ">
       <button
         onClick={() => {
           console.log("test");
-          window.scrollTo({
-            top: 0,
+
+          topRef.current!.scrollIntoView({
             behavior: "smooth",
+            block: "start",
+            inline: "nearest",
           });
         }}
-        className="absolute bottom-6 right-6 h-14 w-14 bg-gray-100 grid place-content-center rounded-full shadow-xl z-30"
+        className="fixed bottom-6 right-6  h-14 w-14 bg-gray-100 grid place-content-center rounded-full shadow-xl z-30"
       >
         <FaArrowUp size={20} color="black" />
       </button>
-      <div className="flex flex-row items-center justify-between px-6  sm:px-28 md:px-32 lg:px-36 xl:px-72 pt-8 gap-8">
+      <div
+        ref={topRef}
+        className="flex flex-row items-center justify-between px-6  sm:px-28 md:px-32 lg:px-36 xl:px-72 pt-8 gap-8"
+      >
         <Link
           href={"/"}
           className={`${PoppinsSemi.className} text-gray-100 hidden md:block text-xl lg:text-3xl`}
