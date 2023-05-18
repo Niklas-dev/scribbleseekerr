@@ -41,6 +41,7 @@ export default function Page({ params }: { params: { text_type: string } }) {
   const [posts, setPosts] = useState<Post[]>([]);
   const searchParams = useSearchParams();
   const text_type_param = searchParams.get("text_type");
+  const router = useRouter();
 
   const getPosts = async (search: string, text_type: string) => {
     const response = await fetchWithParams(search, text_type, page);
@@ -137,13 +138,21 @@ export default function Page({ params }: { params: { text_type: string } }) {
           ScribbleSeekerr
         </Link>
 
-        <div className="relative">
-          <FaSearch className="absolute top-4 left-4" color="#F3F4F6" />
-          <input
-            onChange={(e) => setPostSearch(e.target.value)}
-            className={`${PoppinsSemi.className} h-12 w-11/12 md:w-[20rem] lg:w-[30rem] rounded-lg text-lg pl-10 pr-2 py-1 outline-none bg-[#1d1d1d] text-gray-100 shadow-lg`}
-            type="text"
-          ></input>
+        <div className="flex flex-row items-center gap-2">
+          <div className="relative">
+            <FaSearch className="absolute top-4 left-4" color="#F3F4F6" />
+            <input
+              onChange={(e) => setPostSearch(e.target.value)}
+              className={`${PoppinsSemi.className} h-12 w-11/12 md:w-[20rem] lg:w-[30rem] rounded-lg text-lg pl-10 pr-2 py-1 outline-none bg-[#1d1d1d] text-gray-100 shadow-lg`}
+              type="text"
+            ></input>
+          </div>
+          <Link
+            href={"/create-post"}
+            className={`${PoppinsSemi.className} text-[#0e0e0e] text-base whitespace-nowrap lg:text-lg bg-gray-100 rounded-md px-4 py-2 h-12 transition-transform duration-300 hover:scale-95`}
+          >
+            New Post
+          </Link>
         </div>
         {user ? (
           <InitialsAvatar href="/user" username={user.username} />
