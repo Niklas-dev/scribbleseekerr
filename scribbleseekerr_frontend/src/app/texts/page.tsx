@@ -19,6 +19,7 @@ import PostWrapper from "@/components/PostWrapper";
 import { useRouter, useSearchParams } from "next/navigation";
 import LottiePlayer from "@/components/LottiePlayer";
 import PostBlueprint from "@/components/PostBlueprint";
+import ScrollToTop from "@/components/ScrollToTop";
 
 interface Post {
   text_type: string;
@@ -35,7 +36,7 @@ export default function Page({ params }: { params: { text_type: string } }) {
   const { user, loaded, loginWithToken } = useAuth();
   const [postSearch, setPostSearch] = useState("");
   const [loadingData, setLoadingData] = useState(true);
-  const [fetchedAll, setFetchedAll] = useState(false);
+  const [fetchedAll, setFetchedAll] = useState(true);
   const [page, setPage] = useState(0);
   const [posts, setPosts] = useState<Post[]>([]);
   const searchParams = useSearchParams();
@@ -47,6 +48,14 @@ export default function Page({ params }: { params: { text_type: string } }) {
 
     setPosts(response);
     setLoadingData(false);
+
+    const pre_response = await fetchWithParams(search, text_type, page + 1);
+
+    if (pre_response.length === 0) {
+      setFetchedAll(true);
+    } else {
+      setFetchedAll(false);
+    }
   };
 
   useEffect(() => {
@@ -54,14 +63,18 @@ export default function Page({ params }: { params: { text_type: string } }) {
     const getPostTimer = setTimeout(() => {
       getPosts(postSearch, text_type_param!);
     }, 1000);
-
-    return () => onDismount();
+    return () => {
+      setPage(0);
+      setPosts([]);
+      clearTimeout(getPostTimer);
+      setLoadingData(true);
+      setFetchedAll(false);
+    };
   }, [postSearch]);
 
   useEffect(() => {
     loginWithToken();
     getPosts(postSearch, text_type_param!);
-    console.log(text_type_param);
 
     return () => onDismount();
   }, [loaded]);
@@ -112,20 +125,7 @@ export default function Page({ params }: { params: { text_type: string } }) {
   const topRef = React.useRef<HTMLDivElement>(null);
   return (
     <div className="bg-[#0e0e0e] overflow-y-scroll h-screen w-full ">
-      <button
-        onClick={() => {
-          console.log("test");
-
-          topRef.current!.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-            inline: "nearest",
-          });
-        }}
-        className="fixed bottom-6 right-6  h-14 w-14 bg-gray-100 grid place-content-center rounded-full shadow-xl z-30"
-      >
-        <FaArrowUp size={20} color="black" />
-      </button>
+      <ScrollToTop topRef={topRef} />
       <div
         ref={topRef}
         className="flex flex-row items-center justify-between px-6  sm:px-28 md:px-32 lg:px-36 xl:px-72 pt-8 gap-8"
