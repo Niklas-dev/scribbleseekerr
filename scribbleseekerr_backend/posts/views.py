@@ -9,8 +9,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponse, FileResponse
 
-from posts.models import Post
-from posts.serializers import PostSerializer, UserSerializer
+from posts.models import Post, Tag
+from posts.serializers import PostSerializer, UserSerializer, TagSerializer
 
 
 # Create your views here.
@@ -41,6 +41,17 @@ class UpdateFlames(APIView):
                 post.save()
 
         serializer = UserSerializer(post.flames.all(), many=True)
+        json_data = serializer.data
+
+        return Response(json_data, status=status.HTTP_200_OK)
+
+
+class GetTags(APIView):
+    def get(self, request):
+        tags = Tag.objects.all()
+        print(tags)
+        serializer = TagSerializer(tags, many=True)
+
         json_data = serializer.data
 
         return Response(json_data, status=status.HTTP_200_OK)

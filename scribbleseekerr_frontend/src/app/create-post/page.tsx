@@ -3,20 +3,81 @@ import InitialsAvatar from "@/components/InitialsAvatar";
 import ScrollToTop from "@/components/ScrollToTop";
 import { PoppinsBold, PoppinsRegular, PoppinsSemi } from "@/styles/fonts";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useAuth } from "../providers/auth";
 import TextareaAutosize from "react-textarea-autosize";
-
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
+const animatedComponents = makeAnimated();
 export default function Page() {
   const { user, loaded, loginWithToken } = useAuth();
+  const [options, setOptions] = useState([]);
+
+  const fetchTags = async () => {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_PATH}/posts/get-tags`,
+      {
+        method: "GET",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+      }
+    ).then((response) => response.json());
+    let newOptions = response.map((tag: { pk: number; name: string }) => {
+      return { value: `#${tag.name}`, label: `#${tag.name}` };
+    });
+    setOptions(newOptions);
+  };
+
+  const customStyles = {
+    control: (base: any, state: any) => ({
+      ...base,
+      height: "3rem",
+      background: "#1d1d1d",
+      fontSize: "1.125rem",
+      // match with the menu
+
+      borderRadius: 8,
+      // Overwrittes the different states of border
+      borderColor: "transparent",
+      // Removes weird border around container
+      boxShadow: state.isFocused ? null : null,
+      "&:hover": {
+        // Overwrittes the different states of border
+        borderColor: state.isFocused ? "#F3F4F6" : "#F3F4F6",
+      },
+    }),
+    menu: (base: any) => ({
+      ...base,
+      // override border radius to match the box
+
+      borderRadius: 0,
+      // kill the gap
+      marginTop: 0,
+    }),
+    menuList: (base: any) => ({
+      ...base,
+      // kill the white space on first and last option
+
+      padding: 12,
+    }),
+  };
+
+  useEffect(() => {
+    fetchTags();
+
+    return () => {};
+  }, []);
 
   return (
     <div className="bg-[#0e0e0e] overflow-y-scroll h-screen w-full px-6  sm:px-28 md:px-32 lg:px-36 xl:px-72">
       <div className="flex flex-row items-center justify-between  pt-8 gap-8">
         <Link
           href={"/"}
-          className={`${PoppinsSemi.className} text-[#0e0e0e] text-base whitespace-nowrap lg:text-lg bg-gray-100 rounded-md px-4 grid items-center h-12 transition-transform duration-300 hover:scale-95`}
+          className={`${PoppinsSemi.className} text-gray-100 text-lg border-2 border-gray-100 rounded-md px-4 py-2 transition-transform duration-300 hover:scale-95`}
         >
           Back
         </Link>
@@ -33,7 +94,7 @@ export default function Page() {
           <div></div>
         )}
       </div>
-      <div className=" pt-32 pb-10">
+      <div className=" pt-32 pb-36">
         <div className="bg-[#161616] flex flex-col p-6 rounded-lg">
           <div className="w-full flex flex-row justify-center">
             <h3
@@ -51,7 +112,7 @@ export default function Page() {
             </label>
             <input
               id="title"
-              className={`${PoppinsSemi.className} h-12 w-full rounded-lg text-lg py-1 outline-none bg-[#1d1d1d] text-gray-100 shadow-lg px-4`}
+              className={`${PoppinsSemi.className} h-12 w-full rounded-lg text-lg py-1 outline-none bg-[#1d1d1d] text-gray-100 shadow-lg px-4 `}
               type="text"
             ></input>
           </div>
@@ -62,7 +123,7 @@ export default function Page() {
             >
               Text type
             </label>
-            <select className="w-fit outline-none bg-[#1d1d1d] text-gray-100 h-12 px-2 rounded-lg text-xl shadow-lg">
+            <select className="w-fit outline-none bg-[#1d1d1d] text-gray-100 h-12 px-2 rounded-lg text-xl shadow-lg ">
               <option className="text-xl" value="Story">
                 Story
               </option>
@@ -84,7 +145,7 @@ export default function Page() {
             <TextareaAutosize
               cacheMeasurements
               minRows={10}
-              className={`${PoppinsSemi.className} h-96 w-full rounded-lg text-lg py-1 outline-none bg-[#1d1d1d] text-gray-100 shadow-lg px-4 resize-none`}
+              className={`${PoppinsSemi.className} h-96 w-full rounded-lg text-lg py-1 outline-none bg-[#1d1d1d] text-gray-100 shadow-lg px-4 resize-none `}
             />
           </div>
           <div className="flex flex-col pt-8">
@@ -94,6 +155,23 @@ export default function Page() {
             >
               Tags
             </label>
+            <Select
+              styles={customStyles}
+              onChange={(change) => console.log(change)}
+              closeMenuOnSelect={false}
+              components={animatedComponents}
+              defaultValue={[options[2], options[1]]}
+              isMulti
+              options={options}
+            />
+          </div>
+          <div className="w-full pt-8">
+            <button
+              onClick={() => {}}
+              className={`${PoppinsSemi.className} w-full text-[#0e0e0e] text-base whitespace-nowrap lg:text-lg bg-gray-100 rounded-md px-4 grid items-center h-12 transition-transform duration-300 hover:scale-95`}
+            >
+              Post
+            </button>
           </div>
         </div>
       </div>

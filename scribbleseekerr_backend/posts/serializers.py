@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from posts.models import Post
+from posts.models import Post, Tag
 
 import datetime
 
@@ -28,5 +28,11 @@ class PostSerializer(serializers.ModelSerializer):
         serializer = UserSerializer(obj.flames.all(), many=True)
         json_data = serializer.data
         return json_data
+
+
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = ['pk', 'name']
 
 
