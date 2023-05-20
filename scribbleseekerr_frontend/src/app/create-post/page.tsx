@@ -34,9 +34,13 @@ export default function Page() {
   const createPost = async () => {
     const handleSuccess = (response: any) => {
       setIsCreated(true);
-      setInterval(() => router.push("/texts"), 2400);
+      const timeout = setTimeout(() => {
+        router.push("/texts");
+      }, 2400);
     };
-    const handleError = (response: any) => {};
+    const handleError = (response: any) => {
+      console.log(response);
+    };
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_PATH}/posts/create-post`,
       {
@@ -112,7 +116,9 @@ export default function Page() {
   useEffect(() => {
     fetchTags();
 
-    return () => {};
+    return () => {
+      setIsCreated(false);
+    };
   }, []);
 
   return (
@@ -154,7 +160,7 @@ export default function Page() {
               <div></div>
             )}
           </div>
-          <div className=" pt-32 pb-36 flex flex-row justify-center">
+          <div className="pt-20 pb-36 flex flex-row justify-center">
             <div className="bg-[#161616] flex flex-col p-6 rounded-lg max-w-[1000px] w-full">
               <div className="w-full flex flex-row justify-center">
                 <h3

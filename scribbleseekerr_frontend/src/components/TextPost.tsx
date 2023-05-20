@@ -48,7 +48,12 @@ export default function TextPost({
         {title}
       </h5>
       <p className={`${PoppinsLight.className} text-gray-400 text-base`}>
-        {content}
+        {content.split("\n").map((line, index) => (
+          <React.Fragment key={index}>
+            {line}
+            <br />
+          </React.Fragment>
+        ))}
       </p>
       <p className={`${PoppinsRegular.className} text-1xl text-gray-400 pt-4`}>
         Published by{" "}
