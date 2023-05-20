@@ -23,7 +23,7 @@ class CreatePostSerializer(serializers.Serializer):
     text_type = serializers.ChoiceField(choices=TYPE_CHOICES)
     title = serializers.CharField(max_length=28)
 
-    content = serializers.CharField(max_length=2000)
+    content = serializers.CharField(max_length=10000)
 
     tags = serializers.ListField(child=serializers.CharField())
 

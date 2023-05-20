@@ -24,7 +24,7 @@ class Post(models.Model):
     text_type = models.CharField(max_length=10, choices=TYPE_CHOICES)
     title = models.CharField(max_length=28)
     author = models.CharField(max_length=28)
-    content = models.TextField(max_length=2000)
+    content = models.TextField(max_length=10000)
     flames = models.ManyToManyField('users.ScribbleUser', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     tags = models.ManyToManyField(Tag, blank=True)
