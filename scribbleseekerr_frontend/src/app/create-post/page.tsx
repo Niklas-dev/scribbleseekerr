@@ -9,6 +9,8 @@ import { useAuth } from "../providers/auth";
 import TextareaAutosize from "react-textarea-autosize";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
+import LottiePlayer from "@/components/LottiePlayer";
+import { useRouter } from "next/navigation";
 const animatedComponents = makeAnimated();
 
 interface IPostData {
@@ -27,10 +29,12 @@ export default function Page() {
     content: "",
     tags: [],
   });
+  const router = useRouter();
 
   const createPost = async () => {
     const handleSuccess = (response: any) => {
       setIsCreated(true);
+      setInterval(() => router.push("/texts"), 2400);
     };
     const handleError = (response: any) => {};
     const response = await fetch(
@@ -42,7 +46,7 @@ export default function Page() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
-        body: JSON.stringify({}),
+        body: JSON.stringify(postData),
       }
     ).then(async (response) => {
       if (response.status === 200) {
@@ -66,7 +70,7 @@ export default function Page() {
       }
     ).then((response) => response.json());
     let newOptions = response.map((tag: { pk: number; name: string }) => {
-      return { value: `#${tag.name}`, label: `#${tag.name}` };
+      return { value: `${tag.name}`, label: `${tag.name}` };
     });
     setOptions(newOptions);
   };
@@ -114,7 +118,20 @@ export default function Page() {
   return (
     <>
       {isCreated ? (
-        <div className="w-full h-full">Created</div>
+        <div className="bg-[#0e0e0e] overflow-y-scroll h-screen w-full grid items-center">
+          <div className="flex flex-col justify-center items-center">
+            <LottiePlayer
+              src="https://assets9.lottiefiles.com/private_files/lf30_nsqfzxxx.json"
+              classes="w-[400px] h-[400px] mt-8"
+              autoplay
+            />
+            <h3
+              className={`${PoppinsBold.className} text-gray-100 text-xl text-center`}
+            >
+              Post has been created.
+            </h3>
+          </div>
+        </div>
       ) : (
         <div className="bg-[#0e0e0e] overflow-y-scroll h-screen w-full px-6  sm:px-28 md:px-32 lg:px-36 xl:px-72">
           <div className="flex flex-row items-center justify-between  pt-8 gap-8">
@@ -137,8 +154,8 @@ export default function Page() {
               <div></div>
             )}
           </div>
-          <div className=" pt-32 pb-36">
-            <div className="bg-[#161616] flex flex-col p-6 rounded-lg">
+          <div className=" pt-32 pb-36 flex flex-row justify-center">
+            <div className="bg-[#161616] flex flex-col p-6 rounded-lg max-w-[1000px] w-full">
               <div className="w-full flex flex-row justify-center">
                 <h3
                   className={`${PoppinsBold.className} text-gray-100 text-lg lg:text-2xl `}
@@ -240,7 +257,7 @@ export default function Page() {
               </div>
               <div className="w-full pt-8">
                 <button
-                  onClick={() => {}}
+                  onClick={() => createPost()}
                   className={`${PoppinsSemi.className} w-full text-[#0e0e0e] text-base whitespace-nowrap lg:text-lg bg-gray-100 rounded-md px-4 grid items-center h-12 transition-transform duration-300 hover:scale-95`}
                 >
                   Post
