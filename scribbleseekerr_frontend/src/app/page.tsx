@@ -1,15 +1,8 @@
-"use client";
-
-import { useGoogleLogin } from "@react-oauth/google";
-import Link from "next/link";
-import { useState } from "react";
-
 import LandingNav from "@/components/LandingNav";
 import MainContent from "@/components/MainContent";
 import AboutFeatures from "@/components/AboutFeatures";
 import TextSamples from "@/components/TextSamples";
-import { useAuth } from "./providers/auth";
-import { useRouter } from "next/navigation";
+
 import Footer from "@/components/Footer";
 
 export default function Home() {

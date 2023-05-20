@@ -47,6 +47,7 @@ class UpdateFlames(APIView):
 
 
 class GetTags(APIView):
+    permission_classes = [IsAuthenticated, ]
     def get(self, request):
         tags = Tag.objects.all()
         print(tags)
