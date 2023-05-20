@@ -5,7 +5,7 @@ import { PoppinsBold, PoppinsRegular, PoppinsSemi } from "@/styles/fonts";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { useAuth } from "../providers/auth";
+import { useAuth } from "../../providers/auth";
 import TextareaAutosize from "react-textarea-autosize";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";

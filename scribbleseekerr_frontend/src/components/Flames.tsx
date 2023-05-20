@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { FaFire } from "react-icons/fa";
 
 import { FlameUser } from "./TextPost";
-import { useAuth } from "@/app/providers/auth";
+import { useAuth } from "@/providers/auth";
 
 export default function Flames({
   flameUsersProp,

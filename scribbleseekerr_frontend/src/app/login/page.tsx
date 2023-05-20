@@ -9,7 +9,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import { useAuth } from "../providers/auth";
+import { useAuth } from "../../providers/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";

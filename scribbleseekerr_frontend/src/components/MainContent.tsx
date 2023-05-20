@@ -3,7 +3,7 @@ import React from "react";
 import LottiePlayer from "./LottiePlayer";
 import Link from "next/link";
 import { PoppinsBold, PoppinsSemi } from "@/styles/fonts";
-import { useAuth } from "@/app/providers/auth";
+import { useAuth } from "@/providers/auth";
 
 export default function MainContent() {
   const { user } = useAuth();

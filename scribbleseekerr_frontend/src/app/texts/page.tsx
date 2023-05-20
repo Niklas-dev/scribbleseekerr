@@ -12,7 +12,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 import { FaSearch, FaArrowUp, FaFire } from "react-icons/fa";
-import { useAuth } from "../providers/auth";
+import { useAuth } from "../../providers/auth";
 import InitialsAvatar from "@/components/InitialsAvatar";
 
 import PostWrapper from "@/components/PostWrapper";

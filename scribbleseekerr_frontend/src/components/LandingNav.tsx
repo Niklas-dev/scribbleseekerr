@@ -1,5 +1,5 @@
 "use client";
-import { useAuth } from "@/app/providers/auth";
+import { useAuth } from "@/providers/auth";
 import { PoppinsLight, PoppinsSemi } from "@/styles/fonts";
 import Link from "next/link";
 import React from "react";
