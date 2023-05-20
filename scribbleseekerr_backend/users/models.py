@@ -2,6 +2,8 @@ from django.contrib.auth.models import AbstractUser, PermissionsMixin
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
 
+from posts.models import Post
+
 
 # Create your models here.
 
@@ -21,6 +23,7 @@ class ScribbleUser(AbstractUser, PermissionsMixin):
             "unique": "A user with that username already exists."
         },
     )
+    posts = models.ManyToManyField('posts.Post')
     email = models.EmailField(blank=False, null=False, unique=True, error_messages={
         'unique': "This email is already in use."
     })

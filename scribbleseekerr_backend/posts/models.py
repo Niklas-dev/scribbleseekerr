@@ -3,7 +3,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.db.models.signals import post_save, post_init
 from django.dispatch import receiver
 
-from users.models import ScribbleUser
+
 
 
 # Create your models here.
@@ -25,7 +25,7 @@ class Post(models.Model):
     title = models.CharField(max_length=28)
     author = models.CharField(max_length=28)
     content = models.TextField(max_length=2000)
-    flames = models.ManyToManyField(ScribbleUser, blank=True)
+    flames = models.ManyToManyField('users.ScribbleUser', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     tags = models.ManyToManyField(Tag, blank=True)
     tags_string = models.CharField(max_length=255, blank=True, null=True)

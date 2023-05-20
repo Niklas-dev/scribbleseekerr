@@ -1,3 +1,4 @@
+"use client";
 import { useAuth } from "@/app/providers/auth";
 import { PoppinsLight, PoppinsSemi } from "@/styles/fonts";
 import Link from "next/link";

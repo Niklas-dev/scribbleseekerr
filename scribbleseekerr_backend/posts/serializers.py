@@ -8,10 +8,24 @@ from users.models import ScribbleUser
 
 
 class UserSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = ScribbleUser
         fields = ['pk', 'username']
+
+
+class CreatePostSerializer(serializers.Serializer):
+    TYPE_CHOICES = (
+        ('poem', 'Poem'),
+        ('story', 'Story'),
+        ('paper', 'Paper'),
+    )
+
+    text_type = serializers.ChoiceField(choices=TYPE_CHOICES)
+    title = serializers.CharField(max_length=28)
+
+    content = serializers.CharField(max_length=2000)
+
+    tags = serializers.ListField(child=serializers.CharField())
 
 
 
@@ -34,5 +48,3 @@ class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
         fields = ['pk', 'name']
-
-

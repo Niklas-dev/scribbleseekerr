@@ -10,13 +10,36 @@ from rest_framework.response import Response
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponse, FileResponse
 
 from posts.models import Post, Tag
-from posts.serializers import PostSerializer, UserSerializer, TagSerializer
+from posts.serializers import PostSerializer, UserSerializer, TagSerializer, CreatePostSerializer
 
 
 # Create your views here.
 
 class CreatePost(APIView):
-    pass
+    permission_classes = [IsAuthenticated, ]
+
+    def post(self, request):
+        serializer = CreatePostSerializer(data=request.data)
+        if serializer.is_valid():
+            print(serializer.data)
+
+            post = Post(text_type=serializer.data.get("text_type"), title=serializer.data.get("title"),
+                        content=serializer.data.get("content"), author=request.user.username)
+
+            post.save()
+
+            for tag in serializer.data.get('tags'):
+                tag_obj = Tag.objects.get(name=tag)
+                post.tags.add(tag_obj)
+
+            post.save()
+
+            post.tags_string = ", ".join(tag.name for tag in post.tags.all())
+
+            post.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UpdateFlames(APIView):
@@ -48,6 +71,7 @@ class UpdateFlames(APIView):
 
 class GetTags(APIView):
     permission_classes = [IsAuthenticated, ]
+
     def get(self, request):
         tags = Tag.objects.all()
         print(tags)
