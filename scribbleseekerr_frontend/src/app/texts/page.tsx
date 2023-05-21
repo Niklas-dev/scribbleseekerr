@@ -21,6 +21,9 @@ import LottiePlayer from "@/components/LottiePlayer";
 import PostBlueprint from "@/components/PostBlueprint";
 import ScrollToTop from "@/components/ScrollToTop";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 interface Post {
   text_type: string;
   pk: number;
@@ -42,6 +45,8 @@ export default function Page({ params }: { params: { text_type: string } }) {
   const searchParams = useSearchParams();
   const text_type_param = searchParams.get("text_type");
   const router = useRouter();
+
+  const error = (message: string) => toast.error(message);
 
   const getPosts = async (search: string, text_type: string) => {
     const response = await fetchWithParams(search, text_type, page);
@@ -126,6 +131,13 @@ export default function Page({ params }: { params: { text_type: string } }) {
   const topRef = React.useRef<HTMLDivElement>(null);
   return (
     <div className="bg-[#0e0e0e] overflow-y-scroll h-screen w-full ">
+      <ToastContainer
+        theme="dark"
+        position="top-center"
+        closeButton
+        autoClose={2000}
+        limit={5}
+      />
       <ScrollToTop topRef={topRef} />
       <div
         ref={topRef}
@@ -176,6 +188,7 @@ export default function Page({ params }: { params: { text_type: string } }) {
                   {(posts as Post[]).map((post: Post, index: number) => {
                     return (
                       <TextPost
+                        error={(msg: string) => error(msg)}
                         key={post.pk}
                         pk={post.pk}
                         title={post.title}

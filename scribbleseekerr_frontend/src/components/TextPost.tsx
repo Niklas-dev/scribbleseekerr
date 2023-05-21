@@ -14,6 +14,7 @@ export interface FlameUser {
   username: string;
 }
 export interface TextPostProps {
+  error: (msg: string) => void;
   pk: number;
   author: string;
   flameUsers: FlameUser[];
@@ -28,6 +29,7 @@ export default function TextPost({
   title,
   content,
   tags,
+  error,
 }: TextPostProps) {
   const [fadeIn, setFadeIn] = useState(false);
 
@@ -43,7 +45,7 @@ export default function TextPost({
         fadeIn ? "active" : ""
       } w-full h-fit bg-[#161616] rounded-md shadow-md flex flex-col justify-end p-4 overflow-x-hidden cursor-pointer z-10`}
     >
-      <Flames pk={pk} flameUsersProp={flameUsers} />
+      <Flames error={error} pk={pk} flameUsersProp={flameUsers} />
       <h5 className={`${PoppinsSemi.className} text-gray-100 text-lg pt-2`}>
         {title}
       </h5>

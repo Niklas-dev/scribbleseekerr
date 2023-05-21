@@ -9,9 +9,11 @@ import { useAuth } from "@/providers/auth";
 export default function Flames({
   flameUsersProp,
   pk,
+  error,
 }: {
   pk: number;
   flameUsersProp: FlameUser[];
+  error: (msg: string) => void;
 }) {
   const [flameUsers, setFlameUsers] = useState<FlameUser[]>(flameUsersProp);
 
@@ -64,16 +66,20 @@ export default function Flames({
   return (
     <div
       onClick={async () => {
-        if (alreadyFlamed) {
-          setFlameCount((_prev) => _prev - 1);
-          setAlreadyFlamed((_prev) => !_prev);
+        if (user) {
+          if (alreadyFlamed) {
+            setFlameCount((_prev) => _prev - 1);
+            setAlreadyFlamed((_prev) => !_prev);
 
-          updateFlames("down", pk);
+            updateFlames("down", pk);
+          } else {
+            setFlameCount((_prev) => _prev + 1);
+            setAlreadyFlamed((_prev) => !_prev);
+
+            updateFlames("up", pk);
+          }
         } else {
-          setFlameCount((_prev) => _prev + 1);
-          setAlreadyFlamed((_prev) => !_prev);
-
-          updateFlames("up", pk);
+          error("You need to be signed in.");
         }
       }}
       className={`flex flex-row items-center gap-1 w-fit px-2 rounded-md py-[0.15rem] cursor-pointer hover:bg-[#2c2c2c] transition-colors duration-200 z-20 ${
