@@ -136,7 +136,7 @@ export default function Page({ params }: { params: { text_type: string } }) {
         position="top-center"
         closeButton
         autoClose={2000}
-        limit={5}
+        limit={3}
       />
       <ScrollToTop topRef={topRef} />
       <div
