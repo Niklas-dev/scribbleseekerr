@@ -1,3 +1,5 @@
+"use client";
+import { useAuth } from "@/providers/auth";
 import {
   PoppinsBold,
   PoppinsLight,
@@ -8,6 +10,7 @@ import Link from "next/link";
 import React from "react";
 
 export default function Page() {
+  const { user } = useAuth();
   return (
     <div className="bg-[#0e0e0e] flex flex-col overflow-y-scroll h-screen w-full px-6  sm:px-28 md:px-32 lg:px-36 xl:px-72">
       <div className="flex flex-row items-center justify-between  pt-8 gap-8">
@@ -31,9 +34,9 @@ export default function Page() {
           <p
             className={`${PoppinsSemi.className} text-center text-gray-200 text-2xl`}
           >
-            @DieZitrone
+            @{user?.username}
           </p>
-          <div className="flex flex-row justify-center gap-12 ">
+          <div className="flex flex-row justify-center gap-12 mt-4">
             <div className="min-h-[100px] min-w-[100px] rounded-full bg-gradient-to-br from-violet-500 to-blue-900 text-white grid place-content-center">
               Diez
             </div>
