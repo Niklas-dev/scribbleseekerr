@@ -30,7 +30,7 @@ export default function Page() {
         <div></div>
       </div>
       <div className="pt-10 flex flex-row justify-center w-full ">
-        <div className="bg-[#161616] w-1/2 h-fit py-8 px-20 rounded-lg ">
+        <div className="bg-[#161616] w-3/5 h-fit py-8 px-20 rounded-lg ">
           <p
             className={`${PoppinsSemi.className} text-center text-gray-200 text-2xl`}
           >
@@ -69,6 +69,21 @@ export default function Page() {
             >
               Hey I am a story writer and i like chat gpt!
             </p>
+          </div>
+          <div className="flex flex-row justify-center mt-4">
+            <Link
+              className={`${PoppinsSemi.className} text-[#0e0e0e] text-lg bg-gray-100 rounded-md px-4 py-2 transition-transform duration-300 hover:scale-95  w-full text-center`}
+              href={!user ? "/login" : "/texts"}
+            >
+              Edit
+            </Link>
+          </div>
+          <div>
+            <div className="flex flex-row justify-center mt-8">
+              <h2 className={`${PoppinsSemi.className} text-gray-200 text-xl`}>
+                Your Posts
+              </h2>
+            </div>
           </div>
         </div>
       </div>
