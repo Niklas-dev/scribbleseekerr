@@ -27,8 +27,13 @@ export default function Page() {
         <div></div>
       </div>
       <div className="pt-10 flex flex-row justify-center w-full ">
-        <div className="bg-[#161616] w-1/2 h-fit py-8 px-96 rounded-lg">
-          <div className="flex flex-row justify-center gap-10 ">
+        <div className="bg-[#161616] w-1/2 h-fit py-8 px-20 rounded-lg ">
+          <p
+            className={`${PoppinsSemi.className} text-center text-gray-200 text-2xl`}
+          >
+            @DieZitrone
+          </p>
+          <div className="flex flex-row justify-center gap-12 ">
             <div className="min-h-[100px] min-w-[100px] rounded-full bg-gradient-to-br from-violet-500 to-blue-900 text-white grid place-content-center">
               Diez
             </div>
@@ -54,6 +59,13 @@ export default function Page() {
                 </h3>
               </div>
             </div>
+          </div>
+          <div className="flex flex-col items-center justify-center ">
+            <p
+              className={`${PoppinsRegular.className} text-gray-200 text-lg text-center bg-[#222222] w-full p-2 mt-6 rounded-md`}
+            >
+              Hey I am a story writer and i like chat gpt!
+            </p>
           </div>
         </div>
       </div>
