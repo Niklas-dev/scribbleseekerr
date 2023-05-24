@@ -136,7 +136,7 @@ export default function Page() {
             <div className="flex flex-row justify-center mt-8 px-20 pb-8">
               <Link
                 className={`${PoppinsSemi.className} text-[#0e0e0e] text-lg bg-gray-100 rounded-md px-4 py-2 transition-transform duration-300 hover:scale-95  w-full text-center`}
-                href={!user ? "/login" : "/texts"}
+                href={"/user/edit"}
               >
                 Edit
               </Link>
