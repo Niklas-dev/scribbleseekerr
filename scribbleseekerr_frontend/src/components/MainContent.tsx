@@ -17,7 +17,8 @@ export default function MainContent() {
       <h1
         className={`${PoppinsBold.className} text-gray-100 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-center h-fit rounded-full px-8 pt-4 w-fit xl:w-[65rem]`}
       >
-        Join our community of writers. Share or explore any form of text today!
+        Join our community of writers. Share or explore any form of text
+        instant!
       </h1>
       <p
         className={`${PoppinsSemi.className} text-gray-500 text-lg text-center h-fit rounded-full px-8 pt-8 w-fit xl:w-[55rem]`}
