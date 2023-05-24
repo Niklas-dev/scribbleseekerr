@@ -1,7 +1,7 @@
 "use client";
 import PostWrapperLeft from "@/components/PostWrapper";
 import PostWrapperRight from "@/components/PostWrapperRight";
-import TextPost, { FlameUser } from "@/components/TextPost";
+import TextPost from "@/components/TextPost";
 import {
   PoppinsBold,
   PoppinsLight,
@@ -23,17 +23,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-interface Post {
-  text_type: string;
-  pk: number;
-  title: string;
-  author: string;
-  content: string;
-  flames: FlameUser[];
-  tags: string[];
-  created_at: string;
-}
+import { Post } from "@/shared/types";
 
 export default function Page({ params }: { params: { text_type: string } }) {
   const { user, loaded, loginWithToken } = useAuth();

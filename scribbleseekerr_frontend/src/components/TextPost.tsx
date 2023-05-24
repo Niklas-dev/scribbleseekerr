@@ -8,11 +8,8 @@ import {
 import React, { useEffect, useState } from "react";
 import { FaFire } from "react-icons/fa";
 import Flames from "./Flames";
+import { FlameUser } from "@/shared/types";
 
-export interface FlameUser {
-  pk: number;
-  username: string;
-}
 export interface TextPostProps {
   error: (msg: string) => void;
   pk: number;
