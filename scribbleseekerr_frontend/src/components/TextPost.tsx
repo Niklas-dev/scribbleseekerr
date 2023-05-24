@@ -21,6 +21,7 @@ export interface TextPostProps {
   title: string;
   content: string;
   tags: Array<string>;
+  border: boolean;
 }
 export default function TextPost({
   pk,
@@ -30,6 +31,7 @@ export default function TextPost({
   content,
   tags,
   error,
+  border,
 }: TextPostProps) {
   const [fadeIn, setFadeIn] = useState(false);
 
@@ -43,7 +45,9 @@ export default function TextPost({
     <div
       className={`fade-in-post ${
         fadeIn ? "active" : ""
-      } w-full h-fit bg-[#161616] rounded-md shadow-md flex flex-col justify-end p-4 overflow-x-hidden cursor-pointer z-10`}
+      } w-full h-fit bg-[#161616] rounded-md shadow-md flex flex-col justify-end p-4 overflow-x-hidden cursor-pointer z-10 ${
+        border && "border-2 border-gray-100"
+      }`}
     >
       <Flames error={error} pk={pk} flameUsersProp={flameUsers} />
       <h5 className={`${PoppinsSemi.className} text-gray-100 text-lg pt-2`}>

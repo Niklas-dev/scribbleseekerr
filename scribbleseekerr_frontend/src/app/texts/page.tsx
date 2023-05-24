@@ -188,6 +188,7 @@ export default function Page({ params }: { params: { text_type: string } }) {
                   {(posts as Post[]).map((post: Post, index: number) => {
                     return (
                       <TextPost
+                        border={false}
                         error={(msg: string) => error(msg)}
                         key={post.pk}
                         pk={post.pk}
