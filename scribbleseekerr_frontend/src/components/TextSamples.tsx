@@ -10,8 +10,8 @@ export default function TextSamples() {
       >
         You already want to start? No Problem, some reading samples will help!
       </h3>
-      <div className="grid grid-cols-1 justify-center lg:grid-cols-2  gap-2 pt-20 h-fit px-4 ">
-        <div className="w-fit xl:w-[35rem] h-fit  rounded-md flex flex-col justify-end p-4 bg-[#161616]">
+      <div className="grid grid-cols-1 justify-center lg:grid-cols-2  gap-2 pt-20 h-fit px-4 w-full">
+        <div className="w-fit xl:w-[35rem] h-fit  rounded-md flex flex-col  justify-end p-4 bg-[#161616]">
           <p className="text-4xl ">🐕</p>
           <h5 className={`${PoppinsSemi.className} text-gray-100 text-lg pt-2`}>
             An Officer&apos;s Dog (Story)
