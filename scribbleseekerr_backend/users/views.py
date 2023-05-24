@@ -6,6 +6,8 @@ from rest_framework.response import Response
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponse, FileResponse
 from rest_framework.permissions import AllowAny, IsAuthenticated
 import requests
+
+from posts.serializers import PostSerializer
 from scribbleseekerr_backend.settings import *
 from .serializers import *
 from PIL import Image, ImageDraw, ImageFont
@@ -16,6 +18,27 @@ from oauth2_provider.models import AccessToken, RefreshToken
 
 
 # Create your views here.
+
+class GetUserProfile(APIView):
+    permission_classes = [AllowAny, ]
+
+    def get(self,  request):
+
+        username = request.GET.get('username')
+        posts = Post.objects.filter(author=username)
+        print(username)
+        user = ScribbleUser.objects.get(username=username)
+
+        serializer = PostSerializer(posts, many=True)
+        flames = 0
+        for post in posts:
+            print(post.flames.all())
+            flames = flames + len(post.flames.all())
+        print(flames)
+        data = {"username": user.username, "about": user.about, "flames": flames, 'pk': user.pk,
+                'posts': serializer.data}
+
+        return Response(data, status=status.HTTP_200_OK)
 
 
 class UserData(APIView):
@@ -49,6 +72,3 @@ class UserCreate(APIView):
                 return Response(json.loads(response.content), status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-
