@@ -86,18 +86,18 @@ export default function Page() {
         <div></div>
       </div>
       <div className="pt-10 flex flex-row justify-center w-full ">
-        <div className=" w-3/5 h-fit py-8  rounded-lg ">
+        <div className="w-full max-w-[800px] h-fit py-8  rounded-lg ">
           <div className="bg-[#161616] h-fit py-8 w-full">
             <p
               className={`${PoppinsSemi.className} text-center text-gray-200 text-2xl`}
             >
               @{user?.username}
             </p>
-            <div className="flex flex-row justify-center gap-12 mt-4 px-20">
-              <div className="min-h-[100px] min-w-[100px] rounded-full bg-gradient-to-br from-violet-500 to-blue-900 text-white grid place-content-center">
+            <div className="flex flex-row justify-center items-center gap-12 mt-4 px-16">
+              <div className="h-[65px] w-[65px] min-h-[65px] min-w-[65px] md:h-[100px] md:w-[100px] rounded-full bg-gradient-to-br from-violet-500 to-blue-900 text-white grid place-content-center">
                 Diez
               </div>
-              <div className="flex flex-row gap-10 ">
+              <div className="flex sm:flex-row flex-col gap-10 ">
                 <div className="flex flex-col justify-center items-center">
                   <p
                     className={`${PoppinsBold.className} text-gray-200 text-xl`}
@@ -135,7 +135,7 @@ export default function Page() {
             </div>
             <div className="flex flex-row justify-center mt-8 px-20 pb-8">
               <Link
-                className={`${PoppinsSemi.className} text-[#0e0e0e] text-lg bg-gray-100 rounded-md px-4 py-2 transition-transform duration-300 hover:scale-95  w-full text-center`}
+                className={`${PoppinsSemi.className} text-[#0e0e0e] text-lg bg-gray-100 rounded-md px-4 py-2 transition-transform duration-300 hover:scale-95  w-full max-w-[200px] text-center`}
                 href={"/user/edit"}
               >
                 Edit
