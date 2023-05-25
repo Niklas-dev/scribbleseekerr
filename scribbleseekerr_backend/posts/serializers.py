@@ -20,13 +20,27 @@ class CreatePostSerializer(serializers.Serializer):
         ('paper', 'Paper'),
     )
 
-    text_type = serializers.ChoiceField(choices=TYPE_CHOICES)
+    text_type = serializers.ChoiceField(choices=TYPE_CHOICES, default="story")
     title = serializers.CharField(max_length=28)
 
     content = serializers.CharField(max_length=10000)
 
-    tags = serializers.ListField(child=serializers.CharField())
+    tags = serializers.ListField(child=serializers.CharField(allow_null=False, required=True, allow_blank=False),
+                                 allow_null=False, required=True,
+                                 error_messages={"tags": "This field may not be blank."})
 
+    def validate_tags(self, value):
+        if len(value) <= 0:
+            raise serializers.ValidationError("Tags must have a length of more than one.")
+        return value
+
+    def validate(self, attrs):
+        attrs = super().validate(attrs)
+        tags = attrs.get("tags")
+        if tags:
+            if len(tags) <= 0:
+                raise serializers.ValidationError("Tags must have a length of more than one.")
+        return attrs
 
 
 class PostSerializer(serializers.ModelSerializer):

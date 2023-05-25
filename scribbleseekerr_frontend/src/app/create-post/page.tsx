@@ -42,7 +42,18 @@ export default function Page() {
       }, 2400);
     };
     const handleError = (response: any) => {
+      let errorMessage = "";
       console.log(response);
+      if ("title" in response) {
+        errorMessage = "Fill out all fields.";
+      }
+      if ("content" in response) {
+        errorMessage = "Fill out all fields.";
+      }
+      if ("tags" in response) {
+        errorMessage = "Fill out all fields.";
+      }
+      error(errorMessage);
     };
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_PATH}/posts/create-post`,
@@ -62,7 +73,6 @@ export default function Page() {
         handleError(await response.json());
       }
     });
-    error("response");
   };
 
   const fetchTags = async () => {
