@@ -11,6 +11,8 @@ import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import LottiePlayer from "@/components/LottiePlayer";
 import { useRouter } from "next/navigation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const animatedComponents = makeAnimated();
 
 interface IPostData {
@@ -23,6 +25,7 @@ export default function Page() {
   const { user, loaded, loginWithToken } = useAuth();
   const [options, setOptions] = useState([]);
   const [isCreated, setIsCreated] = useState(false);
+  const error = (message: string) => toast.error(message);
   const [postData, setPostData] = useState<IPostData>({
     title: "",
     text_type: "story",
@@ -59,6 +62,7 @@ export default function Page() {
         handleError(await response.json());
       }
     });
+    error("response");
   };
 
   const fetchTags = async () => {
@@ -123,6 +127,13 @@ export default function Page() {
 
   return (
     <>
+      <ToastContainer
+        theme="dark"
+        position="top-center"
+        closeButton
+        autoClose={2000}
+        limit={3}
+      />
       {isCreated ? (
         <div className="bg-[#0e0e0e] overflow-y-scroll h-screen w-full grid items-center">
           <div className="flex flex-col justify-center items-center">
