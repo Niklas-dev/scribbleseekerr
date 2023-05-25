@@ -12,7 +12,7 @@ export default function InitialsAvatar({
   return (
     <Link
       href={href}
-      className="h-12 w-12 rounded-full bg-gradient-to-br from-violet-500 to-blue-900 text-white grid place-content-center"
+      className="h-12 w-12 min-w-[48px] min-h-[48px] rounded-full bg-gradient-to-br from-violet-500 to-blue-900 text-white grid place-content-center"
     >
       {createInitials(username)}
     </Link>
