@@ -131,11 +131,11 @@ export default function Page({ params }: { params: { text_type: string } }) {
       <ScrollToTop topRef={topRef} />
       <div
         ref={topRef}
-        className="flex flex-row items-center justify-between px-6  sm:px-28 md:px-32 lg:px-36 xl:px-72 pt-8 gap-8"
+        className="flex flex-row items-center justify-between px-6  sm:px-28 md:px-16 lg:px-28 xl:px-72 pt-8 gap-8"
       >
         <Link
           href={"/"}
-          className={`${PoppinsSemi.className} text-gray-100 hidden md:block text-xl lg:text-3xl`}
+          className={`${PoppinsSemi.className} text-gray-100 hidden md:block text-xl lg:text-2xl`}
         >
           ScribbleSeekerr
         </Link>
