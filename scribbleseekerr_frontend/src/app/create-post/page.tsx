@@ -13,6 +13,7 @@ import LottiePlayer from "@/components/LottiePlayer";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { customStyles } from "@/styles/custom";
 const animatedComponents = makeAnimated();
 
 interface IPostData {
@@ -38,6 +39,7 @@ export default function Page() {
     const handleSuccess = (response: any) => {
       setIsCreated(true);
       const timeout = setTimeout(() => {
+        setIsCreated(false);
         router.push("/texts");
       }, 2400);
     };
@@ -93,40 +95,6 @@ export default function Page() {
     setOptions(newOptions);
   };
 
-  const customStyles = {
-    control: (base: any, state: any) => ({
-      ...base,
-      height: "3rem",
-      background: "#1d1d1d",
-      fontSize: "1.125rem",
-      // match with the menu
-
-      borderRadius: 8,
-      // Overwrittes the different states of border
-      borderColor: "transparent",
-      // Removes weird border around container
-      boxShadow: state.isFocused ? null : null,
-      "&:hover": {
-        // Overwrittes the different states of border
-        borderColor: state.isFocused ? "#F3F4F6" : "#F3F4F6",
-      },
-    }),
-    menu: (base: any) => ({
-      ...base,
-      // override border radius to match the box
-
-      borderRadius: 0,
-      // kill the gap
-      marginTop: 0,
-    }),
-    menuList: (base: any) => ({
-      ...base,
-      // kill the white space on first and last option
-
-      padding: 12,
-    }),
-  };
-
   useEffect(() => {
     fetchTags();
 
@@ -151,6 +119,7 @@ export default function Page() {
               src="https://assets9.lottiefiles.com/private_files/lf30_nsqfzxxx.json"
               classes="w-[400px] h-[400px] mt-8"
               autoplay
+              loop={false}
             />
             <h3
               className={`${PoppinsBold.className} text-gray-100 text-xl text-center`}

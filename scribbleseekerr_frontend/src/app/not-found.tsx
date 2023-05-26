@@ -1,7 +1,6 @@
 "use client";
 import LottiePlayer from "@/components/LottiePlayer";
 import { PoppinsBold, PoppinsSemi } from "@/styles/fonts";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 
