@@ -10,10 +10,12 @@ export default function Flames({
   flameUsersProp,
   pk,
   error,
+  scale,
 }: {
   pk: number;
   flameUsersProp: FlameUser[];
-  error: (msg: string) => void;
+  error?: (msg: string) => void;
+  scale?: string;
 }) {
   const [flameUsers, setFlameUsers] = useState<FlameUser[]>(flameUsersProp);
 
@@ -79,10 +81,10 @@ export default function Flames({
             updateFlames("up", pk);
           }
         } else {
-          error("You need to be signed in.");
+          error!("You need to be signed in.");
         }
       }}
-      className={`flex flex-row items-center gap-1 w-14 px-2 rounded-md py-[0.15rem] cursor-pointer hover:bg-[#2c2c2c] transition-colors duration-200 z-30 ${
+      className={`flex flex-row items-center gap-1 w-14 px-2 rounded-md py-[0.15rem] cursor-pointer hover:bg-[#2c2c2c] transition-colors duration-200  z-30 ${scale} ${
         alreadyFlamed ? "bg-orange-500 bg-opacity-25" : "bg-[#222222]"
       }`}
     >
