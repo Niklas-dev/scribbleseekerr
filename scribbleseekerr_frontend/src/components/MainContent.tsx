@@ -12,7 +12,7 @@ export default function MainContent() {
       <div
         className={`${PoppinsSemi.className} bg-gray-100 text-[#0e0e0e] h-fit rounded-full px-2 text-xs sm:text-sm lg:text-base `}
       >
-        32 books, stories or papers and more are on the way!
+        32 stories, peoms or papers and more are on the way!
       </div>
       <h1
         className={`${PoppinsBold.className} text-gray-100 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-center h-fit rounded-full px-8 pt-4 w-fit xl:w-[65rem]`}
