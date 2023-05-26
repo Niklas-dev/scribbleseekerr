@@ -9,6 +9,7 @@ import React, { useEffect, useState } from "react";
 import { FaFire } from "react-icons/fa";
 import Flames from "./Flames";
 import { FlameUser } from "@/shared/types";
+import Link from "next/link";
 
 export interface TextPostProps {
   error: (msg: string) => void;
@@ -39,7 +40,8 @@ export default function TextPost({
     };
   }, []);
   return (
-    <div
+    <Link
+      href={`texts/${pk}`}
       className={`fade-in-post ${
         fadeIn ? "active" : ""
       } w-full h-fit bg-[#161616] rounded-md shadow-md flex flex-col justify-end p-4 overflow-x-hidden cursor-pointer z-10 ${
@@ -58,10 +60,13 @@ export default function TextPost({
           </React.Fragment>
         ))}
       </p>
-      <p className={`${PoppinsRegular.className} text-1xl text-gray-400 pt-4`}>
+      <Link
+        href={`user/${author}`}
+        className={`${PoppinsRegular.className} text-1xl text-gray-400 pt-4 z-20 hover:underline w-fit`}
+      >
         Published by{" "}
         <b className={`${PoppinsBold.className} text-gray-100`}>{author}</b>
-      </p>
+      </Link>
       <div className="flex flex-row gap-2 pt-4">
         {tags
           ? tags.map((tag) => (
@@ -74,6 +79,6 @@ export default function TextPost({
             ))
           : null}
       </div>
-    </div>
+    </Link>
   );
 }
