@@ -82,6 +82,18 @@ class GetTags(APIView):
         return Response(json_data, status=status.HTTP_200_OK)
 
 
+class GetPost(APIView):
+    permission_classes = [AllowAny, ]
+
+    def get(self, request):
+        pk = request.GET.get('pk')
+
+        post = Post.objects.get(pk=pk)
+
+        serializer = PostSerializer(post, many=False)
+        json_data = serializer.data
+
+        return Response(json_data, status=status.HTTP_200_OK)
 class GetPosts(APIView):
     permission_classes = [AllowAny, ]
 
