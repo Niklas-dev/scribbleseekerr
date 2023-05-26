@@ -12,7 +12,7 @@ class ScribbleUserAdminConfig(UserAdmin):
     list_filter = ('username', 'email')
     ordering = ('-date_joined',)
     list_display = ('username', 'email',
-                    'is_active', 'is_staff')
+                    'is_active', 'is_staff', 'about')
 
 
 
