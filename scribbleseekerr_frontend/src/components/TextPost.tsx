@@ -13,7 +13,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export interface TextPostProps {
-  error: (msg: string) => void;
+  error?: (msg: string) => void;
   pk: number;
   author: string;
   flameUsers: FlameUser[];
@@ -50,7 +50,7 @@ export default function TextPost({
         border && "border-2 border-gray-100"
       }`}
     >
-      <Flames error={error} pk={pk} flameUsersProp={flameUsers} />
+      <Flames error={error!} pk={pk} flameUsersProp={flameUsers} />
 
       <h5
         onClick={() => router.push(`texts/${pk}`)}
