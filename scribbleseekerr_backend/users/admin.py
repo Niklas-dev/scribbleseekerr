@@ -15,5 +15,4 @@ class ScribbleUserAdminConfig(UserAdmin):
                     'is_active', 'is_staff', 'about')
 
 
-
 admin.site.register(ScribbleUser, ScribbleUserAdminConfig)
