@@ -10,6 +10,7 @@ import { FaFire } from "react-icons/fa";
 import Flames from "./Flames";
 import { FlameUser } from "@/shared/types";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export interface TextPostProps {
   error: (msg: string) => void;
@@ -33,6 +34,8 @@ export default function TextPost({
 }: TextPostProps) {
   const [fadeIn, setFadeIn] = useState(false);
 
+  const router = useRouter();
+
   useEffect(() => {
     setFadeIn(true);
     return () => {
@@ -40,16 +43,19 @@ export default function TextPost({
     };
   }, []);
   return (
-    <Link
-      href={`texts/${pk}`}
+    <div
       className={`fade-in-post ${
         fadeIn ? "active" : ""
-      } w-full h-fit bg-[#161616] rounded-md shadow-md flex flex-col justify-end p-4 overflow-x-hidden cursor-pointer z-10 ${
+      } w-full h-fit bg-[#161616] rounded-md shadow-md flex flex-col justify-end p-4 overflow-x-hidden cursor-pointer  ${
         border && "border-2 border-gray-100"
       }`}
     >
       <Flames error={error} pk={pk} flameUsersProp={flameUsers} />
-      <h5 className={`${PoppinsSemi.className} text-gray-100 text-lg pt-2`}>
+
+      <h5
+        onClick={() => router.push(`texts/${pk}`)}
+        className={`${PoppinsSemi.className} text-gray-100 text-lg pt-2 hover:underline`}
+      >
         {title}
       </h5>
       <p className={`${PoppinsLight.className} text-gray-400 text-base`}>
@@ -60,6 +66,7 @@ export default function TextPost({
           </React.Fragment>
         ))}
       </p>
+
       <Link
         href={`user/${author}`}
         className={`${PoppinsRegular.className} text-1xl text-gray-400 pt-4 z-20 hover:underline w-fit`}
@@ -79,6 +86,6 @@ export default function TextPost({
             ))
           : null}
       </div>
-    </Link>
+    </div>
   );
 }

@@ -3,8 +3,8 @@ import { PoppinsBold } from "@/styles/fonts";
 import React, { useEffect, useState } from "react";
 import { FaFire } from "react-icons/fa";
 
-import { FlameUser } from "./TextPost";
 import { useAuth } from "@/providers/auth";
+import { FlameUser } from "@/shared/types";
 
 export default function Flames({
   flameUsersProp,
@@ -82,7 +82,7 @@ export default function Flames({
           error("You need to be signed in.");
         }
       }}
-      className={`flex flex-row items-center gap-1 w-fit px-2 rounded-md py-[0.15rem] cursor-pointer hover:bg-[#2c2c2c] transition-colors duration-200 z-20 ${
+      className={`flex flex-row items-center gap-1 w-fit px-2 rounded-md py-[0.15rem] cursor-pointer hover:bg-[#2c2c2c] transition-colors duration-200 z-30 ${
         alreadyFlamed ? "bg-orange-500 bg-opacity-25" : "bg-[#222222]"
       }`}
     >
