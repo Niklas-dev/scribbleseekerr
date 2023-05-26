@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { customStyles } from "@/styles/custom";
+import PostHasBeenCreatedInfo from "@/components/PostHasBeenCreatedInfo";
 const animatedComponents = makeAnimated();
 
 interface IPostData {
@@ -113,21 +114,7 @@ export default function Page() {
         limit={3}
       />
       {isCreated ? (
-        <div className="bg-[#0e0e0e] overflow-y-scroll h-screen w-full grid items-center">
-          <div className="flex flex-col justify-center items-center">
-            <LottiePlayer
-              src="https://assets9.lottiefiles.com/private_files/lf30_nsqfzxxx.json"
-              classes="w-[400px] h-[400px] mt-8"
-              autoplay
-              loop={false}
-            />
-            <h3
-              className={`${PoppinsBold.className} text-gray-100 text-xl text-center`}
-            >
-              Post has been created.
-            </h3>
-          </div>
-        </div>
+        <PostHasBeenCreatedInfo />
       ) : (
         <div className="bg-[#0e0e0e] overflow-y-scroll h-screen w-full px-6  sm:px-28 md:px-32 lg:px-36 xl:px-72">
           <div className="flex flex-row items-center justify-between  pt-8 gap-8">
