@@ -1,4 +1,6 @@
+import ContentDisplay from "@/components/ContentDisplay";
 import Flames from "@/components/Flames";
+import TagsDisplay from "@/components/TagsDisplay";
 import { LooseObject, Post } from "@/shared/types";
 import {
   PoppinsBold,
@@ -33,8 +35,8 @@ const fetchPost = async (pk: number): Promise<Post | null> => {
 export default async function Page({ params }: { params: { pk: number } }) {
   const postData = await fetchPost(params.pk);
   return (
-    <div className="bg-[#0e0e0e] flex flex-col overflow-y-scroll h-screen w-full px-6  sm:px-28 md:px-32 lg:px-36 xl:px-72">
-      <div className="flex flex-row items-center justify-between  pt-8 gap-8">
+    <div className="bg-[#0e0e0e] flex flex-col overflow-y-scroll h-screen w-full px-6  sm:px-28 md:px-32 lg:px-36 xl:px-72 py-10">
+      <div className="flex flex-row items-center justify-between  py-8 gap-8 ">
         <Link
           href={"/texts"}
           className={`${PoppinsSemi.className} text-gray-100 text-lg border-2 border-gray-100 rounded-md px-4 py-2 transition-transform duration-300 hover:scale-95`}
@@ -50,16 +52,30 @@ export default async function Page({ params }: { params: { pk: number } }) {
 
         <div></div>
       </div>
-      <div className="mt-20 w-full bg-[#161616] py-4 px-8 rounded-lg h-fit">
+      <div className="mt-20 w-full bg-[#161616] py-8 px-8 rounded-lg h-fit flex flex-col gap-2">
         <Flames scale="scale-110" pk={2} flameUsersProp={postData!.flames} />
-        <h3 className={`${PoppinsBold.className} text-gray-100  text-2xl pt-4`}>
+        <h3 className={`${PoppinsBold.className} text-gray-100  text-2xl pt-6`}>
           {postData?.title}
         </h3>
-        <p className={`${PoppinsLight.className} text-gray-200  text-xl pt-2 `}>
-          {postData?.content}
-        </p>
+        <ContentDisplay
+          textcolor="300"
+          className={`${PoppinsLight.className}   text-xl `}
+          content={postData?.content!}
+        />
+
+        <Link
+          href={`user/${postData?.author}`}
+          className={`${PoppinsRegular.className} text-lg  text-gray-400 z-20 hover:underline w-fit pt-8`}
+        >
+          Published by{" "}
+          <b className={`${PoppinsBold.className} text-gray-100`}>
+            {postData?.author}
+          </b>
+        </Link>
+        <div className="flex flex-row gap-2 ">
+          {postData?.tags ? <TagsDisplay tags={postData.tags} /> : null}
+        </div>
       </div>
-      {JSON.stringify(postData)}
     </div>
   );
 }
