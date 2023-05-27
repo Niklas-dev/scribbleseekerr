@@ -147,7 +147,7 @@ class GetPosts(APIView):
                 print('All')
                 posts = Post.objects.all()[from_val:to_val]
 
-        print(list(posts))
+
 
         serializer = PostSerializer(posts, many=True)
 
