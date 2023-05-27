@@ -98,12 +98,12 @@ class GetPost(APIView):
 
         if post:
             serializer = PostSerializer(post, many=False)
-            if serializer.is_valid():
-                json_data = serializer.data
 
-                return Response(json_data, status=status.HTTP_200_OK)
+            json_data = serializer.data
 
-        return Response({'Post': f'Post with {post} not found.'}, status=status.HTTP_404_NOT_FOUND)
+            return Response(json_data, status=status.HTTP_200_OK)
+
+        return Response({'Not Found': f'Post with {post} not found.'}, status=status.HTTP_404_NOT_FOUND)
 
 
 class GetPosts(APIView):
