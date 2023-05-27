@@ -42,7 +42,7 @@ export default function Page() {
       const timeout = setTimeout(() => {
         setIsCreated(false);
         router.push("/texts");
-      }, 2400);
+      }, 2450);
     };
     const handleError = (response: any) => {
       let errorMessage = "";
