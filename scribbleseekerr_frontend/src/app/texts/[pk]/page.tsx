@@ -1,5 +1,6 @@
 import ContentDisplay from "@/components/ContentDisplay";
 import Flames from "@/components/Flames";
+import LottiePlayer from "@/components/LottiePlayer";
 import TagsDisplay from "@/components/TagsDisplay";
 import { LooseObject, Post } from "@/shared/types";
 import {
@@ -52,30 +53,48 @@ export default async function Page({ params }: { params: { pk: number } }) {
 
         <div></div>
       </div>
-      <div className="mt-20 w-full bg-[#161616] py-8 px-8 rounded-lg h-fit flex flex-col gap-2">
-        <Flames scale="scale-110" pk={2} flameUsersProp={postData!.flames} />
-        <h3 className={`${PoppinsBold.className} text-gray-100  text-2xl pt-6`}>
-          {postData?.title}
-        </h3>
-        <ContentDisplay
-          textcolor="300"
-          className={`${PoppinsLight.className}   text-xl `}
-          content={postData?.content!}
-        />
+      {postData ? (
+        <div className="mt-20 w-full bg-[#161616] py-8 px-8 rounded-lg h-fit flex flex-col gap-2">
+          <Flames scale="scale-110" pk={2} flameUsersProp={postData?.flames!} />
+          <h3
+            className={`${PoppinsBold.className} text-gray-100  text-2xl pt-6`}
+          >
+            {postData?.title}
+          </h3>
+          <ContentDisplay
+            textcolor="300"
+            className={`${PoppinsLight.className}   text-xl `}
+            content={postData?.content!}
+          />
 
-        <Link
-          href={`user/${postData?.author}`}
-          className={`${PoppinsRegular.className} text-lg  text-gray-400 z-20 hover:underline w-fit pt-8`}
-        >
-          Published by{" "}
-          <b className={`${PoppinsBold.className} text-gray-100`}>
-            {postData?.author}
-          </b>
-        </Link>
-        <div className="flex flex-row gap-2 ">
-          {postData?.tags ? <TagsDisplay tags={postData.tags} /> : null}
+          <Link
+            href={`user/${postData?.author}`}
+            className={`${PoppinsRegular.className} text-lg  text-gray-400 z-20 hover:underline w-fit pt-8`}
+          >
+            Published by{" "}
+            <b className={`${PoppinsBold.className} text-gray-100`}>
+              {postData?.author}
+            </b>
+          </Link>
+          <div className="flex flex-row gap-2 ">
+            {postData?.tags ? <TagsDisplay tags={postData.tags} /> : null}
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="flex flex-col justify-center items-center h-full max-h-[600px] min-h-[200px]">
+          <LottiePlayer
+            src="https://assets4.lottiefiles.com/packages/lf20_WpDG3calyJ.json"
+            classes="w-[400px] h-[400px] mt-8"
+            autoplay
+            loop
+          />
+          <h3
+            className={`${PoppinsSemi.className} text-gray-100 text-xl text-center`}
+          >
+            The post has not been found. It could be deleted.
+          </h3>
+        </div>
+      )}
     </div>
   );
 }
