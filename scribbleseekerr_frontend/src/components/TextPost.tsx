@@ -11,6 +11,8 @@ import Flames from "./Flames";
 import { FlameUser } from "@/shared/types";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import TagsDisplay from "./TagsDisplay";
+import ContentDisplay from "./ContentDisplay";
 
 export interface TextPostProps {
   error?: (msg: string) => void;
@@ -58,14 +60,7 @@ export default function TextPost({
       >
         {title}
       </h5>
-      <p className={`${PoppinsLight.className} text-gray-400 text-base`}>
-        {content.split("\n").map((line, index) => (
-          <React.Fragment key={index}>
-            {line}
-            <br />
-          </React.Fragment>
-        ))}
-      </p>
+      <ContentDisplay textcolor="400" content={content} />
 
       <Link
         href={`user/${author}`}
@@ -75,16 +70,7 @@ export default function TextPost({
         <b className={`${PoppinsBold.className} text-gray-100`}>{author}</b>
       </Link>
       <div className="flex flex-row gap-2 pt-4">
-        {tags
-          ? tags.map((tag) => (
-              <div
-                key={tag}
-                className={`${PoppinsLight.className} px-2 py-[0.15rem] bg-[#222222] text-gray-300 rounded-md`}
-              >
-                {tag}
-              </div>
-            ))
-          : null}
+        {tags ? <TagsDisplay tags={tags} /> : null}
       </div>
     </div>
   );

@@ -10,6 +10,7 @@ const fetchUser = async (username: string): Promise<ProfileResponse | null> => {
   let requestObject: LooseObject = {
     method: "GET",
     mode: "cors",
+    cache: "no-store",
   };
 
   const response = await fetch(
