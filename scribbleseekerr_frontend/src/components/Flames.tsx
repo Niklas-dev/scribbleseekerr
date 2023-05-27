@@ -65,6 +65,10 @@ export default function Flames({
     setFlameCount(data.length);
   };
 
+  useEffect(() => {
+    return () => {};
+  }, []);
+
   return (
     <div
       onClick={async () => {

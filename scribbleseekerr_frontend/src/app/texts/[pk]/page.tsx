@@ -12,6 +12,7 @@ const fetchPost = async (pk: number): Promise<Post | null> => {
   let requestObject: LooseObject = {
     method: "GET",
     mode: "cors",
+    cache: "no-store",
   };
 
   const response = await fetch(
@@ -26,7 +27,7 @@ const fetchPost = async (pk: number): Promise<Post | null> => {
       }
     })
     .then((data) => data);
-
+  console.log(response);
   return response;
 };
 export default async function Page({ params }: { params: { pk: number } }) {
