@@ -54,19 +54,25 @@ class UpdateFlames(APIView):
                 pass
             else:
 
-                if json_data['arg'] == 'up':
+                if json_data['arg'] is 'up' or 'down':
+                    if json_data['arg'] == 'up':
 
-                    post.flames.add(request.user)
+                        post.flames.add(request.user)
+                    else:
+
+                        post.flames.remove(request.user)
                 else:
+                    return Response({'Bad Request': 'Wrong use of command.'}, status=status.HTTP_400_BAD_REQUEST)
 
-                    post.flames.remove(request.user)
+            post.save()
 
-                post.save()
+            serializer = UserSerializer(post.flames.all(), many=True)
+            json_data = serializer.data
 
-        serializer = UserSerializer(post.flames.all(), many=True)
-        json_data = serializer.data
+            return Response(json_data, status=status.HTTP_200_OK)
 
-        return Response(json_data, status=status.HTTP_200_OK)
+        return Response({'Bad Request': 'No data provided.'}, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 class GetTags(APIView):
@@ -88,12 +94,18 @@ class GetPost(APIView):
     def get(self, request):
         pk = request.GET.get('pk')
 
-        post = Post.objects.get(pk=pk)
+        post = Post.objects.filter(pk=pk).first()
 
-        serializer = PostSerializer(post, many=False)
-        json_data = serializer.data
+        if post:
+            serializer = PostSerializer(post, many=False)
+            if serializer.is_valid():
+                json_data = serializer.data
 
-        return Response(json_data, status=status.HTTP_200_OK)
+                return Response(json_data, status=status.HTTP_200_OK)
+
+        return Response({'Post': f'Post with {post} not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+
 class GetPosts(APIView):
     permission_classes = [AllowAny, ]
 
@@ -135,7 +147,10 @@ class GetPosts(APIView):
                 print('All')
                 posts = Post.objects.all()[from_val:to_val]
 
+        print(list(posts))
+
         serializer = PostSerializer(posts, many=True)
+
         json_data = serializer.data
 
         return Response(json_data, status=status.HTTP_200_OK)
