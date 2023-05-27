@@ -6,7 +6,7 @@ import {
   PoppinsSemi,
 } from "@/styles/fonts";
 import React, { useEffect, useState } from "react";
-import { FaFire } from "react-icons/fa";
+import { FaEllipsisV } from "react-icons/fa";
 import Flames from "./Flames";
 import { FlameUser } from "@/shared/types";
 import Link from "next/link";
@@ -52,11 +52,16 @@ export default function TextPost({
         border && "border-2 border-gray-100"
       }`}
     >
-      <Flames error={error!} pk={pk} flameUsersProp={flameUsers} />
+      <div className="flex flex-row justify-between">
+        <Flames error={error!} pk={pk} flameUsersProp={flameUsers} />
+        <div className="rounded-full p-1 w-8 h-8 grid items-center justify-center bg-[#2c2c2c] bg-opacity-50 hover:scale-105 duration-200 transition-transform">
+          <FaEllipsisV size={20} color="white" />
+        </div>
+      </div>
 
       <h5
         onClick={() => router.push(`texts/${pk}`)}
-        className={`${PoppinsSemi.className} text-gray-100 text-lg pt-2 hover:underline`}
+        className={`${PoppinsSemi.className} text-gray-100 text-lg pt-2 hover:underline w-fit`}
       >
         {title}
       </h5>
