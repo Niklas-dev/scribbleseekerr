@@ -42,12 +42,11 @@ export default async function Page({
         >
           Back
         </Link>
-        <Link
-          href={"/"}
+        <h2
           className={`${PoppinsSemi.className} text-gray-100 hidden md:block text-xl lg:text-3xl`}
         >
           Profile
-        </Link>
+        </h2>
 
         <div></div>
       </div>

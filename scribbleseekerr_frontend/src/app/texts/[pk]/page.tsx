@@ -44,12 +44,11 @@ export default async function Page({ params }: { params: { pk: number } }) {
         >
           Back
         </Link>
-        <Link
-          href={"/"}
+        <h2
           className={`${PoppinsSemi.className} text-gray-100 text-xl lg:text-3xl capitalize`}
         >
           {postData?.text_type}
-        </Link>
+        </h2>
 
         <div></div>
       </div>
