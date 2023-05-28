@@ -18,6 +18,15 @@ from oauth2_provider.models import AccessToken, RefreshToken
 
 
 # Create your views here.
+class UpdateUserProfile(APIView):
+    permission_classes = [IsAuthenticated, ]
+
+    def put(self,  request):
+        serializer = EditUserSerializer(data=request.data)
+        if serializer.is_valid():
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_200_OK)
 
 class GetUserProfile(APIView):
     permission_classes = [AllowAny, ]

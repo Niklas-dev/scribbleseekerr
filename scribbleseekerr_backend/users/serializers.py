@@ -4,6 +4,12 @@ from rest_framework import serializers
 from .models import *
 
 
+class EditUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ScribbleUser
+        fields = ('username', "email")
+
+
 class RegisterUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = ScribbleUser

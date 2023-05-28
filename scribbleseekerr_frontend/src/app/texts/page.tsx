@@ -169,28 +169,28 @@ export default function Page({ params }: { params: { text_type: string } }) {
       <div className="px-20 lg:px-80  flex flex-col items-center pt-6">
         <div className="flex-row gap-3 sm:gap-4 flex">
           <Link
-            onClick={() => setLinkSearch("poems")}
+            onClick={() => setLinkSearch("poem")}
             className={`${PoppinsSemi.className} text-gray-200 text-lg md:text-xl`}
             href={"/texts?text_type=poem"}
           >
             Poems
           </Link>
           <Link
-            onClick={() => setLinkSearch("stories")}
+            onClick={() => setLinkSearch("story")}
             className={`${PoppinsSemi.className} text-gray-200 text-lg md:text-xl`}
             href={"/texts?text_type=story"}
           >
             Stories
           </Link>
           <Link
-            onClick={() => setLinkSearch("papers")}
+            onClick={() => setLinkSearch("paper")}
             className={`${PoppinsSemi.className} text-gray-200 text-lg md:text-xl`}
             href={"/texts?text_type=paper"}
           >
             Papers
           </Link>
           <Link
-            onClick={() => setLinkSearch("any")}
+            onClick={() => setLinkSearch("all")}
             className={`${PoppinsSemi.className} text-gray-200 text-lg md:text-xl`}
             href={"/texts?text_type=all"}
           >

@@ -6,6 +6,7 @@ urlpatterns = [
     path('register', UserCreate.as_view(), name='user_create'),
     path('user_data', UserData.as_view(), name="user_data"),
     path('get-profile', GetUserProfile.as_view(), name="get-profile"),
+    path('update-profile', UpdateUserProfile.as_view(), name="update-profile"),
 
 
 

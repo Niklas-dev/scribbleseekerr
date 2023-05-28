@@ -61,12 +61,6 @@ export default function TextPost({
             >
               Report
             </Link>
-            <Link
-              href=""
-              className={`${PoppinsRegular.className} text-gray-100 text-lg  bg-[#161616] py-1 px-2 rounded-md transition-transform hover:scale-95 text-center`}
-            >
-              Test
-            </Link>
           </ul>
         )}
         <Flames error={error!} pk={pk} flameUsersProp={flameUsers} />
