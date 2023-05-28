@@ -4,11 +4,12 @@ import { useAuth } from "@/providers/auth";
 import { PoppinsBold, PoppinsRegular, PoppinsSemi } from "@/styles/fonts";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import TextareaAutosize from "react-textarea-autosize";
 export default function Page({ params }: { params: { pk: number } }) {
   const { user, loaded } = useAuth();
+  const error = (message: string) => toast.error(message);
 
   const [reportData, setReportData] = useState({
     pk: params.pk,
@@ -16,6 +17,38 @@ export default function Page({ params }: { params: { pk: number } }) {
     description: "",
     important: false,
   });
+
+  const createReport = async () => {
+    const handleSuccess = (response: any) => {};
+    const handleError = (response: any) => {
+      let errorMessage = "";
+      console.log(response);
+      if ("pk" in response) {
+        errorMessage = "Add the post id.";
+      } else {
+        errorMessage = "An error has occurred.";
+      }
+      error(errorMessage);
+    };
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_PATH}/posts/report-post`,
+      {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+        body: JSON.stringify(reportData),
+      }
+    ).then(async (response) => {
+      if (response.status === 200) {
+        handleSuccess(await response.json());
+      } else {
+        handleError(await response.json());
+      }
+    });
+  };
 
   useEffect(() => {
     return () => {};
@@ -98,14 +131,26 @@ export default function Page({ params }: { params: { pk: number } }) {
                 }}
                 className="w-fit outline-none bg-[#1d1d1d] text-gray-100 h-12 px-2 rounded-lg text-xl shadow-lg "
               >
-                <option className="text-xl" value="story">
-                  Story
+                <option className="text-xl" value="plagiarism">
+                  Plagiarism
                 </option>
-                <option className="text-xl" value="poem">
-                  Poem
+                <option className="text-xl" value="dangerous">
+                  Dangerous
                 </option>
-                <option className="text-xl" value="paper">
-                  Paper
+                <option className="text-xl" value="offensive">
+                  Offensive
+                </option>
+                <option className="text-xl" value="hate_speech">
+                  Hate Speech
+                </option>
+                <option className="text-xl" value="nsfw">
+                  Nsfw
+                </option>
+                <option className="text-xl" value="illegal">
+                  Illegal
+                </option>
+                <option className="text-xl" value="other">
+                  Other
                 </option>
               </select>
             </div>
@@ -148,7 +193,7 @@ export default function Page({ params }: { params: { pk: number } }) {
             </div>
             <div className="w-full pt-8">
               <button
-                onClick={() => console.log(reportData)}
+                onClick={() => createReport()}
                 className={`${PoppinsSemi.className} w-full text-[#0e0e0e] text-base whitespace-nowrap lg:text-lg bg-gray-100 rounded-md px-4 grid items-center h-12 transition-transform duration-300 hover:scale-95`}
               >
                 Report
