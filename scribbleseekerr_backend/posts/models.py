@@ -2,8 +2,7 @@ from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from django.db.models.signals import post_save, post_init
 from django.dispatch import receiver
-
-
+from django.utils import timezone
 
 
 # Create your models here.
@@ -46,6 +45,27 @@ class Post(models.Model):
         # Call the superclass save() method to save the instance
         super().save(*args, **kwargs)
 
+
+class PostReport(models.Model):
+    TYPE_CHOICES = (
+        ('plagiarism', 'Plagiarism'),
+        ('dangerous', 'Dangerous'),
+        ('offensive', 'Offensive'),
+        ('hate_speech', 'Hate Speech'),
+        ('nsfw', 'Nsfw'),
+        ('illegal', 'Illegal'),
+        ('other', 'Other'),
+    )
+
+    creator = models.ForeignKey('users.ScribbleUser', on_delete=models.SET_NULL, null=True)
+
+    reason = models.CharField(max_length=30, choices=TYPE_CHOICES, default="")
+
+    description = models.CharField(max_length=255, default="", blank=True, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=timezone.now)
+
+    important = models.BooleanField(default=False)
 
 
 
