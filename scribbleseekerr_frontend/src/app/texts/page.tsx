@@ -32,8 +32,10 @@ export default function Page({ params }: { params: { text_type: string } }) {
   const [fetchedAll, setFetchedAll] = useState(true);
   const [page, setPage] = useState(0);
   const [posts, setPosts] = useState<Post[]>([]);
+
   const searchParams = useSearchParams();
   const text_type_param = searchParams.get("text_type");
+  const [linkSearch, setLinkSearch] = useState(text_type_param);
   const router = useRouter();
 
   const error = (message: string) => toast.error(message);
@@ -70,10 +72,10 @@ export default function Page({ params }: { params: { text_type: string } }) {
 
   useEffect(() => {
     loginWithToken();
-    getPosts(postSearch, text_type_param!);
+    getPosts(postSearch, linkSearch!);
 
     return () => onDismount();
-  }, [loaded]);
+  }, [loaded, linkSearch]);
 
   const fetchWithParams = async (
     search: string,
@@ -162,8 +164,38 @@ export default function Page({ params }: { params: { text_type: string } }) {
           <div></div>
         )}
       </div>
-      <div className="px-20 lg:px-80 pt-20">
-        <div className="flex flex-row justify-center gap-4 pb-10">
+      <div className="px-20 lg:px-80  flex flex-col items-center pt-6">
+        <div className="flex-row gap-3 sm:gap-4 flex">
+          <Link
+            onClick={() => setLinkSearch("poems")}
+            className={`${PoppinsSemi.className} text-gray-200 text-lg md:text-xl`}
+            href={"/texts?text_type=poem"}
+          >
+            Poems
+          </Link>
+          <Link
+            onClick={() => setLinkSearch("stories")}
+            className={`${PoppinsSemi.className} text-gray-200 text-lg md:text-xl`}
+            href={"/texts?text_type=story"}
+          >
+            Stories
+          </Link>
+          <Link
+            onClick={() => setLinkSearch("papers")}
+            className={`${PoppinsSemi.className} text-gray-200 text-lg md:text-xl`}
+            href={"/texts?text_type=paper"}
+          >
+            Papers
+          </Link>
+          <Link
+            onClick={() => setLinkSearch("any")}
+            className={`${PoppinsSemi.className} text-gray-200 text-lg md:text-xl`}
+            href={"/texts?text_type=all"}
+          >
+            Any
+          </Link>
+        </div>
+        <div className="flex flex-row justify-center gap-4 pb-10 pt-16">
           {loadingData ? (
             <LottiePlayer
               src="https://assets10.lottiefiles.com/packages/lf20_x62chJ.json"
