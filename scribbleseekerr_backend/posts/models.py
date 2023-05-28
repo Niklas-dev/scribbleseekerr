@@ -70,4 +70,5 @@ class PostReport(models.Model):
     important = models.BooleanField(default=False)
 
 
-
+    def __str__(self):
+        return f'{self.post} important - {self.important}'
