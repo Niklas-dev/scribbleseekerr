@@ -8,27 +8,19 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import TextareaAutosize from "react-textarea-autosize";
 export default function Page({ params }: { params: { pk: number } }) {
-  const { user } = useAuth();
+  const { user, loaded } = useAuth();
 
   const [reportData, setReportData] = useState({
-    pk: 0,
+    pk: params.pk,
     reason: "",
     description: "",
     important: false,
   });
 
   useEffect(() => {
-    setReportData({
-      pk: params.pk,
-      reason: reportData.reason,
-      description: reportData.description,
-      important: reportData.important,
-    });
-
     return () => {};
-  }, []);
+  }, [loaded]);
 
-  console.log(params.pk);
   return (
     <>
       <ToastContainer

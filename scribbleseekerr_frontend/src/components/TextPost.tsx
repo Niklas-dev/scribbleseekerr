@@ -35,7 +35,7 @@ export default function TextPost({
   border,
 }: TextPostProps) {
   const [fadeIn, setFadeIn] = useState(false);
-
+  const [showOptions, setShowOptions] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -53,9 +53,29 @@ export default function TextPost({
       }`}
     >
       <div className="flex flex-row justify-between">
+        {showOptions && (
+          <ul className="absolute w-28 h-fit p-2 rounded-md z-50 right-1 top-16 bg-[#2b2b2b] flex flex-col justify-center gap-2">
+            <Link
+              href={`report/${pk}`}
+              className={`${PoppinsRegular.className} text-gray-100 text-lg  bg-[#161616] py-1 px-2 rounded-md transition-transform hover:scale-95 text-center`}
+            >
+              Report
+            </Link>
+            <Link
+              href=""
+              className={`${PoppinsRegular.className} text-gray-100 text-lg  bg-[#161616] py-1 px-2 rounded-md transition-transform hover:scale-95 text-center`}
+            >
+              Test
+            </Link>
+          </ul>
+        )}
         <Flames error={error!} pk={pk} flameUsersProp={flameUsers} />
         <div className="rounded-full p-1 w-8 h-8 grid items-center justify-center bg-[#2c2c2c] bg-opacity-50 hover:scale-105 duration-200 transition-transform">
-          <FaEllipsisV size={20} color="white" />
+          <FaEllipsisV
+            onClick={() => setShowOptions((_prev) => !_prev)}
+            size={20}
+            color="white"
+          />
         </div>
       </div>
 
