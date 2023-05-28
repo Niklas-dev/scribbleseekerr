@@ -37,8 +37,8 @@ export default function AboutFeatures() {
             On Page Editor!
           </h5>
           <p className={`${PoppinsLight.className} text-gray-400 text-base`}>
-            We offer a great on page editor so you can directly write your texts
-            on the fly.
+            We offer an on page editor so you can directly write your texts on
+            the fly.
           </p>
         </div>
         <div className="w-72 h-56  rounded-md flex flex-col justify-end p-4">
