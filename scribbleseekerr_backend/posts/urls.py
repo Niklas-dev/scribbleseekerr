@@ -8,5 +8,6 @@ urlpatterns = [
     path('get-posts', GetPosts.as_view(), name='get-posts'),
     path('get-post', GetPost.as_view(), name='get-post'),
     path('get-tags', GetTags.as_view(), name="get-tags"),
+    path('report-post', CreateReport.as_view(), name='report-posts'),
 
 ]

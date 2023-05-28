@@ -57,9 +57,11 @@ class PostReport(models.Model):
         ('other', 'Other'),
     )
 
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
+
     creator = models.ForeignKey('users.ScribbleUser', on_delete=models.SET_NULL, null=True)
 
-    reason = models.CharField(max_length=30, choices=TYPE_CHOICES, default="")
+    reason = models.CharField(max_length=30, choices=TYPE_CHOICES, default="dangerous")
 
     description = models.CharField(max_length=255, default="", blank=True, null=True)
 

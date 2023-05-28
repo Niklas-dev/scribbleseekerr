@@ -9,8 +9,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponse, FileResponse
 
-from posts.models import Post, Tag
-from posts.serializers import PostSerializer, UserSerializer, TagSerializer, CreatePostSerializer
+from posts.models import Post, Tag, PostReport
+from posts.serializers import PostSerializer, UserSerializer, TagSerializer, CreatePostSerializer, \
+    CreateReportSerializer
 
 
 # Create your views here.
@@ -72,7 +73,6 @@ class UpdateFlames(APIView):
             return Response(json_data, status=status.HTTP_200_OK)
 
         return Response({'Bad Request': 'No data provided.'}, status=status.HTTP_400_BAD_REQUEST)
-
 
 
 class GetTags(APIView):
@@ -147,10 +147,24 @@ class GetPosts(APIView):
                 print('All')
                 posts = Post.objects.all()[from_val:to_val]
 
-
-
         serializer = PostSerializer(posts, many=True)
 
         json_data = serializer.data
 
         return Response(json_data, status=status.HTTP_200_OK)
+
+
+class CreateReport(APIView):
+    permission_classes = [IsAuthenticated, ]
+
+    def post(self, request):
+        serializer = CreateReportSerializer(data=request.data)
+        if serializer.is_valid():
+            print(serializer.data)
+            post = Post.objects.filter(pk=serializer.data.get('pk')).first()
+            report = PostReport(creator=request.user, post=post, reason=serializer.data.get('reason'), description=serializer.data.get('description'), important=serializer.data.get('important'))
+
+            report.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

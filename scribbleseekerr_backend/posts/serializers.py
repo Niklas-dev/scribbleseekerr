@@ -62,3 +62,23 @@ class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
         fields = ['pk', 'name']
+
+
+class CreateReportSerializer(serializers.Serializer):
+    TYPE_CHOICES = (
+        ('plagiarism', 'Plagiarism'),
+        ('dangerous', 'Dangerous'),
+        ('offensive', 'Offensive'),
+        ('hate_speech', 'Hate Speech'),
+        ('nsfw', 'Nsfw'),
+        ('illegal', 'Illegal'),
+        ('other', 'Other'),
+    )
+
+    pk = serializers.IntegerField()
+
+    reason = serializers.ChoiceField(choices=TYPE_CHOICES, default="dangerous")
+
+    description = serializers.CharField(max_length=255, default="", allow_blank=True, allow_null=True)
+
+    important = serializers.BooleanField(default=False)

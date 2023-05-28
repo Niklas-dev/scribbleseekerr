@@ -68,6 +68,7 @@ export default function Page({ params }: { params: { text_type: string } }) {
       setLoadingData(true);
       setFetchedAll(false);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [postSearch]);
 
   useEffect(() => {
@@ -75,6 +76,7 @@ export default function Page({ params }: { params: { text_type: string } }) {
     getPosts(postSearch, linkSearch!);
 
     return () => onDismount();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loaded, linkSearch]);
 
   const fetchWithParams = async (
