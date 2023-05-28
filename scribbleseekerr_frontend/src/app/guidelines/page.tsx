@@ -24,7 +24,7 @@ export default function page() {
         <h3 className={`${PoppinsSemi.className} text-gray-100 text-xl `}>
           Community Guidelines for ScribbleSeekerr Text Posting Platform
         </h3>
-        <p className={`${PoppinsSemi.className} text-gray-400 text-lg `}>
+        <p className={`${PoppinsSemi.className} text-gray-400 text-lg pt-2`}>
           Welcome to ScribbleSeekerr, the platform where words come alive! To
           ensure a vibrant and harmonious community, we have established the
           following guidelines. By being a part of ScribbleSeekerr, you agree to
