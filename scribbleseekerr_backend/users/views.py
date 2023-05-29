@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
 from django.shortcuts import render
 from rest_framework import generics, status
@@ -34,20 +35,25 @@ class GetUserProfile(APIView):
     def get(self,  request):
 
         username = request.GET.get('username')
-        posts = Post.objects.filter(author=username)
-        print(username)
-        user = ScribbleUser.objects.get(username=username)
+        try:
+            user = ScribbleUser.objects.get(username=username)
+            posts = Post.objects.filter(author=user.pk)
+            print(username)
 
-        serializer = PostSerializer(posts, many=True)
-        flames = 0
-        for post in posts:
-            print(post.flames.all())
-            flames = flames + len(post.flames.all())
-        print(flames)
-        data = {"username": user.username, "about": user.about, "flames": flames, 'pk': user.pk,
-                'posts': serializer.data}
+            serializer = PostSerializer(posts, many=True)
+            flames = 0
+            for post in posts:
+                print(post.flames.all())
+                flames = flames + len(post.flames.all())
+            print(flames)
+            data = {"username": user.username, "about": user.about, "flames": flames, 'pk': user.pk,
+                    'posts': serializer.data}
 
-        return Response(data, status=status.HTTP_200_OK)
+            return Response(data, status=status.HTTP_200_OK)
+
+        except ObjectDoesNotExist:
+            return Response({'Bad Request': 'User not found.'}, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 class UserData(APIView):
