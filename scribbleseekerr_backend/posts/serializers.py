@@ -47,6 +47,8 @@ class PostSerializer(serializers.ModelSerializer):
     tags = serializers.StringRelatedField(many=True)
     created_at = serializers.DateTimeField(read_only=True, format="%Y-%m-%d")
     flames = serializers.SerializerMethodField()
+    author = serializers.StringRelatedField()
+
 
     class Meta:
         model = Post

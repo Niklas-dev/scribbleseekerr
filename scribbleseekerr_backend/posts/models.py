@@ -22,9 +22,9 @@ class Post(models.Model):
 
     text_type = models.CharField(max_length=10, choices=TYPE_CHOICES)
     title = models.CharField(max_length=28)
-    author = models.CharField(max_length=28)
+    author = models.ForeignKey('users.ScribbleUser', on_delete=models.CASCADE, related_name='author')
     content = models.TextField(max_length=10000)
-    flames = models.ManyToManyField('users.ScribbleUser', blank=True)
+    flames = models.ManyToManyField('users.ScribbleUser', blank=True, related_name='flames')
     created_at = models.DateTimeField(auto_now_add=True)
     tags = models.ManyToManyField(Tag, blank=True)
     tags_string = models.CharField(max_length=255, blank=True, null=True)

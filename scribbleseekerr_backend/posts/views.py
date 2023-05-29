@@ -25,7 +25,7 @@ class CreatePost(APIView):
             print(serializer.data)
 
             post = Post(text_type=serializer.data.get("text_type"), title=serializer.data.get("title"),
-                        content=serializer.data.get("content"), author=request.user.username)
+                        content=serializer.data.get("content"), author=request.user)
 
             post.save()
 

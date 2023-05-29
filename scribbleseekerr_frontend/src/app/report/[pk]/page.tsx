@@ -13,7 +13,7 @@ export default function Page({ params }: { params: { pk: number } }) {
 
   const [reportData, setReportData] = useState({
     pk: params.pk,
-    reason: "",
+    reason: "plagiarism",
     description: "",
     important: false,
   });
