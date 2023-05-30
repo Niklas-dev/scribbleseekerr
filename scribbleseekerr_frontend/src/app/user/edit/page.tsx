@@ -14,7 +14,6 @@ export default function Page() {
   const success = (message: string) => toast.success(message);
 
   const editUser = async () => {
-    console.log(userData);
     const handleSuccess = (response: any) => {
       success("Username has been updated.");
     };
