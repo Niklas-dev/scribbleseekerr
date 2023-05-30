@@ -3,11 +3,55 @@ import InitialsAvatar from "@/components/InitialsAvatar";
 import { useAuth } from "@/providers/auth";
 import { PoppinsBold, PoppinsRegular, PoppinsSemi } from "@/styles/fonts";
 import Link from "next/link";
-import React from "react";
-import { ToastContainer } from "react-toastify";
+import React, { useEffect, useState } from "react";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function Page() {
   const { user, loaded, loginWithToken } = useAuth();
+  const [userData, setUserData] = useState({ username: user?.username });
+  const error = (message: string) => toast.error(message);
+  const success = (message: string) => toast.success(message);
+
+  const editUser = async () => {
+    console.log(userData);
+    const handleSuccess = (response: any) => {
+      success("Username has been updated.");
+    };
+    const handleError = (response: any) => {
+      let errorMessage = "";
+      console.log(response);
+
+      errorMessage = "An error has occurred.";
+
+      error(errorMessage);
+    };
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_PATH}/users/update-profile`,
+      {
+        method: "PUT",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+        body: JSON.stringify(userData),
+      }
+    ).then(async (response) => {
+      if (response.status === 200) {
+        handleSuccess(await response.json());
+      } else {
+        handleError(await response.json());
+      }
+    });
+  };
+
+  useEffect(() => {
+    setUserData({ username: user?.username! });
+
+    return () => {};
+  }, [loaded]);
+
   return (
     <>
       <ToastContainer
@@ -55,7 +99,14 @@ export default function Page() {
                 Username
               </label>
               <input
-                value={user?.username}
+                onChange={(e) => {
+                  let newData = userData;
+
+                  newData.username = e.target.value;
+
+                  setUserData(newData);
+                }}
+                defaultValue={userData.username}
                 id="username"
                 className={`${PoppinsSemi.className} h-12 w-full rounded-lg text-lg py-1 outline-none bg-[#1d1d1d] text-gray-100 shadow-lg px-4 `}
                 type="text"
@@ -64,7 +115,7 @@ export default function Page() {
 
             <div className="w-full pt-8">
               <button
-                onClick={() => {}}
+                onClick={() => editUser()}
                 className={`${PoppinsSemi.className} w-full text-[#0e0e0e] text-base whitespace-nowrap lg:text-lg bg-gray-100 rounded-md px-4 grid items-center h-12 transition-transform duration-300 hover:scale-95`}
               >
                 Save

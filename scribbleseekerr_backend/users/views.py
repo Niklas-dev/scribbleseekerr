@@ -25,6 +25,13 @@ class UpdateUserProfile(APIView):
     def put(self,  request):
         serializer = EditUserSerializer(data=request.data)
         if serializer.is_valid():
+            user = request.user
+
+            user.username = serializer.data.get('username')
+
+            print(serializer.data.get('username'))
+
+            user.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_200_OK)

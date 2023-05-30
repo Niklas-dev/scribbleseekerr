@@ -7,7 +7,7 @@ from .models import *
 class EditUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = ScribbleUser
-        fields = ('username', "email")
+        fields = ('username',)
 
 
 class RegisterUserSerializer(serializers.ModelSerializer):
