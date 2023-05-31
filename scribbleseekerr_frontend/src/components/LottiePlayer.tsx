@@ -7,11 +7,21 @@ export default function LottiePlayer({
   classes,
   autoplay,
   loop,
+  testID,
 }: {
   src: string;
   classes: string;
   autoplay?: boolean;
   loop?: boolean;
+  testID?: string;
 }) {
-  return <Player className={classes} autoplay loop={loop} src={src}></Player>;
+  return (
+    <Player
+      data-testid={testID}
+      className={classes}
+      autoplay
+      loop={loop}
+      src={src}
+    ></Player>
+  );
 }

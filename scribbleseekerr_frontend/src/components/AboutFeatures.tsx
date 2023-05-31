@@ -53,6 +53,7 @@ export default function AboutFeatures() {
         </div>
       </div>
       <LottiePlayer
+        testID="lottie-player"
         src="https://assets6.lottiefiles.com/packages/lf20_atampd9z.json"
         classes="w-[400px] h-[400px]"
         autoplay
