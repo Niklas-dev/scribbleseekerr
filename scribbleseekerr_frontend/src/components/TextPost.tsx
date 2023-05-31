@@ -13,6 +13,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import TagsDisplay from "./TagsDisplay";
 import ContentDisplay from "./ContentDisplay";
+import { useAuth } from "@/providers/auth";
 
 export interface TextPostProps {
   error?: (msg: string) => void;
@@ -34,6 +35,7 @@ export default function TextPost({
   error,
   border,
 }: TextPostProps) {
+  const { user, loaded, loginWithToken } = useAuth();
   const [fadeIn, setFadeIn] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
   const router = useRouter();
@@ -61,6 +63,14 @@ export default function TextPost({
             >
               Report
             </Link>
+            {author === user?.username && (
+              <Link
+                href={`report/${pk}`}
+                className={`${PoppinsRegular.className} text-red-400 text-lg  bg-[#161616] py-1 px-2 rounded-md transition-transform hover:scale-95 text-center`}
+              >
+                Delete
+              </Link>
+            )}
           </ul>
         )}
         <Flames error={error!} pk={pk} flameUsersProp={flameUsers} />
@@ -86,7 +96,8 @@ export default function TextPost({
         className={`${PoppinsRegular.className} text-1xl text-gray-400 pt-4 z-20 hover:underline w-fit`}
       >
         Published by{" "}
-        <b className={`${PoppinsBold.className} text-gray-100`}>{author}</b>
+        <b className={`${PoppinsBold.className} text-gray-100`}>{author}</b>{" "}
+        {author === user?.username && <span className="text-sm">(you)</span>}
       </Link>
       <div className="flex flex-row gap-2 pt-4">
         {tags ? <TagsDisplay tags={tags} /> : null}
