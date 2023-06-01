@@ -1,4 +1,5 @@
 import { PoppinsBold, PoppinsRegular } from "@/styles/fonts";
+import Link from "next/link";
 import React from "react";
 
 export default function Footer() {
@@ -9,11 +10,20 @@ export default function Footer() {
         <h4 className={`${PoppinsBold.className} text-gray-100 `}>
           ScribbleSeekerr
         </h4>
-        <h4
-          className={`${PoppinsRegular.className} text-gray-100 cursor-pointer`}
-        >
-          by <b>@Niklas-dev</b>
-        </h4>
+
+        <div className="flex flex-row gap-4">
+          <Link
+            href={"/guidelines"}
+            className={`${PoppinsRegular.className} text-gray-100 cursor-pointer`}
+          >
+            Guidelines
+          </Link>
+          <h4
+            className={`${PoppinsRegular.className} text-gray-100 cursor-pointer`}
+          >
+            by <b>@Niklas-dev</b>
+          </h4>
+        </div>
       </div>
     </footer>
   );
