@@ -7,7 +7,7 @@ export default function page() {
     <div className="bg-[#0e0e0e] flex flex-col overflow-y-scroll h-screen w-full px-6  sm:px-28 md:px-32 lg:px-36 xl:px-72 py-10">
       <div className="flex flex-row items-center justify-between  py-8 gap-8 ">
         <Link
-          href={"/texts"}
+          href={"/"}
           className={`${PoppinsSemi.className} text-gray-100 text-lg border-2 border-gray-100 rounded-md px-4 py-2 transition-transform duration-300 hover:scale-95`}
         >
           Back
