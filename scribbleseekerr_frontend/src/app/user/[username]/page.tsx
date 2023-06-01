@@ -2,6 +2,7 @@ import { ProfileResponse } from "@/app/user/page";
 import LottiePlayer from "@/components/LottiePlayer";
 import PostWrapper from "@/components/PostWrapper";
 import TextPost from "@/components/TextPost";
+import UserNavBar from "@/components/UserNavBar";
 import { LooseObject, Post } from "@/shared/types";
 import { PoppinsBold, PoppinsRegular, PoppinsSemi } from "@/styles/fonts";
 import Link from "next/link";
@@ -35,21 +36,7 @@ export default async function Page({
   const profileData = await fetchUser(params.username);
   return (
     <div className="bg-[#0e0e0e] flex flex-col overflow-y-scroll h-screen w-full px-6  sm:px-28 md:px-32 lg:px-36 xl:px-72">
-      <div className="flex flex-row items-center justify-between  pt-8 gap-8">
-        <Link
-          href={"/texts"}
-          className={`${PoppinsSemi.className} text-gray-100 text-lg border-2 border-gray-100 rounded-md px-4 py-2 transition-transform duration-300 hover:scale-95`}
-        >
-          Back
-        </Link>
-        <h2
-          className={`${PoppinsSemi.className} text-gray-100 hidden md:block text-xl lg:text-3xl`}
-        >
-          Profile
-        </h2>
-
-        <div></div>
-      </div>
+      <UserNavBar />
       {profileData ? (
         <div className="pt-10 flex flex-row justify-center w-full ">
           <div className="w-full md:w-fit max-w-[800px] h-fit py-8  rounded-lg ">
