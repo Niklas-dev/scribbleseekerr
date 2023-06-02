@@ -64,7 +64,7 @@ export function AuthProvider({ children }: Props) {
   const loginWithToken = async () => {
     console.log("getUser");
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_PATH}/users/user_data`,
+      `${process.env.NEXT_PUBLIC_BACKEND_PATH}/users/user-data`,
       {
         method: "GET",
         mode: "cors",
