@@ -15,6 +15,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { customStyles } from "@/styles/custom";
 import PostHasBeenCreatedInfo from "@/components/PostHasBeenCreatedInfo";
+import Head from "next/head";
 const animatedComponents = makeAnimated();
 
 interface IPostData {
