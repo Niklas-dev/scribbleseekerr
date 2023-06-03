@@ -1,10 +1,5 @@
 "use client";
-import {
-  PoppinsBold,
-  PoppinsLight,
-  PoppinsRegular,
-  PoppinsSemi,
-} from "@/styles/fonts";
+import { PoppinsBold, PoppinsRegular, PoppinsSemi } from "@/styles/fonts";
 import React, { useEffect, useState } from "react";
 import { FaEllipsisV } from "react-icons/fa";
 import Flames from "./Flames";

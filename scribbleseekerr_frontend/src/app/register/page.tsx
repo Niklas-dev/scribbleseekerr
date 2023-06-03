@@ -6,12 +6,10 @@ import {
   PoppinsRegular,
   PoppinsSemi,
 } from "@/styles/fonts";
-import { data } from "autoprefixer";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import { useAuth } from "../../providers/auth";
+import React, { useState } from "react";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useGoogleLogin } from "@react-oauth/google";

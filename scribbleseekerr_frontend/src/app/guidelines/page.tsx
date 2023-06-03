@@ -1,5 +1,4 @@
 import { PoppinsSemi } from "@/styles/fonts";
-import Head from "next/head";
 import Link from "next/link";
 import React from "react";
 export const metadata = {

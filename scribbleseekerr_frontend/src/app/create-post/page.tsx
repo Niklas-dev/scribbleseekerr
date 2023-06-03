@@ -1,21 +1,16 @@
 "use client";
 import InitialsAvatar from "@/components/InitialsAvatar";
-import ScrollToTop from "@/components/ScrollToTop";
 import { PoppinsBold, PoppinsRegular, PoppinsSemi } from "@/styles/fonts";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { FaSearch } from "react-icons/fa";
 import { useAuth } from "../../providers/auth";
 import TextareaAutosize from "react-textarea-autosize";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
-import LottiePlayer from "@/components/LottiePlayer";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { customStyles } from "@/styles/custom";
-
-import Head from "next/head";
 import PostHasBeenInfo from "@/components/PostHasBeenInfo";
 const animatedComponents = makeAnimated();
 

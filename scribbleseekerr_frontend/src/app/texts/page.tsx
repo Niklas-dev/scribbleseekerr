@@ -1,24 +1,20 @@
 "use client";
-import PostWrapperLeft from "@/components/PostWrapper";
-import PostWrapperRight from "@/components/PostWrapperRight";
+
 import TextPost from "@/components/TextPost";
 import {
-  PoppinsBold,
-  PoppinsLight,
-  PoppinsRegular,
+
   PoppinsSemi,
 } from "@/styles/fonts";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-import { FaSearch, FaArrowUp, FaFire } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 import { useAuth } from "../../providers/auth";
 import InitialsAvatar from "@/components/InitialsAvatar";
 
 import PostWrapper from "@/components/PostWrapper";
 import { useRouter, useSearchParams } from "next/navigation";
 import LottiePlayer from "@/components/LottiePlayer";
-import PostBlueprint from "@/components/PostBlueprint";
 import ScrollToTop from "@/components/ScrollToTop";
 
 import { ToastContainer, toast } from "react-toastify";

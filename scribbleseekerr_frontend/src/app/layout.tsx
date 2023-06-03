@@ -2,9 +2,7 @@
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import "./globals.css";
 import { Inter } from "next/font/google";
-import { AuthProvider, IUser } from "../providers/auth";
-import { useEffect, useState } from "react";
-import Head from "next/head";
+import { AuthProvider } from "../providers/auth";
 
 const inter = Inter({ subsets: ["latin"] });
 
