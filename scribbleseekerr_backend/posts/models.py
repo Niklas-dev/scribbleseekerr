@@ -30,7 +30,7 @@ class Post(models.Model):
     tags_string = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
-        return f'{self.title} by {self.author}'
+        return f'{self.pk}. {self.title} by {self.author}'
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
