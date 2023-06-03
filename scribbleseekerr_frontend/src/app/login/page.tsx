@@ -6,14 +6,13 @@ import {
   PoppinsRegular,
   PoppinsSemi,
 } from "@/styles/fonts";
-import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import { useAuth } from "../../providers/auth";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
-import { useGoogleLogin, useGoogleOneTapLogin } from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 import { FaGoogle } from "react-icons/fa";
 
 export default function Page() {

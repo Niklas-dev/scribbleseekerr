@@ -7,7 +7,6 @@ import { useAuth } from "@/providers/auth";
 import { LooseObject, Post } from "@/shared/types";
 import {
   PoppinsBold,
-  PoppinsLight,
   PoppinsRegular,
   PoppinsSemi,
 } from "@/styles/fonts";
