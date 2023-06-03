@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('scribble-admin/', admin.site.urls),
     path('users/', include('users.urls')),
     path('posts/', include('posts.urls')),
     path('auth/', include('drf_social_oauth2.urls', namespace='drf')),
