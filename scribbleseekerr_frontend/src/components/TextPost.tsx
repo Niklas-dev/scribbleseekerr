@@ -65,7 +65,7 @@ export default function TextPost({
             </Link>
             {author === user?.username && (
               <Link
-                href={`report/${pk}`}
+                href={`/delete/${pk}`}
                 className={`${PoppinsRegular.className} text-red-400 text-lg  bg-[#161616] py-1 px-2 rounded-md transition-transform hover:scale-95 text-center`}
               >
                 Delete
