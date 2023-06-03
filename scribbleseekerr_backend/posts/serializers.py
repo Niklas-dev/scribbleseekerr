@@ -66,6 +66,9 @@ class TagSerializer(serializers.ModelSerializer):
         fields = ['pk', 'name']
 
 
+class DeletePostSerializer(serializers.Serializer):
+    pk = serializers.IntegerField()
+
 class CreateReportSerializer(serializers.Serializer):
     TYPE_CHOICES = (
         ('plagiarism', 'Plagiarism'),
