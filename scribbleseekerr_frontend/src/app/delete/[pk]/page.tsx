@@ -1,5 +1,6 @@
 "use client";
-import PostHasBeenDeletedInfo from "@/components/PostHasBeenDeletedInfo";
+
+import PostHasBeenInfo from "@/components/PostHasBeenInfo";
 import { LooseObject, Post } from "@/shared/types";
 import { PoppinsBold, PoppinsRegular, PoppinsSemi } from "@/styles/fonts";
 import Link from "next/link";
@@ -94,7 +95,10 @@ export default function Page({ params }: { params: { pk: number } }) {
       />
 
       {isDeleted ? (
-        <PostHasBeenDeletedInfo />
+        <PostHasBeenInfo
+          lottieSrc="https://assets6.lottiefiles.com/private_files/lf30_ilvzxix1.json"
+          text="Post has been Deleted."
+        />
       ) : (
         <div className="bg-[#0e0e0e] overflow-y-scroll h-screen w-full px-6  sm:px-28 md:px-32 lg:px-36 xl:px-72">
           <div className="flex flex-row items-center justify-between  pt-8 gap-8">

@@ -14,8 +14,9 @@ import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { customStyles } from "@/styles/custom";
-import PostHasBeenCreatedInfo from "@/components/PostHasBeenCreatedInfo";
+
 import Head from "next/head";
+import PostHasBeenInfo from "@/components/PostHasBeenInfo";
 const animatedComponents = makeAnimated();
 
 interface IPostData {
@@ -115,7 +116,10 @@ export default function Page() {
         limit={3}
       />
       {isCreated ? (
-        <PostHasBeenCreatedInfo />
+        <PostHasBeenInfo
+          lottieSrc="https://assets9.lottiefiles.com/private_files/lf30_nsqfzxxx.json"
+          text="Post has been created."
+        />
       ) : (
         <div className="bg-[#0e0e0e] overflow-y-scroll h-screen w-full px-6  sm:px-28 md:px-32 lg:px-36 xl:px-72">
           <div className="flex flex-row items-center justify-between  pt-8 gap-8">
