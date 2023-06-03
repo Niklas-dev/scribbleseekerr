@@ -99,36 +99,46 @@ export default function Page({ params }: { params: { pk: number } }) {
           <div></div>
         </div>
         <div className="pt-20 pb-36 flex flex-row justify-center">
-          <div className="bg-[#161616] flex flex-col p-6 rounded-lg max-w-[1000px] w-1/2">
-            <div className="w-full flex flex-row justify-center">
+          {postData ? (
+            <div className="bg-[#161616] flex flex-col p-6 rounded-lg max-w-[1000px] w-1/2">
+              <div className="w-full flex flex-row justify-center">
+                <h3
+                  className={`${PoppinsBold.className} text-gray-100 text-lg lg:text-2xl `}
+                >
+                  Do you want to delete this post?
+                </h3>
+              </div>
+              <div className="flex flex-col items-center">
+                <h4
+                  className={`${PoppinsRegular.className} text-gray-100 text-lg lg:text-2xl pt-10`}
+                >
+                  {postData?.title}
+                </h4>
+              </div>
+              <div className="flex flex-row items-center justify-center gap-4 pt-20">
+                <Link
+                  className={`${PoppinsSemi.className} text-gray-100 text-lg border-2 border-gray-100 rounded-md px-4 py-1 transition-transform duration-300 hover:scale-95`}
+                  href="/texts"
+                >
+                  No
+                </Link>
+                <button
+                  onClick={() => deletePost(params.pk)}
+                  className={`${PoppinsSemi.className} text-[#0e0e0e] text-lg bg-gray-100 rounded-md px-4 py-1 transition-transform duration-300 hover:scale-95`}
+                >
+                  Yes
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div>
               <h3
                 className={`${PoppinsBold.className} text-gray-100 text-lg lg:text-2xl `}
               >
-                Do you want to delete this post?
+                This post doesnt exist anymore.
               </h3>
             </div>
-            <div className="flex flex-col items-center">
-              <h4
-                className={`${PoppinsRegular.className} text-gray-100 text-lg lg:text-2xl pt-10`}
-              >
-                {postData?.title}
-              </h4>
-            </div>
-            <div className="flex flex-row items-center justify-center gap-4 pt-20">
-              <Link
-                className={`${PoppinsSemi.className} text-gray-100 text-lg border-2 border-gray-100 rounded-md px-4 py-1 transition-transform duration-300 hover:scale-95`}
-                href="/texts"
-              >
-                No
-              </Link>
-              <button
-                onClick={() => deletePost(params.pk)}
-                className={`${PoppinsSemi.className} text-[#0e0e0e] text-lg bg-gray-100 rounded-md px-4 py-1 transition-transform duration-300 hover:scale-95`}
-              >
-                Yes
-              </button>
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </>
