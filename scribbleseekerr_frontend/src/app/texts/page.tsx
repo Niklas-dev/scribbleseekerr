@@ -42,6 +42,16 @@ export default function Page({ params }: { params: { text_type: string } }) {
     await checkForMoreData(search, text_type, page + 1);
   };
 
+  const loadMore = async (search: string, text_type: string) => {
+    const response = await fetchWithParams(search, text_type, page + 1);
+
+    setPage((_prev) => _prev + 1);
+    setPosts((_prev) => [..._prev, ...response]);
+    setLoadingData(false);
+
+    await checkForMoreData(search, text_type, page + 2);
+  };
+
   const fetchWithParams = async (
     search: string,
     text_type: string,
@@ -60,16 +70,6 @@ export default function Page({ params }: { params: { text_type: string } }) {
         throw Error;
       }
     });
-  };
-
-  const loadMore = async (search: string, text_type: string) => {
-    const response = await fetchWithParams(search, text_type, page + 1);
-
-    setPage((_prev) => _prev + 1);
-    setPosts((_prev) => [..._prev, ...response]);
-    setLoadingData(false);
-
-    await checkForMoreData(search, text_type, page + 2);
   };
 
   const checkForMoreData = async (
