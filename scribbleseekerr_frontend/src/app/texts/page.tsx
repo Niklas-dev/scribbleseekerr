@@ -1,10 +1,7 @@
 "use client";
 
 import TextPost from "@/components/TextPost";
-import {
-
-  PoppinsSemi,
-} from "@/styles/fonts";
+import { PoppinsSemi } from "@/styles/fonts";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
@@ -28,7 +25,7 @@ export default function Page({ params }: { params: { text_type: string } }) {
   const [fetchedAll, setFetchedAll] = useState(true);
   const [page, setPage] = useState(0);
   const [posts, setPosts] = useState<Post[]>([]);
-
+  const topRef = React.useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
   const text_type_param = searchParams.get("text_type");
   const [linkSearch, setLinkSearch] = useState(text_type_param);
@@ -51,29 +48,6 @@ export default function Page({ params }: { params: { text_type: string } }) {
       setFetchedAll(false);
     }
   };
-
-  useEffect(() => {
-    setLoadingData(true);
-    const getPostTimer = setTimeout(() => {
-      getPosts(postSearch, text_type_param!);
-    }, 1000);
-    return () => {
-      setPage(0);
-      setPosts([]);
-      clearTimeout(getPostTimer);
-      setLoadingData(true);
-      setFetchedAll(false);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [postSearch]);
-
-  useEffect(() => {
-    loginWithToken();
-    getPosts(postSearch, linkSearch!);
-
-    return () => onDismount();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loaded, linkSearch]);
 
   const fetchWithParams = async (
     search: string,
@@ -111,6 +85,29 @@ export default function Page({ params }: { params: { text_type: string } }) {
     }
   };
 
+  useEffect(() => {
+    setLoadingData(true);
+    const getPostTimer = setTimeout(() => {
+      getPosts(postSearch, text_type_param!);
+    }, 1000);
+    return () => {
+      setPage(0);
+      setPosts([]);
+      clearTimeout(getPostTimer);
+      setLoadingData(true);
+      setFetchedAll(false);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [postSearch]);
+
+  useEffect(() => {
+    loginWithToken();
+    getPosts(postSearch, linkSearch!);
+
+    return () => onDismount();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loaded, linkSearch]);
+
   const onDismount = () => {
     setPosts([]);
     setLoadingData(true);
@@ -118,7 +115,7 @@ export default function Page({ params }: { params: { text_type: string } }) {
     setPostSearch("");
     setPage(0);
   };
-  const topRef = React.useRef<HTMLDivElement>(null);
+
   return (
     <div className="bg-[#0e0e0e] overflow-y-scroll h-screen w-full ">
       <ToastContainer
