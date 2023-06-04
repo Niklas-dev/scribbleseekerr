@@ -1,24 +1,20 @@
 "use client";
-
 import TextPost from "@/components/TextPost";
 import { PoppinsSemi } from "@/styles/fonts";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-
 import { FaSearch } from "react-icons/fa";
 import { useAuth } from "../../providers/auth";
 import InitialsAvatar from "@/components/InitialsAvatar";
-
 import PostWrapper from "@/components/PostWrapper";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import LottiePlayer from "@/components/LottiePlayer";
 import ScrollToTop from "@/components/ScrollToTop";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Post } from "@/shared/types";
 
-export default function Page({ params }: { params: { text_type: string } }) {
+export default function Page() {
   const { user, loaded, loginWithToken } = useAuth();
   const [postSearch, setPostSearch] = useState("");
   const [loadingData, setLoadingData] = useState(true);
@@ -29,7 +25,6 @@ export default function Page({ params }: { params: { text_type: string } }) {
   const searchParams = useSearchParams();
   const text_type_param = searchParams.get("text_type");
   const [linkSearch, setLinkSearch] = useState(text_type_param);
-  const router = useRouter();
 
   const error = (message: string) => toast.error(message);
 
