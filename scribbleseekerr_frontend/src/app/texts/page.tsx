@@ -35,10 +35,10 @@ export default function Page({ params }: { params: { text_type: string } }) {
 
   const getPosts = async (search: string, text_type: string) => {
     const response = await fetchWithParams(search, text_type, page);
-    setLoadingData(false);
-    console.log(response);
 
     setPosts(response);
+    setLoadingData(false);
+
     await checkForMoreData(search, text_type, page + 1);
   };
 
@@ -64,7 +64,7 @@ export default function Page({ params }: { params: { text_type: string } }) {
 
   const loadMore = async (search: string, text_type: string) => {
     const response = await fetchWithParams(search, text_type, page + 1);
-    console.log(response);
+
     setPage((_prev) => _prev + 1);
     setPosts((_prev) => [..._prev, ...response]);
     setLoadingData(false);
