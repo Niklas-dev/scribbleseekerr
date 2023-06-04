@@ -22,6 +22,7 @@ export default function Page() {
     email: "",
     password: "",
   });
+  const [initialRegister, setInitialRegister] = useState(false);
 
   const error = (message: string) => toast.error(message);
 
@@ -43,11 +44,13 @@ export default function Page() {
     } else if ("email" in response) {
       message = response["email"];
     }
+    setInitialRegister(false);
     error(`${message}`);
   };
 
   const loginWithGoogle = useGoogleLogin({
     onSuccess: async (tokenResponse: any) => {
+      setInitialRegister(true);
       console.log(tokenResponse);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_PATH}/auth/convert-token`,
@@ -121,126 +124,141 @@ export default function Page() {
         autoClose={2000}
         limit={5}
       />
-      <div className="h-full   md:w-1/2 p-4  sm:p-12 md:p-24 md:min-w-[700px] flex flex-col justify-around md:justify-start">
-        <Link
-          href="/"
-          className={`${PoppinsBold.className} text-gray-100 textl-xl md:text-2xl`}
-        >
-          ScribbleSeekerr
-        </Link>
-        <div className="py-14 md:px-20 ">
-          <h2
-            className={`${PoppinsLight.className} text-gray-100 text-2xl md:text-3xl`}
-          >
-            Welcome back, to your <b>world</b>!
-          </h2>
-          <p className={`${PoppinsLight.className} text-gray-400 text-base`}>
-            Please enter you details
-          </p>
-
-          <div className=" md:pt-12 lg:pt-14 flex flex-col  ">
-            <label
-              className={`${PoppinsRegular.className} text-gray-100 text-lg md:text-xl pb-1`}
-              htmlFor="username"
+      {initialRegister ? (
+        <div className="w-full h-full grid items-center">
+          <LottiePlayer
+            src="https://assets5.lottiefiles.com/packages/lf20_xjtnusnv.json"
+            classes="xl:w-[500px] xl:h-[500px] lg:w-[400px] lg:h-[400px] w-[300px] h-[300px]  mt-8"
+            autoplay
+            loop
+          />
+        </div>
+      ) : (
+        <>
+          <div className="h-full   md:w-1/2 p-4  sm:p-12 md:p-24 md:min-w-[700px] flex flex-col justify-around md:justify-start">
+            <Link
+              href="/"
+              className={`${PoppinsBold.className} text-gray-100 textl-xl md:text-2xl`}
             >
-              Username
-            </label>
-            <input
-              onChange={(e) => {
-                let newData = loginData;
-
-                newData.username = e.target.value;
-
-                setLoginData(loginData);
-              }}
-              className="h-12 md:h-14 bg-[#1d1d1d] rounded-lg outline-none py-2 px-4 text-gray-100"
-              id="username"
-              type="text"
-            />
-            <label
-              className={`${PoppinsRegular.className} text-gray-100 text-lg md:text-xl pt-4 lg:pt-8 pb-1`}
-              htmlFor="email"
-            >
-              Email
-            </label>
-            <input
-              onChange={(e) => {
-                let newData = loginData;
-
-                newData.email = e.target.value;
-
-                setLoginData(loginData);
-              }}
-              className="h-12 md:h-14 bg-[#1d1d1d] rounded-lg outline-none py-2 px-4 text-gray-100"
-              id="email"
-              type="text"
-            />
-
-            <label
-              className={`${PoppinsRegular.className} text-gray-100 text-lg md:text-xl pt-4 lg:pt-8 pb-1`}
-              htmlFor="password"
-            >
-              Password
-            </label>
-            <input
-              onChange={(e) => {
-                let newData = loginData;
-
-                newData.password = e.target.value;
-
-                setLoginData(loginData);
-              }}
-              className="h-12 md:h-14 bg-[#1d1d1d] rounded-lg outline-none py-2 px-4 text-gray-100 "
-              id="password"
-              type="password"
-            />
-          </div>
-          <div className="flex flex-row justify-between pt-6">
-            <div className="flex flex-row gap-1 md:gap-2">
-              <input
-                className="scale-125 checked:accent-green-600 ml-1"
-                type="checkbox"
-              />
-              <p className={`${PoppinsRegular.className} text-gray-100`}>
-                Show password
+              ScribbleSeekerr
+            </Link>
+            <div className="py-14 md:px-20 ">
+              <h2
+                className={`${PoppinsLight.className} text-gray-100 text-2xl md:text-3xl`}
+              >
+                Welcome back, to your <b>world</b>!
+              </h2>
+              <p
+                className={`${PoppinsLight.className} text-gray-400 text-base`}
+              >
+                Please enter you details
               </p>
+
+              <div className=" md:pt-12 lg:pt-14 flex flex-col  ">
+                <label
+                  className={`${PoppinsRegular.className} text-gray-100 text-lg md:text-xl pb-1`}
+                  htmlFor="username"
+                >
+                  Username
+                </label>
+                <input
+                  onChange={(e) => {
+                    let newData = loginData;
+
+                    newData.username = e.target.value;
+
+                    setLoginData(loginData);
+                  }}
+                  className="h-12 md:h-14 bg-[#1d1d1d] rounded-lg outline-none py-2 px-4 text-gray-100"
+                  id="username"
+                  type="text"
+                />
+                <label
+                  className={`${PoppinsRegular.className} text-gray-100 text-lg md:text-xl pt-4 lg:pt-8 pb-1`}
+                  htmlFor="email"
+                >
+                  Email
+                </label>
+                <input
+                  onChange={(e) => {
+                    let newData = loginData;
+
+                    newData.email = e.target.value;
+
+                    setLoginData(loginData);
+                  }}
+                  className="h-12 md:h-14 bg-[#1d1d1d] rounded-lg outline-none py-2 px-4 text-gray-100"
+                  id="email"
+                  type="text"
+                />
+
+                <label
+                  className={`${PoppinsRegular.className} text-gray-100 text-lg md:text-xl pt-4 lg:pt-8 pb-1`}
+                  htmlFor="password"
+                >
+                  Password
+                </label>
+                <input
+                  onChange={(e) => {
+                    let newData = loginData;
+
+                    newData.password = e.target.value;
+
+                    setLoginData(loginData);
+                  }}
+                  className="h-12 md:h-14 bg-[#1d1d1d] rounded-lg outline-none py-2 px-4 text-gray-100 "
+                  id="password"
+                  type="password"
+                />
+              </div>
+              <div className="flex flex-row justify-between pt-6">
+                <div className="flex flex-row gap-1 md:gap-2">
+                  <input
+                    className="scale-125 checked:accent-green-600 ml-1"
+                    type="checkbox"
+                  />
+                  <p className={`${PoppinsRegular.className} text-gray-100`}>
+                    Show password
+                  </p>
+                </div>
+              </div>
+              <div className="pt-12 flex flex-col items-center justify-center gap-8">
+                <button
+                  onClick={register}
+                  className={`${PoppinsSemi.className} bg-gradient-to-l from-white via-gray-200 to-gray-500 h-12 w-full rounded-lg transition-transform duration-300 hover:scale-95`}
+                >
+                  Register
+                </button>
+
+                <button
+                  onClick={() => loginWithGoogle()}
+                  className={`${PoppinsSemi.className} bg-transparent border-gray-700 border-2 h-12 w-full rounded-lg text-gray-100 transition-transform duration-300 hover:scale-95 flex flex-row justify-center gap-4 items-center`}
+                >
+                  <FaGoogle size={20} />
+                  Register with Google
+                </button>
+              </div>
+              <div className="flex flex-row justify-center pt-4">
+                <Link
+                  href={"/login"}
+                  className={`${PoppinsRegular.className} text-gray-500`}
+                >
+                  Don&apos;t have an account?{" "}
+                  <span className="text-gray-100">sign up now</span>
+                </Link>
+              </div>
             </div>
           </div>
-          <div className="pt-12 flex flex-col items-center justify-center gap-8">
-            <button
-              onClick={register}
-              className={`${PoppinsSemi.className} bg-gradient-to-l from-white via-gray-200 to-gray-500 h-12 w-full rounded-lg transition-transform duration-300 hover:scale-95`}
-            >
-              Register
-            </button>
-
-            <button
-              onClick={() => loginWithGoogle()}
-              className={`${PoppinsSemi.className} bg-transparent border-gray-700 border-2 h-12 w-full rounded-lg text-gray-100 transition-transform duration-300 hover:scale-95 flex flex-row justify-center gap-4 items-center`}
-            >
-              <FaGoogle size={20} />
-              Register with Google
-            </button>
+          <div className="h-full  w-1/2 flex-row  justify-start items-end  p-8 hidden lg:flex">
+            <LottiePlayer
+              src="https://assets2.lottiefiles.com/packages/lf20_yswp4uj3.json"
+              classes="xl:w-[800px] xl:h-[800px] lg:w-[700px] lg:h-[700px]  mt-8"
+              autoplay
+              loop
+            />
           </div>
-          <div className="flex flex-row justify-center pt-4">
-            <Link
-              href={"/login"}
-              className={`${PoppinsRegular.className} text-gray-500`}
-            >
-              Don&apos;t have an account?{" "}
-              <span className="text-gray-100">sign up now</span>
-            </Link>
-          </div>
-        </div>
-      </div>
-      <div className="h-full  w-1/2 flex-row  justify-start items-end  p-8 hidden lg:flex">
-        <LottiePlayer
-          src="https://assets2.lottiefiles.com/packages/lf20_yswp4uj3.json"
-          classes="xl:w-[800px] xl:h-[800px] lg:w-[700px] lg:h-[700px]  mt-8"
-          autoplay
-          loop
-        />
-      </div>
+        </>
+      )}
     </div>
   );
 }
