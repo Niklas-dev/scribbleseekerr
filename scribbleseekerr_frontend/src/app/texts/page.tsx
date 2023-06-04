@@ -42,20 +42,6 @@ export default function Page({ params }: { params: { text_type: string } }) {
     await checkForMoreData(search, text_type, page + 1);
   };
 
-  const checkForMoreData = async (
-    thisSearch: string,
-    textType: string,
-    thisPage: number
-  ): Promise<any> => {
-    const pre_response = await fetchWithParams(thisSearch, textType, thisPage);
-
-    if (pre_response.length === 0) {
-      setFetchedAll(true);
-    } else {
-      setFetchedAll(false);
-    }
-  };
-
   const fetchWithParams = async (
     search: string,
     text_type: string,
@@ -84,6 +70,20 @@ export default function Page({ params }: { params: { text_type: string } }) {
     setLoadingData(false);
 
     await checkForMoreData(search, text_type, page + 2);
+  };
+
+  const checkForMoreData = async (
+    thisSearch: string,
+    textType: string,
+    thisPage: number
+  ): Promise<any> => {
+    const pre_response = await fetchWithParams(thisSearch, textType, thisPage);
+
+    if (pre_response.length === 0) {
+      setFetchedAll(true);
+    } else {
+      setFetchedAll(false);
+    }
   };
 
   useEffect(() => {
