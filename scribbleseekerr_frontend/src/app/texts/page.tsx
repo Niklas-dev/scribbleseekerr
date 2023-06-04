@@ -39,8 +39,15 @@ export default function Page({ params }: { params: { text_type: string } }) {
     console.log(response);
 
     setPosts(response);
+    await checkForMoreData(search, text_type, page + 1);
+  };
 
-    const pre_response = await fetchWithParams(search, text_type, page + 1);
+  const checkForMoreData = async (
+    thisSearch: string,
+    textType: string,
+    thisPage: number
+  ): Promise<any> => {
+    const pre_response = await fetchWithParams(thisSearch, textType, thisPage);
 
     if (pre_response.length === 0) {
       setFetchedAll(true);
@@ -76,13 +83,7 @@ export default function Page({ params }: { params: { text_type: string } }) {
     setPosts((_prev) => [..._prev, ...response]);
     setLoadingData(false);
 
-    const pre_response = await fetchWithParams(search, text_type, page + 2);
-
-    if (pre_response.length === 0) {
-      setFetchedAll(true);
-    } else {
-      setFetchedAll(false);
-    }
+    await checkForMoreData(search, text_type, page + 2);
   };
 
   useEffect(() => {
