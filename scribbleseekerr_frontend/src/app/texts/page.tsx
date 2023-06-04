@@ -35,10 +35,10 @@ export default function Page({ params }: { params: { text_type: string } }) {
 
   const getPosts = async (search: string, text_type: string) => {
     const response = await fetchWithParams(search, text_type, page);
+    setLoadingData(false);
     console.log(response);
 
     setPosts(response);
-    setLoadingData(false);
 
     const pre_response = await fetchWithParams(search, text_type, page + 1);
 
@@ -86,17 +86,10 @@ export default function Page({ params }: { params: { text_type: string } }) {
   };
 
   useEffect(() => {
-    setLoadingData(true);
     const getPostTimer = setTimeout(() => {
       getPosts(postSearch, text_type_param!);
     }, 1000);
-    return () => {
-      setPage(0);
-      setPosts([]);
-      clearTimeout(getPostTimer);
-      setLoadingData(true);
-      setFetchedAll(false);
-    };
+    return () => onDismountSearch(getPostTimer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [postSearch]);
 
@@ -104,11 +97,19 @@ export default function Page({ params }: { params: { text_type: string } }) {
     loginWithToken();
     getPosts(postSearch, linkSearch!);
 
-    return () => onDismount();
+    return () => onDismountLogin();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loaded, linkSearch]);
 
-  const onDismount = () => {
+  const onDismountSearch = (postTimer: NodeJS.Timeout) => {
+    setPage(0);
+    setPosts([]);
+    clearTimeout(postTimer);
+    setLoadingData(true);
+    setFetchedAll(false);
+  };
+
+  const onDismountLogin = () => {
     setPosts([]);
     setLoadingData(true);
     setFetchedAll(false);
