@@ -6,7 +6,6 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import TextareaAutosize from "react-textarea-autosize";
 import { useRouter } from "next/navigation";
 import ReportCreated from "@/components/ReportCreated";
 import ReportReason from "@/components/ReportReason";
