@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import ReportCreated from "@/components/ReportCreated";
 import ReportReason from "@/components/ReportReason";
 import ReportPostID from "@/components/ReportPostID";
+import ReasonImportant from "@/components/ReasonImportant";
 export default function Page({ params }: { params: { pk: number } }) {
   const { user, loaded } = useAuth();
   const error = (message: string) => toast.error(message);
@@ -151,21 +152,13 @@ export default function Page({ params }: { params: { pk: number } }) {
                 />
               </div>
               <div className="flex flex-col pt-8 items-start">
-                <label
-                  className={`${PoppinsRegular.className} text-gray-100 text-lg md:text-xl pb-1`}
-                  htmlFor="title"
-                >
-                  Mark as very important
-                </label>
-                <input
+                <ReasonImportant
+                  value={reportData.important}
                   onChange={(e) => {
                     let newData = reportData;
                     newData.important = !newData.important;
                     setReportData(newData);
                   }}
-                  defaultChecked={reportData.important}
-                  className="scale-150 checked:accent-green-600 ml-4 mt-2 "
-                  type="checkbox"
                 />
               </div>
               <div className="w-full pt-8">
