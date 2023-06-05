@@ -10,6 +10,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import { useRouter } from "next/navigation";
 import ReportCreated from "@/components/ReportCreated";
 import ReportReason from "@/components/ReportReason";
+import ReportPostID from "@/components/ReportPostID";
 export default function Page({ params }: { params: { pk: number } }) {
   const { user, loaded } = useAuth();
   const error = (message: string) => toast.error(message);
@@ -111,24 +112,14 @@ export default function Page({ params }: { params: { pk: number } }) {
                 </h3>
               </div>
               <div className="flex flex-col pt-8">
-                <label
-                  className={`${PoppinsRegular.className} text-gray-100 text-lg md:text-xl pb-1`}
-                  htmlFor="id"
-                >
-                  Post <sup>(ID)</sup>
-                </label>
-
-                <input
+                <ReportPostID
+                  value={reportData.pk}
                   onChange={(e) => {
                     let newData = reportData;
                     newData.pk = parseInt(e.target.value);
                     setReportData(newData);
                   }}
-                  defaultValue={reportData.pk}
-                  id="id"
-                  className={`${PoppinsSemi.className} h-12 w-full rounded-lg text-lg py-1 outline-none bg-[#1d1d1d] text-gray-100 shadow-lg px-4 `}
-                  type="text"
-                ></input>
+                />
               </div>
               <div className="flex flex-col pt-8">
                 <ReportReason
