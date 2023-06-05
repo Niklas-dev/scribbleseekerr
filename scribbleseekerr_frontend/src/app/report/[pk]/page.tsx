@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import TextareaAutosize from "react-textarea-autosize";
 import { useRouter } from "next/navigation";
 import ReportCreated from "@/components/ReportCreated";
+import ReportReason from "@/components/ReportReason";
 export default function Page({ params }: { params: { pk: number } }) {
   const { user, loaded } = useAuth();
   const error = (message: string) => toast.error(message);
@@ -130,44 +131,14 @@ export default function Page({ params }: { params: { pk: number } }) {
                 ></input>
               </div>
               <div className="flex flex-col pt-8">
-                <label
-                  className={`${PoppinsRegular.className} text-gray-100 text-lg md:text-xl pb-1`}
-                  htmlFor="title"
-                >
-                  Reason
-                </label>
-
-                <select
-                  defaultValue={reportData.reason}
+                <ReportReason
+                  value={reportData.reason}
                   onChange={(e) => {
                     let newData = reportData;
                     newData.reason = e.target.value;
                     setReportData(newData);
                   }}
-                  className="w-fit outline-none bg-[#1d1d1d] text-gray-100 h-12 px-2 rounded-lg text-xl shadow-lg "
-                >
-                  <option className="text-xl" value="plagiarism">
-                    Plagiarism
-                  </option>
-                  <option className="text-xl" value="dangerous">
-                    Dangerous
-                  </option>
-                  <option className="text-xl" value="offensive">
-                    Offensive
-                  </option>
-                  <option className="text-xl" value="hate_speech">
-                    Hate Speech
-                  </option>
-                  <option className="text-xl" value="nsfw">
-                    Nsfw
-                  </option>
-                  <option className="text-xl" value="illegal">
-                    Illegal
-                  </option>
-                  <option className="text-xl" value="other">
-                    Other
-                  </option>
-                </select>
+                />
               </div>
               <div className="flex flex-col pt-8">
                 <label

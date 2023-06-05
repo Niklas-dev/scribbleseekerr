@@ -11,6 +11,7 @@ import {
 } from "@/styles/fonts";
 import Link from "next/link";
 import React from "react";
+
 const fetchPost = async (pk: number): Promise<Post | null> => {
   let requestObject: LooseObject = {
     method: "GET",
@@ -33,6 +34,7 @@ const fetchPost = async (pk: number): Promise<Post | null> => {
   console.log(response);
   return response;
 };
+
 export default async function Page({ params }: { params: { pk: number } }) {
   const postData = await fetchPost(params.pk);
   return (
