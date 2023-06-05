@@ -1,7 +1,7 @@
 "use client";
 import InitialsAvatar from "@/components/InitialsAvatar";
 import { useAuth } from "@/providers/auth";
-import { PoppinsBold, PoppinsRegular, PoppinsSemi } from "@/styles/fonts";
+import { PoppinsBold, PoppinsSemi } from "@/styles/fonts";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
@@ -11,7 +11,8 @@ import { useRouter } from "next/navigation";
 import ReportCreated from "@/components/ReportCreated";
 import ReportReason from "@/components/ReportReason";
 import ReportPostID from "@/components/ReportPostID";
-import ReasonImportant from "@/components/ReasonImportant";
+import ReportImportant from "@/components/ReportImportant";
+import ReportDescription from "@/components/ReportDescription";
 export default function Page({ params }: { params: { pk: number } }) {
   const { user, loaded } = useAuth();
   const error = (message: string) => toast.error(message);
@@ -133,26 +134,17 @@ export default function Page({ params }: { params: { pk: number } }) {
                 />
               </div>
               <div className="flex flex-col pt-8">
-                <label
-                  className={`${PoppinsRegular.className} text-gray-100 text-lg md:text-xl pb-1`}
-                  htmlFor="title"
-                >
-                  Description <sup>(Optional)</sup>
-                </label>
-                <TextareaAutosize
+                <ReportDescription
+                  value={reportData.description}
                   onChange={(e) => {
                     let newData = reportData;
                     newData.description = e.target.value;
                     setReportData(newData);
                   }}
-                  defaultValue={reportData.description}
-                  cacheMeasurements
-                  minRows={3}
-                  className={`${PoppinsSemi.className} h-96 w-full rounded-lg text-lg py-1 outline-none bg-[#1d1d1d] text-gray-100 shadow-lg px-4 resize-none `}
                 />
               </div>
               <div className="flex flex-col pt-8 items-start">
-                <ReasonImportant
+                <ReportImportant
                   value={reportData.important}
                   onChange={(e) => {
                     let newData = reportData;
