@@ -74,30 +74,26 @@ export default function Page() {
   ): Promise<any> => {
     const pre_response = await fetchWithParams(thisSearch, textType, thisPage);
 
-    if (pre_response.length === 0) {
-      setFetchedAll(true);
-    } else {
-      setFetchedAll(false);
-    }
+    setFetchedAll(pre_response.length === 0);
   };
 
   useEffect(() => {
     const getPostTimer = setTimeout(() => {
       getPosts(postSearch, text_type_param!);
     }, 1000);
-    return () => onDismountSearch(getPostTimer);
+    return () => onUnmountSearch(getPostTimer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [postSearch]);
+  }, [postSearch, text_type_param]);
 
   useEffect(() => {
     loginWithToken();
-    getPosts(postSearch, linkSearch!);
+    getPosts("", linkSearch!);
 
-    return () => onDismountLogin();
+    return () => onUnmountLogin();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loaded, linkSearch]);
 
-  const onDismountSearch = (postTimer: NodeJS.Timeout) => {
+  const onUnmountSearch = (postTimer: NodeJS.Timeout) => {
     setPage(0);
     setPosts([]);
     clearTimeout(postTimer);
@@ -105,7 +101,7 @@ export default function Page() {
     setFetchedAll(false);
   };
 
-  const onDismountLogin = () => {
+  const onUnmountLogin = () => {
     setPosts([]);
     setLoadingData(true);
     setFetchedAll(false);
