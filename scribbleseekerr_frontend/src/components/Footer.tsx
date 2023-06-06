@@ -18,11 +18,13 @@ export default function Footer() {
           >
             Guidelines
           </Link>
-          <h4
+          <a
+            href="https://github.com/Niklas-dev"
+            target="_blank"
             className={`${PoppinsRegular.className} text-gray-100 cursor-pointer`}
           >
             by <b>@Niklas-dev</b>
-          </h4>
+          </a>
         </div>
       </div>
     </footer>
