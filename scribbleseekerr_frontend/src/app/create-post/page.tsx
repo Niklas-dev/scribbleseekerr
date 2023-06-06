@@ -21,7 +21,7 @@ interface IPostData {
   tags: Array<string>;
 }
 export default function Page() {
-  const { user, loaded, loginWithToken } = useAuth();
+  const { user } = useAuth();
   const [options, setOptions] = useState([]);
   const [isCreated, setIsCreated] = useState(false);
   const error = (message: string) => toast.error(message);
@@ -33,46 +33,42 @@ export default function Page() {
   });
   const router = useRouter();
 
+  const handleSuccess = (response: any) => {
+    setIsCreated(true);
+    const timeout = setTimeout(() => {
+      setIsCreated(false);
+      router.push("/texts");
+    }, 2450);
+  };
+  const handleError = (response: any) => {
+    let errorMessage = "";
+    console.log(response);
+    if ("title" in response) {
+      errorMessage = "Fill out all fields.";
+    }
+    if ("content" in response) {
+      errorMessage = "Fill out all fields.";
+    }
+    if ("tags" in response) {
+      errorMessage = "Fill out all fields.";
+    }
+    error(errorMessage);
+  };
+
   const createPost = async () => {
-    const handleSuccess = (response: any) => {
-      setIsCreated(true);
-      const timeout = setTimeout(() => {
-        setIsCreated(false);
-        router.push("/texts");
-      }, 2450);
-    };
-    const handleError = (response: any) => {
-      let errorMessage = "";
-      console.log(response);
-      if ("title" in response) {
-        errorMessage = "Fill out all fields.";
-      }
-      if ("content" in response) {
-        errorMessage = "Fill out all fields.";
-      }
-      if ("tags" in response) {
-        errorMessage = "Fill out all fields.";
-      }
-      error(errorMessage);
-    };
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_PATH}/posts/create-post`,
-      {
-        method: "POST",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        },
-        body: JSON.stringify(postData),
-      }
-    ).then(async (response) => {
-      if (response.status === 200) {
-        handleSuccess(await response.json());
-      } else {
-        handleError(await response.json());
-      }
-    });
+    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_PATH}/posts/create-post`, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      },
+      body: JSON.stringify(postData),
+    }).then(async (response) =>
+      response.status === 200
+        ? handleSuccess(await response.json())
+        : handleError(await response.json())
+    );
   };
 
   const fetchTags = async () => {
@@ -87,18 +83,18 @@ export default function Page() {
         },
       }
     ).then((response) => response.json());
+
     let newOptions = response.map((tag: { pk: number; name: string }) => {
       return { value: `${tag.name}`, label: `${tag.name}` };
     });
+
     setOptions(newOptions);
   };
 
   useEffect(() => {
     fetchTags();
 
-    return () => {
-      setIsCreated(false);
-    };
+    return () => setIsCreated(false);
   }, []);
 
   return (
