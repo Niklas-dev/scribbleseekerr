@@ -13,6 +13,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <title>ScribbleSeekerr</title>
+        <meta
+          name="keywords"
+          content="ScribbleSeekerr, Texts, Sharing, Poems, Stories, Papers"
+        />
+        <meta
+          name="description"
+          content="Unleash your creativity and join our community of wordsmiths! Share your stories and poems, or dive into a world of imagination with our endless collection of literary treasures. Welcome to a place where every word matters."
+        />
+      </head>
       <body className={inter.className}>
         <AuthProvider>
           <GoogleOAuthProvider
