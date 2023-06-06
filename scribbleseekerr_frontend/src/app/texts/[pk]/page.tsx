@@ -23,15 +23,11 @@ const fetchPost = async (pk: number): Promise<Post | null> => {
     `${process.env.NEXT_PUBLIC_BACKEND_PATH}/posts/get-post?pk=${pk}`,
     requestObject
   )
-    .then(async (response) => {
-      if (response.status === 200) {
-        return await response.json();
-      } else {
-        return null;
-      }
-    })
+    .then(async (response) =>
+      response.status === 200 ? await response.json() : null
+    )
     .then((data) => data);
-  console.log(response);
+
   return response;
 };
 
