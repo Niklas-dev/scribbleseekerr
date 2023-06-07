@@ -52,7 +52,11 @@ export default async function Page({ params }: { params: { pk: number } }) {
       </div>
       {postData ? (
         <div className="mt-20 w-full bg-[#161616] py-8 px-8 rounded-lg h-fit flex flex-col gap-2">
-          <Flames scale="scale-110" pk={2} flameUsersProp={postData?.flames!} />
+          <Flames
+            scale="scale-110"
+            pk={postData.pk}
+            flameUsersProp={postData?.flames!}
+          />
           <h3
             className={`${PoppinsBold.className} text-gray-100  text-2xl pt-6`}
           >
