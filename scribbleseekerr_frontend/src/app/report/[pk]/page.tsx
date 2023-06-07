@@ -25,24 +25,25 @@ export default function Page({ params }: { params: { pk: number } }) {
 
   const router = useRouter();
 
+  const handleSuccess = (response: any) => {
+    setIsCreated(true);
+    const timeout = setTimeout(() => {
+      setIsCreated(false);
+      router.push("/texts");
+    }, 2450);
+  };
+  const handleError = (response: any) => {
+    let errorMessage = "";
+    console.log(response);
+    if ("pk" in response) {
+      errorMessage = "Add the post id.";
+    } else {
+      errorMessage = "An error has occurred.";
+    }
+    error(errorMessage);
+  };
+
   const createReport = async () => {
-    const handleSuccess = (response: any) => {
-      setIsCreated(true);
-      const timeout = setTimeout(() => {
-        setIsCreated(false);
-        router.push("/texts");
-      }, 2450);
-    };
-    const handleError = (response: any) => {
-      let errorMessage = "";
-      console.log(response);
-      if ("pk" in response) {
-        errorMessage = "Add the post id.";
-      } else {
-        errorMessage = "An error has occurred.";
-      }
-      error(errorMessage);
-    };
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_PATH}/posts/report-post`,
       {
@@ -54,13 +55,11 @@ export default function Page({ params }: { params: { pk: number } }) {
         },
         body: JSON.stringify(reportData),
       }
-    ).then(async (response) => {
-      if (response.status === 200) {
-        handleSuccess(await response.json());
-      } else {
-        handleError(await response.json());
-      }
-    });
+    ).then(async (response) =>
+      response.status === 200
+        ? handleSuccess(await response.json())
+        : handleError(await response.json())
+    );
   };
 
   useEffect(() => {
