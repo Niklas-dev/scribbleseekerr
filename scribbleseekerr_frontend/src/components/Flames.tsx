@@ -23,13 +23,10 @@ export default function Flames({
 
   const { user } = useAuth();
 
-  const isFlamed = (_flameUsers: FlameUser[]): boolean => {
-    for (let index in flameUsers) {
-      if (flameUsers[index].username == user?.username) {
-        return true;
-      }
-    }
-    return false;
+  const isFlamed = (flameUsersLocal: FlameUser[]): boolean => {
+    return flameUsersLocal.some(
+      (flameUser) => flameUser.username === user?.username
+    );
   };
 
   const [alreadyFlamed, setAlreadyFlamed] = useState<boolean>(
