@@ -19,13 +19,9 @@ const fetchUser = async (username: string): Promise<ProfileResponse | null> => {
     `${process.env.NEXT_PUBLIC_BACKEND_PATH}/users/get-profile?username=${username}`,
     requestObject
   )
-    .then(async (response) => {
-      if (response.status === 200) {
-        return await response.json();
-      } else {
-        return null;
-      }
-    })
+    .then(async (response) =>
+      response.status === 200 ? await response.json() : null
+    )
     .then((data) => data);
   return response;
 };
