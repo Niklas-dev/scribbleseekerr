@@ -139,12 +139,14 @@ export default function Page() {
               type="text"
             ></input>
           </div>
-          <Link
-            href={"/create-post"}
-            className={`${PoppinsSemi.className} text-[#0e0e0e] grid items-center text-base whitespace-nowrap lg:text-lg bg-gray-100 rounded-md px-4 py-2 h-12 transition-transform duration-300 hover:scale-95`}
-          >
-            New Post
-          </Link>
+          {user && (
+            <Link
+              href={"/create-post"}
+              className={`${PoppinsSemi.className} text-[#0e0e0e] grid items-center text-base whitespace-nowrap lg:text-lg bg-gray-100 rounded-md px-4 py-2 h-12 transition-transform duration-300 hover:scale-95`}
+            >
+              New Post
+            </Link>
+          )}
         </div>
         {user ? (
           <InitialsAvatar href="/user" username={user.username} />
