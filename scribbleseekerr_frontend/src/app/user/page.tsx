@@ -78,7 +78,7 @@ export default function Page() {
             </p>
             <div className="flex flex-row justify-center items-center gap-12 mt-4 px-16">
               <div className="h-[65px] w-[65px] min-h-[65px] min-w-[65px] md:h-[100px] md:w-[100px] rounded-full bg-gradient-to-br from-violet-500 to-blue-900 text-white grid place-content-center">
-                {createInitials(profileData?.username)}
+                {createInitials(user?.username!)}
               </div>
               <div className="flex sm:flex-row flex-col gap-10 ">
                 <div className="flex flex-col justify-center items-center">
