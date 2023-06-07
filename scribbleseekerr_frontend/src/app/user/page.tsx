@@ -5,11 +5,7 @@ import TextPost from "@/components/TextPost";
 import UserNavBar from "@/components/UserNavBar";
 import { useAuth } from "@/providers/auth";
 import { LooseObject, Post } from "@/shared/types";
-import {
-  PoppinsBold,
-  PoppinsRegular,
-  PoppinsSemi,
-} from "@/styles/fonts";
+import { PoppinsBold, PoppinsRegular, PoppinsSemi } from "@/styles/fonts";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 export interface ProfileResponse {
@@ -21,6 +17,8 @@ export interface ProfileResponse {
 }
 export default function Page() {
   const { user, loaded } = useAuth();
+
+  const createInitials = (name: string) => name.substring(0, 3);
 
   const [profileData, setProfileData] = useState<ProfileResponse>();
 
@@ -69,7 +67,7 @@ export default function Page() {
 
   return (
     <div className="bg-[#0e0e0e] flex flex-col overflow-y-scroll h-screen w-full px-6  sm:px-28 md:px-32 lg:px-36 xl:px-72">
-      <UserNavBar/>
+      <UserNavBar />
       <div className="pt-10 flex flex-row justify-center w-full ">
         <div className="w-full md:w-fit max-w-[800px] h-fit py-8  rounded-lg ">
           <div className="bg-[#161616] h-fit py-8 w-full rounded-lg">
@@ -80,7 +78,7 @@ export default function Page() {
             </p>
             <div className="flex flex-row justify-center items-center gap-12 mt-4 px-16">
               <div className="h-[65px] w-[65px] min-h-[65px] min-w-[65px] md:h-[100px] md:w-[100px] rounded-full bg-gradient-to-br from-violet-500 to-blue-900 text-white grid place-content-center">
-                Diez
+                {createInitials(profileData?.username)}
               </div>
               <div className="flex sm:flex-row flex-col gap-10 ">
                 <div className="flex flex-col justify-center items-center">
