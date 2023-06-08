@@ -1,6 +1,7 @@
 "use client";
 
 import PostHasBeenInfo from "@/components/PostHasBeenInfo";
+import { withAuth } from "@/components/WithAuth";
 import { LooseObject, Post } from "@/shared/types";
 import { PoppinsBold, PoppinsRegular, PoppinsSemi } from "@/styles/fonts";
 import Link from "next/link";
@@ -9,7 +10,7 @@ import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function Page({ params }: { params: { pk: number } }) {
+function Page({ params }: { params: { pk: number } }) {
   const [postData, setPostData] = useState<Post>();
   const [isDeleted, setIsDeleted] = useState(false);
   const error = (message: string) => toast.error(message);
@@ -163,3 +164,5 @@ export default function Page({ params }: { params: { pk: number } }) {
     </>
   );
 }
+
+export default withAuth(Page);

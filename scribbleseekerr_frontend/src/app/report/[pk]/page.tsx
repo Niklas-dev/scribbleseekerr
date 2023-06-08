@@ -12,7 +12,8 @@ import ReportReason from "@/components/ReportReason";
 import ReportPostID from "@/components/ReportPostID";
 import ReportImportant from "@/components/ReportImportant";
 import ReportDescription from "@/components/ReportDescription";
-export default function Page({ params }: { params: { pk: number } }) {
+import { withAuth } from "@/components/WithAuth";
+function Page({ params }: { params: { pk: number } }) {
   const { user, loaded } = useAuth();
   const error = (message: string) => toast.error(message);
   const [isCreated, setIsCreated] = useState(false);
@@ -166,3 +167,5 @@ export default function Page({ params }: { params: { pk: number } }) {
     </>
   );
 }
+
+export default withAuth(Page);
