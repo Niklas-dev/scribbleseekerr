@@ -22,6 +22,7 @@ export default function Page() {
     email: "",
     password: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
   const [initialRegister, setInitialRegister] = useState(false);
 
   const error = (message: string) => toast.error(message);
@@ -209,12 +210,14 @@ export default function Page() {
                   }}
                   className="h-12 md:h-14 bg-[#1d1d1d] rounded-lg outline-none py-2 px-4 text-gray-100 "
                   id="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                 />
               </div>
               <div className="flex flex-row justify-between pt-6">
                 <div className="flex flex-row gap-1 md:gap-2">
                   <input
+                    onChange={(e) => setShowPassword(e.target.checked)}
+                    defaultChecked={showPassword}
                     className="scale-125 checked:accent-green-600 ml-1"
                     type="checkbox"
                   />
