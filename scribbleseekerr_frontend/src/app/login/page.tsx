@@ -204,11 +204,14 @@ export default function Page() {
                     Show password
                   </p>
                 </div>
+                {/*
                 <button
                   className={`${PoppinsRegular.className} text-gray-100 underline underline-offset-2`}
                 >
                   Forgot password
                 </button>
+
+                  */}
               </div>
               <div className="pt-12 flex flex-col items-center justify-center gap-8">
                 <button
