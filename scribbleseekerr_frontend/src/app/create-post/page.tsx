@@ -12,6 +12,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { customStyles } from "@/styles/custom";
 import PostHasBeenInfo from "@/components/PostHasBeenInfo";
+import { withAuth } from "@/components/WithAuth";
 const animatedComponents = makeAnimated();
 
 interface IPostData {
@@ -20,7 +21,7 @@ interface IPostData {
   content: string;
   tags: Array<string>;
 }
-export default function Page() {
+function Page() {
   const { user } = useAuth();
   const [options, setOptions] = useState([]);
   const [isCreated, setIsCreated] = useState(false);
@@ -249,3 +250,5 @@ export default function Page() {
     </>
   );
 }
+
+export default withAuth(Page);
