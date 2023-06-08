@@ -3,6 +3,7 @@ import LottiePlayer from "@/components/LottiePlayer";
 import PostWrapper from "@/components/PostWrapper";
 import TextPost from "@/components/TextPost";
 import UserNavBar from "@/components/UserNavBar";
+import { withAuth } from "@/components/WithAuth";
 import { useAuth } from "@/providers/auth";
 import { LooseObject, Post } from "@/shared/types";
 import { PoppinsBold, PoppinsRegular, PoppinsSemi } from "@/styles/fonts";
@@ -15,7 +16,7 @@ export interface ProfileResponse {
   pk: number;
   posts: Post[];
 }
-export default function Page() {
+function Page() {
   const { user, loaded } = useAuth();
 
   const createInitials = (name: string) => name.substring(0, 3);
@@ -175,3 +176,5 @@ export default function Page() {
     </div>
   );
 }
+
+export default withAuth(Page);

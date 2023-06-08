@@ -10,7 +10,7 @@ import {
 
 export interface IAuthContext {
   user: IUser | null;
-  loginWithToken: () => void;
+  loginWithToken: () => Promise<boolean>;
   refreshJWTToken: () => void;
   logoutUser: () => void;
   loaded: boolean;
@@ -31,7 +31,7 @@ const authContextDefaultValues: IAuthContext = {
     pk: 0,
     postsNum: 0,
   },
-  loginWithToken: () => {},
+  loginWithToken: async () => false,
   refreshJWTToken: () => {},
   logoutUser: () => {},
   loaded: false,
@@ -61,7 +61,7 @@ export function AuthProvider({ children }: Props) {
 
   const registerUser = () => {};
 
-  const loginWithToken = async () => {
+  const loginWithToken = async (): Promise<boolean> => {
     console.log("getUser");
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_PATH}/users/user-data`,
@@ -87,8 +87,10 @@ export function AuthProvider({ children }: Props) {
       });
     } else {
       setUser(null);
+      return false;
     }
     setLoaded(true);
+    return true;
   };
 
   const refreshJWTToken = async () => {};
