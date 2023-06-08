@@ -247,8 +247,8 @@ export default function Page() {
                   href={"/login"}
                   className={`${PoppinsRegular.className} text-gray-500`}
                 >
-                  Don&apos;t have an account?{" "}
-                  <span className="text-gray-100">sign up now</span>
+                  Already got an account?{" "}
+                  <span className="text-gray-100">sign in now</span>
                 </Link>
               </div>
             </div>
