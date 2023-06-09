@@ -21,6 +21,8 @@ export default function Flames({
 
   const [flameCount, setFlameCount] = useState(flameUsersProp.length);
 
+  const [hasCooldown, setHasCooldown] = useState(false);
+
   const { user } = useAuth();
 
   const isFlamed = (flameUsersLocal: FlameUser[]): boolean => {
@@ -60,6 +62,7 @@ export default function Flames({
     console.log(data);
     setFlameUsers(data);
     setFlameCount(data.length);
+    setHasCooldown(false);
   };
 
   useEffect(() => {
@@ -70,7 +73,8 @@ export default function Flames({
   return (
     <div
       onClick={async () => {
-        if (user) {
+        if (user && !hasCooldown) {
+          setHasCooldown(true);
           if (alreadyFlamed) {
             setFlameCount((_prev) => _prev - 1);
             setAlreadyFlamed((_prev) => !_prev);
