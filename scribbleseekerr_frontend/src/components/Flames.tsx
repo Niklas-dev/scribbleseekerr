@@ -21,6 +21,8 @@ export default function Flames({
 
   const [flameCount, setFlameCount] = useState(flameUsersProp.length);
 
+  const [hasCooldown, setHasCooldown] = useState(false);
+
   const { user } = useAuth();
 
   const isFlamed = (flameUsersLocal: FlameUser[]): boolean => {
@@ -60,6 +62,7 @@ export default function Flames({
     console.log(data);
     setFlameUsers(data);
     setFlameCount(data.length);
+    setHasCooldown(false);
   };
 
   useEffect(() => {
@@ -71,16 +74,21 @@ export default function Flames({
     <div
       onClick={async () => {
         if (user) {
-          if (alreadyFlamed) {
-            setFlameCount((_prev) => _prev - 1);
-            setAlreadyFlamed((_prev) => !_prev);
+          if (!hasCooldown) {
+            setHasCooldown(true);
+            if (alreadyFlamed) {
+              setFlameCount((_prev) => _prev - 1);
+              setAlreadyFlamed((_prev) => !_prev);
 
-            updateFlames("down", pk);
+              updateFlames("down", pk);
+            } else {
+              setFlameCount((_prev) => _prev + 1);
+              setAlreadyFlamed((_prev) => !_prev);
+
+              updateFlames("up", pk);
+            }
           } else {
-            setFlameCount((_prev) => _prev + 1);
-            setAlreadyFlamed((_prev) => !_prev);
-
-            updateFlames("up", pk);
+            error!("Not so fast.");
           }
         } else {
           error!("You need to be signed in.");
