@@ -73,18 +73,22 @@ export default function Flames({
   return (
     <div
       onClick={async () => {
-        if (user && !hasCooldown) {
-          setHasCooldown(true);
-          if (alreadyFlamed) {
-            setFlameCount((_prev) => _prev - 1);
-            setAlreadyFlamed((_prev) => !_prev);
+        if (user) {
+          if (!hasCooldown) {
+            setHasCooldown(true);
+            if (alreadyFlamed) {
+              setFlameCount((_prev) => _prev - 1);
+              setAlreadyFlamed((_prev) => !_prev);
 
-            updateFlames("down", pk);
+              updateFlames("down", pk);
+            } else {
+              setFlameCount((_prev) => _prev + 1);
+              setAlreadyFlamed((_prev) => !_prev);
+
+              updateFlames("up", pk);
+            }
           } else {
-            setFlameCount((_prev) => _prev + 1);
-            setAlreadyFlamed((_prev) => !_prev);
-
-            updateFlames("up", pk);
+            error!("Not so fast.");
           }
         } else {
           error!("You need to be signed in.");
