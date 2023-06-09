@@ -35,6 +35,25 @@ export default function Flames({
     isFlamed(flameUsers)
   );
 
+  const updateFlameByStatus = () => {
+    if (!hasCooldown) {
+      setHasCooldown(true);
+      if (alreadyFlamed) {
+        setFlameCount((_prev) => _prev - 1);
+        setAlreadyFlamed((_prev) => !_prev);
+
+        updateFlames("down", pk);
+      } else {
+        setFlameCount((_prev) => _prev + 1);
+        setAlreadyFlamed((_prev) => !_prev);
+
+        updateFlames("up", pk);
+      }
+    } else {
+      error!("Not so fast.");
+    }
+  };
+
   const updateFlames = async (arg: string, pk: number) => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_PATH}/posts/update-flames`,
@@ -74,22 +93,7 @@ export default function Flames({
     <div
       onClick={async () => {
         if (user) {
-          if (!hasCooldown) {
-            setHasCooldown(true);
-            if (alreadyFlamed) {
-              setFlameCount((_prev) => _prev - 1);
-              setAlreadyFlamed((_prev) => !_prev);
-
-              updateFlames("down", pk);
-            } else {
-              setFlameCount((_prev) => _prev + 1);
-              setAlreadyFlamed((_prev) => !_prev);
-
-              updateFlames("up", pk);
-            }
-          } else {
-            error!("Not so fast.");
-          }
+          updateFlameByStatus();
         } else {
           error!("You need to be signed in.");
         }
