@@ -95,7 +95,7 @@ export default function TextPost({
         {author === user?.username && <span className="text-sm">(you)</span>}
       </Link>
       <div className="flex flex-row gap-2 pt-4 ">
-        {tags ? <TagsDisplay tags={tags} /> : null}
+        {tags && <TagsDisplay tags={tags} />}
       </div>
     </div>
   );
