@@ -23,8 +23,8 @@
 ## Prerequisites
 
 - Node.js (v14 or higher)
-- Python (v3 or higher)
-- Django (v3 or higher)
+- Python (v3.9 or higher)
+- Django (v4 or higher)
 - PostgreSQL
 
 ## Installation
