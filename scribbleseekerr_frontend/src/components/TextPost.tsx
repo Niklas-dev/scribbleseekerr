@@ -94,8 +94,8 @@ export default function TextPost({
         <b className={`${PoppinsBold.className} text-gray-100`}>{author}</b>{" "}
         {author === user?.username && <span className="text-sm">(you)</span>}
       </Link>
-      <div className="flex flex-row gap-2 pt-4">
-        {tags ? <TagsDisplay tags={tags} /> : null}
+      <div className="flex flex-row gap-2 pt-4 ">
+        {tags && <TagsDisplay tags={tags} />}
       </div>
     </div>
   );
