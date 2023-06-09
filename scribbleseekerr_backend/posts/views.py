@@ -55,7 +55,7 @@ class UpdateFlames(APIView):
                 pass
             else:
 
-                if json_data['arg'] is 'up' or 'down':
+                if json_data['arg'] == 'up' or 'down':
                     if json_data['arg'] == 'up':
 
                         post.flames.add(request.user)
