@@ -63,8 +63,9 @@ export default function Flames({
   };
 
   useEffect(() => {
+    setAlreadyFlamed(isFlamed(flameUsers));
     return () => {};
-  }, []);
+  }, [flameUsers]);
 
   return (
     <div
