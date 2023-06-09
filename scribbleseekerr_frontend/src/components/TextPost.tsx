@@ -1,10 +1,5 @@
 "use client";
-import {
-  PoppinsBold,
-  PoppinsLight,
-  PoppinsRegular,
-  PoppinsSemi,
-} from "@/styles/fonts";
+import { PoppinsBold, PoppinsRegular, PoppinsSemi } from "@/styles/fonts";
 import React, { useEffect, useState } from "react";
 import { FaEllipsisV } from "react-icons/fa";
 import Flames from "./Flames";
@@ -65,7 +60,7 @@ export default function TextPost({
             </Link>
             {author === user?.username && (
               <Link
-                href={`report/${pk}`}
+                href={`/delete/${pk}`}
                 className={`${PoppinsRegular.className} text-red-400 text-lg  bg-[#161616] py-1 px-2 rounded-md transition-transform hover:scale-95 text-center`}
               >
                 Delete
@@ -99,8 +94,8 @@ export default function TextPost({
         <b className={`${PoppinsBold.className} text-gray-100`}>{author}</b>{" "}
         {author === user?.username && <span className="text-sm">(you)</span>}
       </Link>
-      <div className="flex flex-row gap-2 pt-4">
-        {tags ? <TagsDisplay tags={tags} /> : null}
+      <div className="flex flex-row gap-2 pt-4 ">
+        {tags && <TagsDisplay tags={tags} />}
       </div>
     </div>
   );

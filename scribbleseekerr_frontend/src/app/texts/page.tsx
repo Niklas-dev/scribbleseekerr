@@ -1,83 +1,51 @@
 "use client";
-import PostWrapperLeft from "@/components/PostWrapper";
-import PostWrapperRight from "@/components/PostWrapperRight";
 import TextPost from "@/components/TextPost";
-import {
-  PoppinsBold,
-  PoppinsLight,
-  PoppinsRegular,
-  PoppinsSemi,
-} from "@/styles/fonts";
+import { PoppinsSemi } from "@/styles/fonts";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-
-import { FaSearch, FaArrowUp, FaFire } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 import { useAuth } from "../../providers/auth";
 import InitialsAvatar from "@/components/InitialsAvatar";
-
 import PostWrapper from "@/components/PostWrapper";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import LottiePlayer from "@/components/LottiePlayer";
-import PostBlueprint from "@/components/PostBlueprint";
 import ScrollToTop from "@/components/ScrollToTop";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Post } from "@/shared/types";
 
-export default function Page({ params }: { params: { text_type: string } }) {
+export default function Page() {
   const { user, loaded, loginWithToken } = useAuth();
   const [postSearch, setPostSearch] = useState("");
   const [loadingData, setLoadingData] = useState(true);
   const [fetchedAll, setFetchedAll] = useState(true);
   const [page, setPage] = useState(0);
   const [posts, setPosts] = useState<Post[]>([]);
-
+  const topRef = React.useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
   const text_type_param = searchParams.get("text_type");
   const [linkSearch, setLinkSearch] = useState(text_type_param);
-  const router = useRouter();
 
   const error = (message: string) => toast.error(message);
 
   const getPosts = async (search: string, text_type: string) => {
     const response = await fetchWithParams(search, text_type, page);
-    console.log(response);
 
     setPosts(response);
     setLoadingData(false);
 
-    const pre_response = await fetchWithParams(search, text_type, page + 1);
-
-    if (pre_response.length === 0) {
-      setFetchedAll(true);
-    } else {
-      setFetchedAll(false);
-    }
+    await checkForMoreData(search, text_type, page + 1);
   };
 
-  useEffect(() => {
-    setLoadingData(true);
-    const getPostTimer = setTimeout(() => {
-      getPosts(postSearch, text_type_param!);
-    }, 1000);
-    return () => {
-      setPage(0);
-      setPosts([]);
-      clearTimeout(getPostTimer);
-      setLoadingData(true);
-      setFetchedAll(false);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [postSearch]);
+  const loadMore = async (search: string, text_type: string) => {
+    const response = await fetchWithParams(search, text_type, page + 1);
 
-  useEffect(() => {
-    loginWithToken();
-    getPosts(postSearch, linkSearch!);
+    setPage((_prev) => _prev + 1);
+    setPosts((_prev) => [..._prev, ...response]);
+    setLoadingData(false);
 
-    return () => onDismount();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loaded, linkSearch]);
+    await checkForMoreData(search, text_type, page + 2);
+  };
 
   const fetchWithParams = async (
     search: string,
@@ -99,30 +67,48 @@ export default function Page({ params }: { params: { text_type: string } }) {
     });
   };
 
-  const loadMore = async (search: string, text_type: string) => {
-    const response = await fetchWithParams(search, text_type, page + 1);
-    console.log(response);
-    setPage((_prev) => _prev + 1);
-    setPosts((_prev) => [..._prev, ...response]);
-    setLoadingData(false);
+  const checkForMoreData = async (
+    thisSearch: string,
+    textType: string,
+    thisPage: number
+  ): Promise<any> => {
+    const pre_response = await fetchWithParams(thisSearch, textType, thisPage);
 
-    const pre_response = await fetchWithParams(search, text_type, page + 2);
-
-    if (pre_response.length === 0) {
-      setFetchedAll(true);
-    } else {
-      setFetchedAll(false);
-    }
+    setFetchedAll(pre_response.length === 0);
   };
 
-  const onDismount = () => {
+  useEffect(() => {
+    const getPostTimer = setTimeout(() => {
+      getPosts(postSearch, text_type_param!);
+    }, 1000);
+    return () => onUnmountSearch(getPostTimer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [postSearch, text_type_param]);
+
+  useEffect(() => {
+    loginWithToken();
+    getPosts("", linkSearch!);
+
+    return () => onUnmountLogin();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [linkSearch]);
+
+  const onUnmountSearch = (postTimer: NodeJS.Timeout) => {
+    setPage(0);
+    setPosts([]);
+    clearTimeout(postTimer);
+    setLoadingData(true);
+    setFetchedAll(false);
+  };
+
+  const onUnmountLogin = () => {
     setPosts([]);
     setLoadingData(true);
     setFetchedAll(false);
     setPostSearch("");
     setPage(0);
   };
-  const topRef = React.useRef<HTMLDivElement>(null);
+
   return (
     <div className="bg-[#0e0e0e] overflow-y-scroll h-screen w-full ">
       <ToastContainer
@@ -153,12 +139,14 @@ export default function Page({ params }: { params: { text_type: string } }) {
               type="text"
             ></input>
           </div>
-          <Link
-            href={"/create-post"}
-            className={`${PoppinsSemi.className} text-[#0e0e0e] grid items-center text-base whitespace-nowrap lg:text-lg bg-gray-100 rounded-md px-4 py-2 h-12 transition-transform duration-300 hover:scale-95`}
-          >
-            New Post
-          </Link>
+          {user && (
+            <Link
+              href={"/create-post"}
+              className={`${PoppinsSemi.className} text-[#0e0e0e] grid items-center text-base whitespace-nowrap lg:text-lg bg-gray-100 rounded-md px-4 py-2 h-12 transition-transform duration-300 hover:scale-95`}
+            >
+              New Post
+            </Link>
+          )}
         </div>
         {user ? (
           <InitialsAvatar href="/user" username={user.username} />

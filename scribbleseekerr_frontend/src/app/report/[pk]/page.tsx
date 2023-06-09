@@ -1,15 +1,19 @@
 "use client";
 import InitialsAvatar from "@/components/InitialsAvatar";
 import { useAuth } from "@/providers/auth";
-import { PoppinsBold, PoppinsRegular, PoppinsSemi } from "@/styles/fonts";
+import { PoppinsBold, PoppinsSemi } from "@/styles/fonts";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import TextareaAutosize from "react-textarea-autosize";
 import { useRouter } from "next/navigation";
 import ReportCreated from "@/components/ReportCreated";
-export default function Page({ params }: { params: { pk: number } }) {
+import ReportReason from "@/components/ReportReason";
+import ReportPostID from "@/components/ReportPostID";
+import ReportImportant from "@/components/ReportImportant";
+import ReportDescription from "@/components/ReportDescription";
+import { withAuth } from "@/components/WithAuth";
+function Page({ params }: { params: { pk: number } }) {
   const { user, loaded } = useAuth();
   const error = (message: string) => toast.error(message);
   const [isCreated, setIsCreated] = useState(false);
@@ -22,24 +26,25 @@ export default function Page({ params }: { params: { pk: number } }) {
 
   const router = useRouter();
 
+  const handleSuccess = (response: any) => {
+    setIsCreated(true);
+    const timeout = setTimeout(() => {
+      setIsCreated(false);
+      router.push("/texts");
+    }, 2450);
+  };
+  const handleError = (response: any) => {
+    let errorMessage = "";
+    console.log(response);
+    if ("pk" in response) {
+      errorMessage = "Add the post id.";
+    } else {
+      errorMessage = "An error has occurred.";
+    }
+    error(errorMessage);
+  };
+
   const createReport = async () => {
-    const handleSuccess = (response: any) => {
-      setIsCreated(true);
-      const timeout = setTimeout(() => {
-        setIsCreated(false);
-        router.push("/texts");
-      }, 2450);
-    };
-    const handleError = (response: any) => {
-      let errorMessage = "";
-      console.log(response);
-      if ("pk" in response) {
-        errorMessage = "Add the post id.";
-      } else {
-        errorMessage = "An error has occurred.";
-      }
-      error(errorMessage);
-    };
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_PATH}/posts/report-post`,
       {
@@ -51,13 +56,11 @@ export default function Page({ params }: { params: { pk: number } }) {
         },
         body: JSON.stringify(reportData),
       }
-    ).then(async (response) => {
-      if (response.status === 200) {
-        handleSuccess(await response.json());
-      } else {
-        handleError(await response.json());
-      }
-    });
+    ).then(async (response) =>
+      response.status === 200
+        ? handleSuccess(await response.json())
+        : handleError(await response.json())
+    );
   };
 
   useEffect(() => {
@@ -110,100 +113,43 @@ export default function Page({ params }: { params: { pk: number } }) {
                 </h3>
               </div>
               <div className="flex flex-col pt-8">
-                <label
-                  className={`${PoppinsRegular.className} text-gray-100 text-lg md:text-xl pb-1`}
-                  htmlFor="id"
-                >
-                  Post <sup>(ID)</sup>
-                </label>
-
-                <input
+                <ReportPostID
+                  value={reportData.pk}
                   onChange={(e) => {
                     let newData = reportData;
                     newData.pk = parseInt(e.target.value);
                     setReportData(newData);
                   }}
-                  defaultValue={reportData.pk}
-                  id="id"
-                  className={`${PoppinsSemi.className} h-12 w-full rounded-lg text-lg py-1 outline-none bg-[#1d1d1d] text-gray-100 shadow-lg px-4 `}
-                  type="text"
-                ></input>
+                />
               </div>
               <div className="flex flex-col pt-8">
-                <label
-                  className={`${PoppinsRegular.className} text-gray-100 text-lg md:text-xl pb-1`}
-                  htmlFor="title"
-                >
-                  Reason
-                </label>
-
-                <select
-                  defaultValue={reportData.reason}
+                <ReportReason
+                  value={reportData.reason}
                   onChange={(e) => {
                     let newData = reportData;
                     newData.reason = e.target.value;
                     setReportData(newData);
                   }}
-                  className="w-fit outline-none bg-[#1d1d1d] text-gray-100 h-12 px-2 rounded-lg text-xl shadow-lg "
-                >
-                  <option className="text-xl" value="plagiarism">
-                    Plagiarism
-                  </option>
-                  <option className="text-xl" value="dangerous">
-                    Dangerous
-                  </option>
-                  <option className="text-xl" value="offensive">
-                    Offensive
-                  </option>
-                  <option className="text-xl" value="hate_speech">
-                    Hate Speech
-                  </option>
-                  <option className="text-xl" value="nsfw">
-                    Nsfw
-                  </option>
-                  <option className="text-xl" value="illegal">
-                    Illegal
-                  </option>
-                  <option className="text-xl" value="other">
-                    Other
-                  </option>
-                </select>
+                />
               </div>
               <div className="flex flex-col pt-8">
-                <label
-                  className={`${PoppinsRegular.className} text-gray-100 text-lg md:text-xl pb-1`}
-                  htmlFor="title"
-                >
-                  Description <sup>(Optional)</sup>
-                </label>
-                <TextareaAutosize
+                <ReportDescription
+                  value={reportData.description}
                   onChange={(e) => {
                     let newData = reportData;
                     newData.description = e.target.value;
                     setReportData(newData);
                   }}
-                  defaultValue={reportData.description}
-                  cacheMeasurements
-                  minRows={3}
-                  className={`${PoppinsSemi.className} h-96 w-full rounded-lg text-lg py-1 outline-none bg-[#1d1d1d] text-gray-100 shadow-lg px-4 resize-none `}
                 />
               </div>
               <div className="flex flex-col pt-8 items-start">
-                <label
-                  className={`${PoppinsRegular.className} text-gray-100 text-lg md:text-xl pb-1`}
-                  htmlFor="title"
-                >
-                  Mark as very important
-                </label>
-                <input
+                <ReportImportant
+                  value={reportData.important}
                   onChange={(e) => {
                     let newData = reportData;
                     newData.important = !newData.important;
                     setReportData(newData);
                   }}
-                  defaultChecked={reportData.important}
-                  className="scale-150 checked:accent-green-600 ml-4 mt-2 "
-                  type="checkbox"
                 />
               </div>
               <div className="w-full pt-8">
@@ -221,3 +167,5 @@ export default function Page({ params }: { params: { pk: number } }) {
     </>
   );
 }
+
+export default withAuth(Page);

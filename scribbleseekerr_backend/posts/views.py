@@ -11,7 +11,7 @@ from django.http import JsonResponse, HttpResponseRedirect, HttpResponse, FileRe
 
 from posts.models import Post, Tag, PostReport
 from posts.serializers import PostSerializer, UserSerializer, TagSerializer, CreatePostSerializer, \
-    CreateReportSerializer
+    CreateReportSerializer, DeletePostSerializer
 
 
 # Create your views here.
@@ -154,6 +154,24 @@ class GetPosts(APIView):
         return Response(json_data, status=status.HTTP_200_OK)
 
 
+class DeletePost(APIView):
+    permission_classes = [IsAuthenticated, ]
+
+    def delete(self, request):
+        serializer = DeletePostSerializer(data=request.data)
+        if serializer.is_valid():
+            print(serializer.data.get('pk'))
+            post = Post.objects.get(pk=serializer.data.get('pk'))
+            post_clone = post
+            if request.user == post.author:
+                post.delete()
+                return Response({'Deleted': post_clone.title}, status=status.HTTP_200_OK)
+
+            return Response({"Author": "You are not the author of this post."}, status=status.HTTP_401_UNAUTHORIZED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 class CreateReport(APIView):
     permission_classes = [IsAuthenticated, ]
 
@@ -162,7 +180,9 @@ class CreateReport(APIView):
         if serializer.is_valid():
             print(serializer.data)
             post = Post.objects.filter(pk=serializer.data.get('pk')).first()
-            report = PostReport(creator=request.user, post=post, reason=serializer.data.get('reason'), description=serializer.data.get('description'), important=serializer.data.get('important'))
+            report = PostReport(creator=request.user, post=post, reason=serializer.data.get('reason'),
+                                description=serializer.data.get('description'),
+                                important=serializer.data.get('important'))
 
             report.save()
             return Response(serializer.data, status=status.HTTP_200_OK)

@@ -11,6 +11,7 @@ import {
 } from "@/styles/fonts";
 import Link from "next/link";
 import React from "react";
+
 const fetchPost = async (pk: number): Promise<Post | null> => {
   let requestObject: LooseObject = {
     method: "GET",
@@ -22,17 +23,14 @@ const fetchPost = async (pk: number): Promise<Post | null> => {
     `${process.env.NEXT_PUBLIC_BACKEND_PATH}/posts/get-post?pk=${pk}`,
     requestObject
   )
-    .then(async (response) => {
-      if (response.status === 200) {
-        return await response.json();
-      } else {
-        return null;
-      }
-    })
+    .then(async (response) =>
+      response.status === 200 ? await response.json() : null
+    )
     .then((data) => data);
-  console.log(response);
+
   return response;
 };
+
 export default async function Page({ params }: { params: { pk: number } }) {
   const postData = await fetchPost(params.pk);
   return (
@@ -54,7 +52,11 @@ export default async function Page({ params }: { params: { pk: number } }) {
       </div>
       {postData ? (
         <div className="mt-20 w-full bg-[#161616] py-8 px-8 rounded-lg h-fit flex flex-col gap-2">
-          <Flames scale="scale-110" pk={2} flameUsersProp={postData?.flames!} />
+          <Flames
+            scale="scale-110"
+            pk={postData.pk}
+            flameUsersProp={postData?.flames!}
+          />
           <h3
             className={`${PoppinsBold.className} text-gray-100  text-2xl pt-6`}
           >

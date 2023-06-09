@@ -1,5 +1,6 @@
 "use client";
 import InitialsAvatar from "@/components/InitialsAvatar";
+import { withAuth } from "@/components/WithAuth";
 import { useAuth } from "@/providers/auth";
 import { PoppinsBold, PoppinsRegular, PoppinsSemi } from "@/styles/fonts";
 import Link from "next/link";
@@ -7,25 +8,26 @@ import React, { useEffect, useState } from "react";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-export default function Page() {
+function Page() {
   const { user, loaded, loginWithToken } = useAuth();
   const [userData, setUserData] = useState({ username: user?.username });
   const error = (message: string) => toast.error(message);
   const success = (message: string) => toast.success(message);
 
+  const handleError = (response: any) => {
+    let errorMessage = "";
+    console.log(response);
+
+    errorMessage = "An error has occurred.";
+
+    error(errorMessage);
+  };
+  const handleSuccess = (response: any) => {
+    success("Username has been updated.");
+  };
+
   const editUser = async () => {
-    const handleSuccess = (response: any) => {
-      success("Username has been updated.");
-    };
-    const handleError = (response: any) => {
-      let errorMessage = "";
-      console.log(response);
-
-      errorMessage = "An error has occurred.";
-
-      error(errorMessage);
-    };
-    const response = await fetch(
+    await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_PATH}/users/update-profile`,
       {
         method: "PUT",
@@ -36,13 +38,11 @@ export default function Page() {
         },
         body: JSON.stringify(userData),
       }
-    ).then(async (response) => {
-      if (response.status === 200) {
-        handleSuccess(await response.json());
-      } else {
-        handleError(await response.json());
-      }
-    });
+    ).then(async (response) =>
+      response.status === 200
+        ? handleSuccess(await response.json())
+        : handleError(await response.json())
+    );
   };
 
   useEffect(() => {
@@ -126,3 +126,5 @@ export default function Page() {
     </>
   );
 }
+
+export default withAuth(Page);

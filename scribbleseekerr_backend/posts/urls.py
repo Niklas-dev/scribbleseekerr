@@ -9,5 +9,6 @@ urlpatterns = [
     path('get-post', GetPost.as_view(), name='get-post'),
     path('get-tags', GetTags.as_view(), name="get-tags"),
     path('report-post', CreateReport.as_view(), name='report-posts'),
+    path('delete-post', DeletePost.as_view(), name='delete-posts'),
 
 ]

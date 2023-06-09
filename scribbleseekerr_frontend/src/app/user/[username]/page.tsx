@@ -7,6 +7,7 @@ import { LooseObject, Post } from "@/shared/types";
 import { PoppinsBold, PoppinsRegular, PoppinsSemi } from "@/styles/fonts";
 import Link from "next/link";
 import React from "react";
+const createInitials = (name: string) => name.substring(0, 3);
 const fetchUser = async (username: string): Promise<ProfileResponse | null> => {
   let requestObject: LooseObject = {
     method: "GET",
@@ -18,13 +19,9 @@ const fetchUser = async (username: string): Promise<ProfileResponse | null> => {
     `${process.env.NEXT_PUBLIC_BACKEND_PATH}/users/get-profile?username=${username}`,
     requestObject
   )
-    .then(async (response) => {
-      if (response.status === 200) {
-        return await response.json();
-      } else {
-        return null;
-      }
-    })
+    .then(async (response) =>
+      response.status === 200 ? await response.json() : null
+    )
     .then((data) => data);
   return response;
 };
@@ -48,7 +45,7 @@ export default async function Page({
               </p>
               <div className="flex flex-row justify-center items-center gap-12 mt-4 px-16">
                 <div className="h-[65px] w-[65px] min-h-[65px] min-w-[65px] md:h-[100px] md:w-[100px] rounded-full bg-gradient-to-br from-violet-500 to-blue-900 text-white grid place-content-center">
-                  Diez
+                  {createInitials(profileData?.username)}
                 </div>
                 <div className="flex sm:flex-row flex-col gap-10 ">
                   <div className="flex flex-col justify-center items-center">

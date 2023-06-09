@@ -2,6 +2,20 @@ import { PoppinsSemi } from "@/styles/fonts";
 import Link from "next/link";
 import React from "react";
 
+export const metadata = {
+  title: "ScribbleSeekerr",
+  keywords: [
+    "ScribbleSeekerr",
+    "Texts",
+    "Sharing",
+    "Poems",
+    "Stories",
+    "Papers",
+  ],
+  description:
+    "Unleash your creativity and join our community of wordsmiths! Share your stories and poems, or dive into a world of imagination with our endless collection of literary treasures. Welcome to a place where every word matters.",
+};
+
 export default function page() {
   return (
     <div className="bg-[#0e0e0e] flex flex-col overflow-y-scroll h-screen w-full px-6  sm:px-28 md:px-32 lg:px-36 xl:px-72 py-10">
