@@ -91,7 +91,7 @@ export default function Page() {
 
     return () => onUnmountLogin();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loaded, linkSearch]);
+  }, [linkSearch]);
 
   const onUnmountSearch = (postTimer: NodeJS.Timeout) => {
     setPage(0);
