@@ -61,7 +61,7 @@ function Page() {
     const currentIsSentState = isSent;
     setIsCreated(true);
 
-    if (!isSent) {
+    if (!currentIsSentState) {
       await fetch(`${process.env.NEXT_PUBLIC_BACKEND_PATH}/posts/create-post`, {
         method: "POST",
         mode: "cors",
