@@ -24,6 +24,7 @@ interface IPostData {
 function Page() {
   const { user } = useAuth();
   const [options, setOptions] = useState([]);
+  const [isSent, setIsSent] = useState(false);
   const [isCreated, setIsCreated] = useState(false);
   const error = (message: string) => toast.error(message);
   const [postData, setPostData] = useState<IPostData>({
@@ -57,19 +58,24 @@ function Page() {
   };
 
   const createPost = async () => {
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_PATH}/posts/create-post`, {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-      },
-      body: JSON.stringify(postData),
-    }).then(async (response) =>
-      response.status === 200
-        ? handleSuccess(await response.json())
-        : handleError(await response.json())
-    );
+    const currentIsSentState = isSent;
+    setIsCreated(true);
+
+    if (!isSent) {
+      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_PATH}/posts/create-post`, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+        body: JSON.stringify(postData),
+      }).then(async (response) =>
+        response.status === 200
+          ? handleSuccess(await response.json())
+          : handleError(await response.json())
+      );
+    }
   };
 
   const fetchTags = async () => {
