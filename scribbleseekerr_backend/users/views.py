@@ -81,8 +81,8 @@ class UserCreate(APIView):
         serializer = RegisterUserSerializer(data=request.data)
         json_data = request.data
         request_data = {'username': json_data['username'], 'password': json_data['password'], 'grant_type': 'password',
-                        'client_secret': "VJv3ee2VapWVhL9hXozjVY7wXFnfhOSVcVJX8vJIMW59cTRzNQdD3TwF8KJeY62JXPXcUInQR9s9azPkK7dt2woTqdBFvYxUetauFNf6gwWCglvwNQExlAVN8VVb3H9J",
-                        'client_id': "xJzzZuEHfhzQwoSndJc8G2pZYzldHdbyTkw26H1O"}
+                        'client_secret': env('CLIENT_SECRET'),
+                        'client_id': env('CLIENT_ID')}
 
         if serializer.is_valid():
             scribble_user = serializer.save()
@@ -90,6 +90,7 @@ class UserCreate(APIView):
                 headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 
                 response = requests.post("http://127.0.0.1:8000/auth/token", data=request_data, headers=headers)
+                print(response)
 
                 return Response(json.loads(response.content), status=status.HTTP_201_CREATED)
 

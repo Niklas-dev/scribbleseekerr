@@ -17,6 +17,7 @@ import { FaGoogle } from "react-icons/fa";
 
 export default function Page() {
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
@@ -188,12 +189,14 @@ export default function Page() {
                   }}
                   className="h-12 md:h-14 bg-[#1d1d1d] rounded-lg outline-none py-2 px-4 text-gray-100 "
                   id="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                 />
               </div>
               <div className="flex flex-row justify-between pt-6">
                 <div className="flex flex-row gap-1 md:gap-2">
                   <input
+                    onChange={(e) => setShowPassword(e.target.checked)}
+                    defaultChecked={showPassword}
                     className="scale-125 checked:accent-green-600 ml-1"
                     type="checkbox"
                   />
@@ -201,11 +204,14 @@ export default function Page() {
                     Show password
                   </p>
                 </div>
+                {/*
                 <button
                   className={`${PoppinsRegular.className} text-gray-100 underline underline-offset-2`}
                 >
                   Forgot password
                 </button>
+
+                  */}
               </div>
               <div className="pt-12 flex flex-col items-center justify-center gap-8">
                 <button

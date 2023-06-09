@@ -22,11 +22,13 @@ export default function Page() {
     email: "",
     password: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
   const [initialRegister, setInitialRegister] = useState(false);
 
   const error = (message: string) => toast.error(message);
 
   const handleSuccess = (response: any) => {
+    console.log(response);
     localStorage.setItem("access_token", response["access_token"]);
     localStorage.setItem("refresh_token", response["refresh_token"]);
 
@@ -208,12 +210,14 @@ export default function Page() {
                   }}
                   className="h-12 md:h-14 bg-[#1d1d1d] rounded-lg outline-none py-2 px-4 text-gray-100 "
                   id="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                 />
               </div>
               <div className="flex flex-row justify-between pt-6">
                 <div className="flex flex-row gap-1 md:gap-2">
                   <input
+                    onChange={(e) => setShowPassword(e.target.checked)}
+                    defaultChecked={showPassword}
                     className="scale-125 checked:accent-green-600 ml-1"
                     type="checkbox"
                   />
@@ -243,8 +247,8 @@ export default function Page() {
                   href={"/login"}
                   className={`${PoppinsRegular.className} text-gray-500`}
                 >
-                  Don&apos;t have an account?{" "}
-                  <span className="text-gray-100">sign up now</span>
+                  Already got an account?{" "}
+                  <span className="text-gray-100">sign in now</span>
                 </Link>
               </div>
             </div>
