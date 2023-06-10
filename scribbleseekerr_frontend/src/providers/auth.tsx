@@ -49,7 +49,7 @@ interface Props {
 
 export function AuthProvider({ children }: Props) {
   const router = useRouter();
-
+  const [triedRefresh, setTriedRefresh] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [user, setUser] = useState<IUser | null>({
     username: "",
@@ -85,6 +85,38 @@ export function AuthProvider({ children }: Props) {
         pk: data["pk"],
         postsNum: 0,
       });
+    } else if (response.status === 401 && !triedRefresh) {
+      setTriedRefresh(true);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_PATH}/auth/token`,
+        {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            refresh_token: localStorage.getItem("refresh_token")!,
+
+            grant_type: "refresh_token",
+            client_secret: process.env.NEXT_PUBLIC_CLIENT_SECRET!,
+            client_id: process.env.NEXT_PUBLIC_CLIENT_ID!,
+          }),
+        }
+      );
+      if (response.status === 200) {
+        const json = await response.json();
+        localStorage.setItem("access_token", json["access_token"]);
+        localStorage.setItem("refresh_token", json["refresh_token"]);
+
+        loginWithToken();
+        console.log("Refreshing token");
+      } else {
+        console.log("Failed refreshing token");
+
+        setUser(null);
+        return false;
+      }
     } else {
       setUser(null);
       return false;
