@@ -55,7 +55,7 @@ export default function LandingNav() {
 
                 window.location.reload();
               }}
-              className={`${PoppinsSemi.className} text-[#0e0e0e] text-lg bg-gray-100 rounded-md px-2 py-2 md:px-4 md:py-2 transition-transform duration-300 hover:scale-95`}
+              className={`${PoppinsSemi.className} text-gray-100 text-lg  border-2 border-gray-100 rounded-md px-2 py-2 md:px-4 md:py-2 transition-transform duration-300 hover:scale-95`}
             >
               Logout
             </button>
