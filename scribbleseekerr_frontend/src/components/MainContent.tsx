@@ -50,7 +50,7 @@ export default function MainContent() {
             className={`${PoppinsSemi.className} text-[#0e0e0e] text-lg bg-gray-100 rounded-md px-4 py-2 transition-transform duration-300 hover:scale-95`}
             href="/texts"
           >
-            Get Started
+            {user ? "Start Reading" : "Get Started"}
           </Link>
         )}
       </div>
