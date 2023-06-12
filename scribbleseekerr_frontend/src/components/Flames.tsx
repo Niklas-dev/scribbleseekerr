@@ -23,7 +23,7 @@ export default function Flames({
 
   const [hasCooldown, setHasCooldown] = useState(false);
 
-  const { user } = useAuth();
+  const { user, loaded } = useAuth();
 
   const isFlamed = (flameUsersLocal: FlameUser[]): boolean => {
     return flameUsersLocal.some(
@@ -87,7 +87,7 @@ export default function Flames({
   useEffect(() => {
     setAlreadyFlamed(isFlamed(flameUsers));
     return () => {};
-  }, [flameUsers]);
+  }, [flameUsers, loaded]);
 
   return (
     <div

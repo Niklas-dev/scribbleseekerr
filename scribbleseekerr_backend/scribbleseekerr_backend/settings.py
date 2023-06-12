@@ -21,6 +21,10 @@ from oauth2_provider.settings import oauth2_settings
 env = environ.Env()
 environ.Env.read_env()
 
+
+oauth2_settings.defaults['ACCESS_TOKEN_EXPIRE_SECONDS'] = 56000
+oauth2_settings.defaults['REFRESH_TOKEN_EXPIRE_SECONDS'] = 560000
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -90,6 +94,7 @@ WSGI_APPLICATION = 'scribbleseekerr_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
 '''
 DATABASES = {
     'default': {
@@ -105,6 +110,7 @@ DATABASES = {
 
 
 # Render setup
+
 
 import dj_database_url
 
@@ -186,8 +192,6 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = env('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = env('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 
 
-oauth2_settings.defaults['ACCESS_TOKEN_EXPIRE_SECONDS'] = 560000
-oauth2_settings.defaults['REFRESH_TOKEN_EXPIRE_SECONDS'] = 560000
 
 # Define SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE to get extra permissions from Google.
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [

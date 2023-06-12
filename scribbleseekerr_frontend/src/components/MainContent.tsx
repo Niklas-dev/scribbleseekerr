@@ -12,7 +12,7 @@ export default function MainContent() {
       <div
         className={`${PoppinsSemi.className} bg-gray-100 text-[#0e0e0e] h-fit rounded-full px-2 text-sm sm:text-sm lg:text-base text-center mx-2`}
       >
-        32 stories, poems or papers and more are on the way!
+        Many stories, poems or papers and more are on the way!
       </div>
       <h1
         className={`${PoppinsBold.className} text-gray-100 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-center h-fit rounded-full px-8 pt-4 w-fit xl:w-[65rem]`}
@@ -33,13 +33,13 @@ export default function MainContent() {
         {!user ? (
           <>
             <Link
-              className={`${PoppinsSemi.className} text-[#0e0e0e] text-lg bg-gray-100 rounded-md px-4 py-1 transition-transform duration-300 hover:scale-95`}
+              className={`${PoppinsSemi.className} grid items-center text-[#0e0e0e] text-lg bg-gray-100 rounded-md px-4 py-1 transition-transform duration-300 hover:scale-95`}
               href="/login"
             >
               Login
             </Link>
             <Link
-              className={`${PoppinsSemi.className} text-gray-100 text-lg border-2 border-gray-100 rounded-md px-4 py-1 transition-transform duration-300 hover:scale-95`}
+              className={`${PoppinsSemi.className} grid items-center text-gray-100 text-lg border-2 border-gray-100 rounded-md px-4 py-1 transition-transform duration-300 hover:scale-95`}
               href="/register"
             >
               Register
@@ -50,7 +50,7 @@ export default function MainContent() {
             className={`${PoppinsSemi.className} text-[#0e0e0e] text-lg bg-gray-100 rounded-md px-4 py-2 transition-transform duration-300 hover:scale-95`}
             href="/texts"
           >
-            Get Started
+            Start Reading
           </Link>
         )}
       </div>
