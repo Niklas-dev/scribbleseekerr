@@ -59,7 +59,6 @@ function Page() {
 
   const createPost = async () => {
     const currentIsSentState = isSent;
-    setIsCreated(true);
 
     if (!currentIsSentState) {
       await fetch(`${process.env.NEXT_PUBLIC_BACKEND_PATH}/posts/create-post`, {
