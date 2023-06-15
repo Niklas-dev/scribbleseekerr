@@ -91,7 +91,7 @@ class UserCreate(APIView):
             if scribble_user:
                 headers = {'Content-Type': 'application/x-www-form-urlencoded', 'mode': 'no-cors', 'method': 'POST'}
                 
-                url = request.scheme + '://' + request.get_host() + 'auth/token'
+                url = request.scheme + '://' + request.get_host() + '/auth/token'
                 
                 print(url)
 
