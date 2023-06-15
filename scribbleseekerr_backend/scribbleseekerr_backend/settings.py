@@ -160,7 +160,8 @@ REST_FRAMEWORK = {
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
-    'https://scribbleseekerr.vercel.app'
+    'https://scribbleseekerr.vercel.app',
+    'https://scribbleseekerr-backend.onrender.com/'
 ]
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
