@@ -90,8 +90,12 @@ class UserCreate(APIView):
             scribble_user = serializer.save()
             if scribble_user:
                 headers = {'Content-Type': 'application/x-www-form-urlencoded', 'mode': 'no-cors', 'method': 'POST'}
+                
+                url = request.scheme + '://' + request.get_host() + 'auth/token'
+                
+                print(url)
 
-                response = requests.post("https://scribbleseekerr-backend.onrender.com/auth/token", data=request_data, headers=headers)
+                response = requests.post(url, data=request_data, headers=headers)
                 print(response)
 
                 return Response(json.loads(response.content), status=status.HTTP_201_CREATED)
