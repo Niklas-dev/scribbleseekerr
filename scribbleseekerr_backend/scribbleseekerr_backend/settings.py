@@ -143,6 +143,8 @@ REST_FRAMEWORK = {
 
 }
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'https://scribbleseekerr.vercel.app',
