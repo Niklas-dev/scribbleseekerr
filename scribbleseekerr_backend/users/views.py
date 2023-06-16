@@ -94,7 +94,6 @@ class UserCreate(APIView):
                 print("token_object: ", data)
 
 
-
                 return Response(data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
