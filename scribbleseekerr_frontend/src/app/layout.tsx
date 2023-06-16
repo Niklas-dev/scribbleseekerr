@@ -24,7 +24,7 @@ export default function RootLayout({
           content="Unleash your creativity and join our community of wordsmiths! Share your stories and poems, or dive into a world of imagination with our endless collection of literary treasures. Welcome to a place where every word matters."
         />
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-[#0e0e0e]`}>
         <AuthProvider>
           <GoogleOAuthProvider
             clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string}

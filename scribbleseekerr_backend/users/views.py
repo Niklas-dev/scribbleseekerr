@@ -89,8 +89,10 @@ class UserCreate(APIView):
         if serializer.is_valid():
             scribble_user = serializer.save()
             if scribble_user:
+
                 data = create_token_response(request, scribble_user)
                 print("token_object: ", data)
+
 
                 return Response(data, status=status.HTTP_201_CREATED)
 
