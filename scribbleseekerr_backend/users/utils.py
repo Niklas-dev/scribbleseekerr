@@ -25,7 +25,7 @@ def create_token_response(request, user):
 
     application = Application.objects.first()
 
-    refresh_token_obj = RefreshToken.objects.create(user=user,
+    RefreshToken.objects.create(user=user,
                                                     token=refresh_token,
                                                     access_token=access_token,
                                                     application=application, )
