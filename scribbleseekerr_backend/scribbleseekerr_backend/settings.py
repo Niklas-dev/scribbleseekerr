@@ -13,8 +13,6 @@ import environ
 
 from pathlib import Path
 
-from datetime import timedelta
-
 from oauth2_provider.settings import oauth2_settings
 
 # Initialise environment variables
@@ -95,7 +93,6 @@ WSGI_APPLICATION = 'scribbleseekerr_backend.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
-'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -106,19 +103,18 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-'''
 
 
 # Render setup
 
-
+''' 
 import dj_database_url
 
 DATABASES = {
 
     'default': dj_database_url.parse(env('DATABASE_URL'))
 }
-
+'''
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -165,7 +161,6 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'https://scribbleseekerr.vercel.app',
-    'https://scribbleseekerr-backend.onrender.com'
 ]
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
