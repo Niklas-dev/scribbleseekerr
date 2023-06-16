@@ -19,7 +19,6 @@ from oauth2_provider.settings import oauth2_settings
 env = environ.Env()
 environ.Env.read_env()
 
-
 oauth2_settings.defaults['ACCESS_TOKEN_EXPIRE_SECONDS'] = 56000
 oauth2_settings.defaults['REFRESH_TOKEN_EXPIRE_SECONDS'] = 560000
 
@@ -93,28 +92,16 @@ WSGI_APPLICATION = 'scribbleseekerr_backend.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'scribbleseekerr-db',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': '192.168.178.50',
-        'PORT': '5432',
-    }
-}
-
-
 # Render setup
 
-''' 
+
 import dj_database_url
 
 DATABASES = {
 
     'default': dj_database_url.parse(env('DATABASE_URL'))
 }
-'''
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -186,8 +173,6 @@ AUTHENTICATION_BACKENDS = (
 # Google configuration
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = env('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = env('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
-
-
 
 # Define SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE to get extra permissions from Google.
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
