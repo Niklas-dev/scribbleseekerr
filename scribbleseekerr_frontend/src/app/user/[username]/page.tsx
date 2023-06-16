@@ -36,7 +36,7 @@ export default async function Page({
       <UserNavBar />
       {profileData ? (
         <div className="pt-10 flex flex-row justify-center w-full ">
-          <div className="w-full md:w-fit max-w-[800px] h-fit py-8  rounded-lg ">
+          <div className="w-full md:w-fit md:min-w-[600px] sm:min-w-[300px] max-w-[800px] h-fit py-8  rounded-lg ">
             <div className="bg-[#161616] h-fit py-8 w-full rounded-lg">
               <p
                 className={`${PoppinsSemi.className} text-center text-gray-200 text-2xl`}
