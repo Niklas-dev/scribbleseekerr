@@ -17,14 +17,14 @@ import json
 
 from oauth2_provider.models import AccessToken, RefreshToken
 
-
+from .utils import create_token_response
 
 
 # Create your views here.
 class UpdateUserProfile(APIView):
     permission_classes = [IsAuthenticated, ]
 
-    def put(self,  request):
+    def put(self, request):
         serializer = EditUserSerializer(data=request.data)
         if serializer.is_valid():
             user = request.user
@@ -38,10 +38,11 @@ class UpdateUserProfile(APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class GetUserProfile(APIView):
     permission_classes = [AllowAny, ]
 
-    def get(self,  request):
+    def get(self, request):
 
         username = request.GET.get('username')
         try:
@@ -62,7 +63,6 @@ class GetUserProfile(APIView):
 
         except ObjectDoesNotExist:
             return Response({'Bad Request': 'User not found.'}, status=status.HTTP_400_BAD_REQUEST)
-
 
 
 class UserData(APIView):
@@ -89,11 +89,9 @@ class UserCreate(APIView):
         if serializer.is_valid():
             scribble_user = serializer.save()
             if scribble_user:
-                headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+                data = create_token_response(request, scribble_user)
+                print("token_object: ", data)
 
-                response = requests.post(f"http://127.0.0.1:8000/auth/token", data=request_data, headers=headers)
-                print(response)
-
-                return Response(json.loads(response.content), status=status.HTTP_201_CREATED)
+                return Response(data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
