@@ -92,7 +92,7 @@ class UserCreate(APIView):
 
                 headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 
-                response = requests.post(f"http://127.0.0.1:8000/auth/token", data=request_data, headers=headers)
+                response = requests.post(f"https://scribbleseekerr-backend.onrender.com/auth/token", data=request_data, headers=headers)
                 print(response.content)
 
                 data = create_token_response(request, scribble_user)
