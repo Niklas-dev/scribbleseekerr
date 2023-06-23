@@ -67,7 +67,7 @@ function Page() {
   }, [loaded]);
 
   return (
-    <div className="bg-[#0e0e0e] flex flex-col overflow-y-scroll h-screen w-full px-6  sm:px-28 md:px-32 lg:px-36 xl:px-72">
+    <div className="bg-[#0e0e0e] flex flex-col overflow-y-scroll overflow-x-hidden h-screen w-full px-6  sm:px-28 md:px-32 lg:px-36 xl:px-72">
       <UserNavBar />
       <div className="pt-10 flex flex-row justify-center w-full ">
         <div className="w-full md:w-fit md:min-w-[600px] sm:min-w-[300px] max-w-[800px] h-fit py-8  rounded-lg ">

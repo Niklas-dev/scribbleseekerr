@@ -115,7 +115,7 @@ export default function Page() {
     }
   };
   return (
-    <div className="w-screen h-screen min-h-[700px]  bg-[#0e0e0e] flex flex-row justify-center gap-0 overflow-x-hidden">
+    <div className="w-screen h-screen min-h-[700px] overflow-x-hidden  bg-[#0e0e0e] flex flex-row justify-center gap-0 overflow-x-hidden">
       <ToastContainer
         theme="dark"
         position="top-center"
