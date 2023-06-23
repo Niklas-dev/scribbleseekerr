@@ -110,7 +110,7 @@ export default function Page() {
   };
 
   return (
-    <div className="bg-[#0e0e0e] overflow-y-scroll h-screen w-full ">
+    <div className="bg-[#0e0e0e] overflow-y-auto h-screen w-full overflow-x-hidden">
       <ToastContainer
         theme="dark"
         position="top-center"

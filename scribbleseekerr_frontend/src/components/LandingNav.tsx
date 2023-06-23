@@ -7,9 +7,9 @@ import React from "react";
 export default function LandingNav() {
   const { user } = useAuth();
   return (
-    <nav className="flex flex-row items-center  px-4 sm:px-28 md:px-32 lg:px-36 xl:px-72 pt-8 gap-2 md:gap-8">
+    <nav className="flex flex-row items-center  px-2 sm:px-28 md:px-32 lg:px-36 xl:px-72 pt-8 gap-2 md:gap-8">
       <h3
-        className={`${PoppinsSemi.className} text-gray-100 text-xl sm:text-2xl md:text-3xl`}
+        className={`${PoppinsSemi.className} text-gray-100 text-lg sm:text-2xl md:text-3xl`}
       >
         ScribbleSeekerr
       </h3>
@@ -42,7 +42,7 @@ export default function LandingNav() {
         </div>
         <div className="flex flex-row gap-2">
           <Link
-            className={`${PoppinsSemi.className} text-[#0e0e0e] grid items-center text-lg bg-gray-100 rounded-md px-2 py-2 md:px-4 md:py-2 transition-transform duration-300 hover:scale-95`}
+            className={`${PoppinsSemi.className} text-[#0e0e0e] grid items-center text-lg bg-gray-100 rounded-md px-1 py-1 sm:px-2 sm:py-2 md:px-4 md:py-2 transition-transform duration-300 hover:scale-95`}
             href={!user ? "/login" : "/texts"}
           >
             {!user ? "Login" : "Continue"}
@@ -55,7 +55,7 @@ export default function LandingNav() {
 
                 window.location.reload();
               }}
-              className={`${PoppinsSemi.className} text-gray-100 text-lg  border-2 border-gray-100 rounded-md px-2 py-2 md:px-4 md:py-2 transition-transform duration-300 hover:scale-95`}
+              className={`${PoppinsSemi.className} text-gray-100 text-lg  border-2 border-gray-100 rounded-md px-1 py-1 sm:px-2 sm:py-2 md:px-4 md:py-2 transition-transform duration-300 hover:scale-95`}
             >
               Logout
             </button>
