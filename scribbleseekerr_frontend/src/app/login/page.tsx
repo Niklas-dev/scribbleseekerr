@@ -34,7 +34,6 @@ export default function Page() {
   };
 
   const handleError = (response: any) => {
-    console.error(response);
     let message = "";
 
     if ("password" in response) {
@@ -48,9 +47,8 @@ export default function Page() {
 
   const loginWithGoogle = useGoogleLogin({
     onSuccess: async (tokenResponse: any) => {
-      console.log("success");
       setInitalLogin(true);
-      console.log(tokenResponse);
+
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_PATH}/auth/convert-token`,
         {
@@ -110,12 +108,11 @@ export default function Page() {
         }
       });
     } else {
-      console.error("One of the fields is empty!");
       error("Fill out all fields!");
     }
   };
   return (
-    <div className="w-screen h-screen min-h-[700px] overflow-x-hidden  bg-[#0e0e0e] flex flex-row justify-center gap-0 overflow-x-hidden">
+    <div className="w-screen h-screen min-h-[700px] bg-[#0e0e0e] flex flex-row justify-center gap-0 overflow-x-hidden">
       <ToastContainer
         theme="dark"
         position="top-center"
