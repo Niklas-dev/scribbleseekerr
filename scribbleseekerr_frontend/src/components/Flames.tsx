@@ -78,7 +78,6 @@ export default function Flames({
     });
 
     let data = await response;
-    console.log(data);
     setFlameUsers(data);
     setFlameCount(data.length);
     setHasCooldown(false);

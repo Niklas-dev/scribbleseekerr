@@ -25,7 +25,6 @@ function Page() {
 
   const getProfile = async () => {
     const handleSuccess = (response: ProfileResponse) => {
-      console.log(response);
       setProfileData(response);
     };
     const handleError = (response: ProfileResponse) => {
