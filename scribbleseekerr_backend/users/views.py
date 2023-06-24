@@ -81,18 +81,12 @@ class UserCreate(APIView):
 
     def post(self, request):
         serializer = RegisterUserSerializer(data=request.data)
-        json_data = request.data
-        request_data = {'username': json_data['username'], 'password': json_data['password'], 'grant_type': 'password',
-                        'client_secret': env('CLIENT_SECRET'),
-                        'client_id': env('CLIENT_ID')}
 
         if serializer.is_valid():
             scribble_user = serializer.save()
             if scribble_user:
-
                 data = create_token_response(request, scribble_user)
                 print("token_object: ", data)
-
 
                 return Response(data, status=status.HTTP_201_CREATED)
 

@@ -28,7 +28,6 @@ export default function Page() {
   const error = (message: string) => toast.error(message);
 
   const handleSuccess = (response: any) => {
-    console.log(response);
     localStorage.setItem("access_token", response["access_token"]);
     localStorage.setItem("refresh_token", response["refresh_token"]);
 
@@ -112,7 +111,6 @@ export default function Page() {
         }
       });
     } else {
-      console.error("One of the fields is empty!");
       error("Fill out all fields!");
     }
   };
