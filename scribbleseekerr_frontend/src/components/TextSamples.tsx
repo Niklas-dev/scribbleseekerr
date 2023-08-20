@@ -11,7 +11,7 @@ export default function TextSamples() {
         You already want to start? No Problem, some reading samples will help!
       </h3>
       <div className="flex flex-col items-center   gap-2 pt-20 h-fit px-4 w-full">
-        <div className="flex flex-row justify-center w-full gap-2">
+        <div className="flex flex-col md:flex-row justify-center items-center w-full gap-2">
           <div className="w-fit xl:w-[35rem] h-fit  rounded-md flex flex-col  justify-end p-4 bg-[#161616]">
             <p className="text-4xl ">🐕</p>
             <h5
@@ -104,7 +104,7 @@ export default function TextSamples() {
             </p>
           </div>
         </div>
-        <div className="flex flex-row justify-center w-full gap-2">
+        <div className="flex flex-col md:flex-row justify-center items-center w-full gap-2">
           <div className="w-fit xl:w-[35rem] h-fit  rounded-md flex flex-col justify-end p-4 bg-[#161616]">
             <p className="text-4xl ">🌲</p>
             <h5

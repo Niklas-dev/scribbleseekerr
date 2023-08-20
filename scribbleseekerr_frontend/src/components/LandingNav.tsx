@@ -9,7 +9,7 @@ export default function LandingNav() {
   return (
     <nav className="flex flex-row items-center  px-2 sm:px-28 md:px-32 lg:px-36 xl:px-72 pt-8 gap-2 md:gap-8">
       <h3
-        className={`${PoppinsSemi.className} text-gray-100 text-lg sm:text-2xl md:text-3xl`}
+        className={`${PoppinsSemi.className} text-gray-100 sm:text-2xl md:text-3xl text-2xl`}
       >
         ScribbleSeekerr
       </h3>
