@@ -10,7 +10,7 @@ export default function MainContent() {
   return (
     <>
       <div
-        className={`${PoppinsSemi.className} bg-gray-100 text-[#0e0e0e] h-fit rounded-full px-2 text-sm sm:text-sm lg:text-base text-center mx-2`}
+        className={`${PoppinsSemi.className} sm:bg-gray-100 sm:text-[#0e0e0e] h-fit rounded-full px-2 text-sm sm:text-sm lg:text-base text-center mx-2`}
       >
         Many stories, poems or papers and more are on the way!
       </div>
