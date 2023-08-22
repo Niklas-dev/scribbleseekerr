@@ -25,7 +25,6 @@ function Page() {
 
   const getProfile = async () => {
     const handleSuccess = (response: ProfileResponse) => {
-      console.log(response);
       setProfileData(response);
     };
     const handleError = (response: ProfileResponse) => {
@@ -67,22 +66,22 @@ function Page() {
   }, [loaded]);
 
   return (
-    <div className="bg-[#0e0e0e] flex flex-col overflow-y-scroll h-screen w-full px-6  sm:px-28 md:px-32 lg:px-36 xl:px-72">
+    <div className="bg-[#0e0e0e] flex flex-col overflow-y-scroll overflow-x-hidden h-screen w-full px-6  sm:px-28 md:px-32 lg:px-36 xl:px-72">
       <UserNavBar />
       <div className="pt-10 flex flex-row justify-center w-full ">
-        <div className="w-full md:w-fit max-w-[800px] h-fit py-8  rounded-lg ">
+        <div className="w-full md:w-fit md:min-w-[600px] sm:min-w-[300px] max-w-[800px] h-fit py-8  rounded-lg ">
           <div className="bg-[#161616] h-fit py-8 w-full rounded-lg">
             <p
               className={`${PoppinsSemi.className} text-center text-gray-200 text-2xl`}
             >
               @{user?.username}
             </p>
-            <div className="flex flex-row justify-center items-center gap-12 mt-4 px-16">
+            <div className="flex flex-col justify-center items-center gap-12 mt-4 px-16">
               <div className="h-[65px] w-[65px] min-h-[65px] min-w-[65px] md:h-[100px] md:w-[100px] rounded-full bg-gradient-to-br from-violet-500 to-blue-900 text-white grid place-content-center">
                 {createInitials(user?.username!)}
               </div>
-              <div className="flex sm:flex-row flex-col gap-10 ">
-                <div className="flex flex-col justify-center items-center">
+              <div className="flex flex-row  gap-10 ">
+                <div className="flex flex-col justify-center items-center bg-[#313131] p-2 rounded-xl w-24">
                   <p
                     className={`${PoppinsBold.className} text-gray-200 text-xl`}
                   >
@@ -94,7 +93,7 @@ function Page() {
                     Posts
                   </h3>
                 </div>
-                <div className="flex flex-col justify-center items-center">
+                <div className="flex flex-col justify-center items-center bg-[#313131] p-2 rounded-xl w-24">
                   <p
                     className={`${PoppinsBold.className} text-gray-200 text-xl`}
                   >

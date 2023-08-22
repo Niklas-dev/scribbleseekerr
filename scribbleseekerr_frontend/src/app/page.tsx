@@ -20,7 +20,7 @@ export const metadata = {
 };
 export default function Home() {
   return (
-    <main className="bg-[#0e0e0e] overflow-y-scroll h-screen w-full">
+    <main className="bg-[#0e0e0e] overflow-y-scroll overflow-x-hidden h-screen w-full scrollbar">
       <LandingNav />
       <div className="text-gray-100  h-96 flex flex-col items-center  mt-32 xl:mt-48">
         <MainContent />
