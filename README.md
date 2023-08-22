@@ -1,3 +1,6 @@
+![image](https://github.com/Niklas-dev/scribbleseekerr/assets/84782843/6cdea475-bc79-4e4f-8e89-83dfe091ea2e)
+
+
 # ScribbleSeekerr
 
 **Description:** This project is a web application built using Next.js and Django. It combines the frontend capabilities of Next.js with the backend power of Django to create a robust and efficient web application.
