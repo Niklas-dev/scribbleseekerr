@@ -1,3 +1,0 @@
-web: gunicorn scribbleseekerr_backend.wsgi:application
-
-release: django-admin migrate --no-input
