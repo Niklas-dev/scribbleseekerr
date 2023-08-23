@@ -1,20 +1,11 @@
 from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import render
-from rest_framework import generics, status
+from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.http import JsonResponse, HttpResponseRedirect, HttpResponse, FileResponse
 from rest_framework.permissions import AllowAny, IsAuthenticated
-import requests
-
 from posts.serializers import PostSerializer
 from scribbleseekerr_backend.settings import *
 from .serializers import *
-from PIL import Image, ImageDraw, ImageFont
-
-import json
-
-from oauth2_provider.models import AccessToken, RefreshToken
 
 from .utils import create_token_response
 
