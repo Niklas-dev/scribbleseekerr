@@ -1,13 +1,10 @@
 import json
 
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
-from django.core import serializers
-from django.shortcuts import render
-from rest_framework import generics, status
+from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.http import JsonResponse, HttpResponseRedirect, HttpResponse, FileResponse
 
 from posts.models import Post, Tag, PostReport
 from posts.serializers import PostSerializer, UserSerializer, TagSerializer, CreatePostSerializer, \
