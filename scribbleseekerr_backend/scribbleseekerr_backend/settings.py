@@ -143,10 +143,7 @@ REST_FRAMEWORK = {
 
 }
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
-    'https://scribbleseekerr.vercel.app',
-]
+CORS_ALLOWED_ORIGINS = os.getenv('ALLOWED_ORIGINS').split(' ')
 
 
 # Default primary key field type
