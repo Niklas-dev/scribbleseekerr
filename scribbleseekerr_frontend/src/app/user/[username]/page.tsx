@@ -31,6 +31,7 @@ export default async function Page({
   params: { username: string };
 }) {
   const profileData = await fetchUser(params.username);
+
   return (
     <div className="bg-[#0e0e0e] flex flex-col overflow-y-scroll overflow-x-hidden h-screen w-full px-6  sm:px-28 md:px-32 lg:px-36 xl:px-72">
       <UserNavBar />
@@ -83,16 +84,6 @@ export default async function Page({
                   </p>
                 )}
               </div>
-              {profileData!.username === params.username && (
-                <div className="flex flex-row justify-center mt-8 px-20 pb-8">
-                  <Link
-                    className={`${PoppinsSemi.className} text-[#0e0e0e] text-lg bg-gray-100 rounded-md px-2 py-2 transition-transform duration-300 hover:scale-95  w-full min-w-[75px] max-w-[100px] text-center`}
-                    href={"/user/edit"}
-                  >
-                    Edit
-                  </Link>
-                </div>
-              )}
             </div>
             <div className="w-full pt-8 flex-grow">
               <div className="flex flex-col items-center ">
