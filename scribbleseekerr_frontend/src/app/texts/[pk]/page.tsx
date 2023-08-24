@@ -69,7 +69,7 @@ export default async function Page({ params }: { params: { pk: number } }) {
           />
 
           <Link
-            href={`user/${postData?.author}`}
+            href={`/user/${postData?.author}`}
             className={`${PoppinsRegular.className} text-lg  text-gray-400 z-20 hover:underline w-fit pt-8`}
           >
             Published by{" "}
