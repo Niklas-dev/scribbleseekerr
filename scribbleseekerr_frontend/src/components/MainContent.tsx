@@ -33,13 +33,13 @@ export default function MainContent() {
         {!user ? (
           <>
             <Link
-              className={`${PoppinsSemi.className} grid items-center text-[#0e0e0e] text-lg bg-gray-100 rounded-md px-4 py-1 transition-transform duration-300 hover:scale-95`}
+              className={`${PoppinsSemi.className} grid items-center text-[#0e0e0e] text-lg bg-gray-100 rounded-md px-3 md:px-6 md:py-2 py-1 transition-transform duration-300 hover:scale-95`}
               href="/login"
             >
               Login
             </Link>
             <Link
-              className={`${PoppinsSemi.className} grid items-center text-gray-100 text-lg border-2 border-gray-100 rounded-md px-4 py-1 transition-transform duration-300 hover:scale-95`}
+              className={`${PoppinsSemi.className} grid items-center text-gray-100 text-lg border-2 border-gray-100 rounded-md px-3 md:px-6 md:py-2 py-1 transition-transform duration-300 hover:scale-95`}
               href="/register"
             >
               Register
