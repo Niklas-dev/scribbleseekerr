@@ -21,7 +21,7 @@ export default function MainContent() {
         instant!
       </h1>
       <p
-        className={`${PoppinsSemi.className} text-gray-500 text-lg text-center h-fit rounded-full px-8 pt-8 w-fit xl:w-[55rem]`}
+        className={`${PoppinsSemi.className} text-gray-400 text-lg text-center h-fit rounded-full px-8 pt-8 w-fit xl:w-[55rem]`}
       >
         Unleash your creativity and join our community of wordsmiths! Share your
         stories and poems, or dive into a world of imagination with our endless
