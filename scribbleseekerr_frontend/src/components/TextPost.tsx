@@ -45,7 +45,7 @@ export default function TextPost({
     <div
       className={`fade-in-post ${
         fadeIn ? "active" : ""
-      } w-full h-fit bg-[#161616] rounded-md shadow-md flex flex-col justify-end p-4 overflow-x-hidden cursor-pointer  ${
+      } w-full h-fit bg-[#161616] rounded-md shadow-md flex flex-col justify-end p-4 overflow-x-hidden ${
         border && "border-2 border-gray-100"
       }`}
     >
@@ -80,7 +80,7 @@ export default function TextPost({
 
       <h5
         onClick={() => router.push(`texts/${pk}`)}
-        className={`${PoppinsSemi.className} text-gray-100 text-lg pt-2 hover:underline w-fit`}
+        className={`${PoppinsSemi.className} text-gray-100 text-lg pt-2 hover:underline cursor-pointer w-fit`}
       >
         {title}
       </h5>
