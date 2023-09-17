@@ -63,6 +63,7 @@ export function AuthProvider({ children }: Props) {
   const registerUser = () => {};
 
   const loginWithToken = async (): Promise<boolean> => {
+    setLoaded(false);
     console.log("getUser");
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_PATH}/users/user-data`,
