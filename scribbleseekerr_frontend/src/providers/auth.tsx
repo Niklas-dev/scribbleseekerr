@@ -5,6 +5,7 @@ import {
   createContext,
   useContext,
   useEffect,
+  useLayoutEffect,
   useState,
 } from "react";
 
@@ -147,7 +148,7 @@ export function AuthProvider({ children }: Props) {
     loaded,
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     loginWithToken();
     return () => {};
   }, []);
