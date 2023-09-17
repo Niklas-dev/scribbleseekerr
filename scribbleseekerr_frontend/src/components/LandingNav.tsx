@@ -5,7 +5,7 @@ import Link from "next/link";
 import React from "react";
 
 export default function LandingNav() {
-  const { user } = useAuth();
+  const { user, loaded } = useAuth();
   return (
     <nav className="flex flex-row items-center  px-2 sm:px-28 md:px-32 lg:px-36 xl:px-72 pt-8 gap-2 md:gap-8">
       <h3
@@ -40,27 +40,29 @@ export default function LandingNav() {
             Any
           </Link>
         </div>
-        <div className="flex flex-row gap-2">
-          <Link
-            className={`${PoppinsSemi.className} text-[#0e0e0e] grid items-center text-lg bg-gray-100 rounded-md px-1 py-1 sm:px-2 sm:py-2 md:px-4 md:py-2 transition-transform duration-300 hover:scale-95`}
-            href={!user ? "/login" : "/texts"}
-          >
-            {!user ? "Login" : "Continue"}
-          </Link>
-          {user && (
-            <button
-              onClick={() => {
-                localStorage.setItem("access_token", "");
-                localStorage.setItem("refresh_token", "");
-
-                window.location.reload();
-              }}
-              className={`${PoppinsSemi.className} text-gray-100 text-lg  border-2 border-gray-100 rounded-md px-1 py-1 sm:px-2 sm:py-2 md:px-4 md:py-2 transition-transform duration-300 hover:scale-95`}
+        {loaded && (
+          <div className="flex flex-row gap-2">
+            <Link
+              className={`${PoppinsSemi.className} text-[#0e0e0e] grid items-center text-lg bg-gray-100 rounded-md px-1 py-1 sm:px-2 sm:py-2 md:px-4 md:py-2 transition-transform duration-300 hover:scale-95`}
+              href={!user ? "/login" : "/texts"}
             >
-              Logout
-            </button>
-          )}
-        </div>
+              {!user ? "Login" : "Continue"}
+            </Link>
+            {user && (
+              <button
+                onClick={() => {
+                  localStorage.setItem("access_token", "");
+                  localStorage.setItem("refresh_token", "");
+
+                  window.location.reload();
+                }}
+                className={`${PoppinsSemi.className} text-gray-100 text-lg  border-2 border-gray-100 rounded-md px-1 py-1 sm:px-2 sm:py-2 md:px-4 md:py-2 transition-transform duration-300 hover:scale-95`}
+              >
+                Logout
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </nav>
   );
