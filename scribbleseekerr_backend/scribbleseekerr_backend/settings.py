@@ -92,15 +92,25 @@ WSGI_APPLICATION = 'scribbleseekerr_backend.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
-
-
+"""
 import dj_database_url
 
 DATABASES = {
 
     'default': dj_database_url.parse(os.getenv('DATABASE_URL'), conn_max_age=600)
 }
+"""
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'scribbleseekerr-db',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '192.168.178.50',
+        'PORT': '5432',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -144,7 +154,6 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOWED_ORIGINS = os.getenv('ALLOWED_ORIGINS').split(' ')
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

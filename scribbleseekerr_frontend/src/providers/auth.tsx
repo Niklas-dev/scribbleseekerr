@@ -63,7 +63,6 @@ export function AuthProvider({ children }: Props) {
   const registerUser = () => {};
 
   const loginWithToken = async (): Promise<boolean> => {
-    setLoaded(false);
     console.log("getUser");
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_PATH}/users/user-data`,
@@ -115,15 +114,17 @@ export function AuthProvider({ children }: Props) {
         console.log("Refreshing token");
       } else {
         console.log("Failed refreshing token");
-
+        setLoaded(true);
         setUser(null);
         return false;
       }
     } else {
+      setLoaded(true);
       setUser(null);
       return false;
     }
     setLoaded(true);
+
     return true;
   };
 
