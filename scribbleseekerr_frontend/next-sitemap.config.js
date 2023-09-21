@@ -1,5 +1,5 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-    siteUrl: 'https://scribbleseekerr.vercel.app/',
-    generateRobotsTxt: true,
-  }
+  siteUrl: "https://scribble.lat/",
+  generateRobotsTxt: true,
+};
